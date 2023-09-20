@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN'>
+<html>
+<head><title>Actividades interactivas para el alumno</title>
+<style type='text/css'>
+BODY {font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif; margin: 10 0 10 0px; text-align: center; background-color: #ebebeb;}
+#contenedor{text-align: left;width: 770px;margin: auto;}
+#cabecera{background-color: #d0d0ff;color: #333300;font-size:12pt;font-weight: bold;padding: 3 3 3 10px;}
+#cuerpo{margin: 10 0 10 0px;}
+#lateral{width: 160px;background-color: #999999;float:left;}
+#lateral ul{margin : 0 0 0 0px;padding: 0 0 0 0px;list-style: none;}
+#lateral li{background-color: #ffffff;margin: 2 2 2 2px;padding: 2 2 2 2px;font-weight: bold;}
+#lateral a{color: #3333cc;text-decoration: none;}
+#principal{margin-left: 170px;background-color: #ffffff;padding: 4 4 4 4px;width: 460px;}
+#otrolado{width: 120px;float: right;}
+#pie{background-color: #cccccc;padding: 3 10 3 10px;text-align:right;clear: both;
+} 
+	</style>
+
+<script type="text/javascript">
+	function getRadioButtonSelectedValue(ctrl){
+		for(i=0;i<ctrl.length;i++)
+			if(ctrl[i].checked) return ctrl[i].value;
+		return 0;
+	}
+	function evaluarExamen(){
+		correctas=0;
+		total=0;
+		mensaje='';
+		j=1;
+		var x = document.getElementsByClassName('correcta');
+		var cuantas=x.length;
+		for(j=1;j<=cuantas ;j++){
+			valorR1 = document.getElementById("correcta"+j).value;
+			valor1 = getRadioButtonSelectedValue(document.getElementsByName("rp"+(j-1)));
+			if (valor1==valorR1){
+				mensaje+="pregunta "+j+" correcta \n";
+				correctas++;
+			}else{
+				mensaje+="pregunta "+j+" incorrecta \n";
+			}
+		}
+		total=(correctas/cuantas)*100;
+		alert(mensaje + " calificacion:"+total);
+		return true;
+	}
+</script>
+ <link rel='stylesheet' href='bootstrap/bootstrap.min.css'>
+ <script src='bootstrap/jquery.min.js'></script>
+ <script src='bootstrap/bootstrap.min.js'></script>
+</head>
+
+<body>
+<div id='contenedor'>
+  <div id='cabecera'> Actividad interactiva Para sem 9:(077)-Programación Avanzada </div>
+  <div id='cuerpo'>
+   <div id='lateral'>
+    <ul><li><a href='#'>UNACAR</a><li><a href='#'>LTI</a><li><a href='#'>ISC</a><li><a href='#'>ICO</a>
+	    <li><a href='#'>IDM</a><li><a href='#'>LI</a>
+    </ul>
+   </div>
+   <div id='otrolado'></div>
+
+<div id='principal' class='container'>
+
+<form action='#' method='post' name='frmExamen'  onsubmit='return evaluarExamen()'>
+<p> Actividad para la Materia Ingenieria en sistemas computacionales</p>
+   <p>1:la siguienete frase :"En sentido amplio, se entiende como la facultad humana que permite resolver problemas, extraer conclusiones de los hechos y aprender de manera consciente de los hechos estableciendo conexiones causales y lógicas necesarias entre ellos", es una posible definición de:</p>
+   <input type='radio' name='rp0' id='rp11' value='1'> Redes neuronales.<br>
+   <input type='radio' name='rp0' id='rp21' value='2'> Lógica difusa.<br>
+   <input type='radio' name='rp0' id='rp31' value='3'> Razonamiento.<br>
+   <input type='radio' name='rp0' id='rp41' value='4'> Inteligencia artificial.<br>
+   <textarea class='correcta' name='correcta1' type='text' id='correcta1' value='' disabled='disabled' style='visibility : hidden;'/>3</textarea><br>
+   <button type='button' class='btn btn-info' data-toggle='collapse' data-target='#demo1'>Respuesta correcta?</button>
+   <div id='demo1' class='collapse'>
+   Respuesta correcta: Razonamiento.
+   </div><br>
+<hr width='90%'><br>
+   <p>2:Cuando hablamos de sistemas que: 1) Tomas decisiones, 2) Basados en heuristícas, 3) Dan explicaciones de los resultados, 4) Usan reglas de inferencia, 5) Acceden a bases de conocimiento, 6) Centrados en el experto y el usuario, 7)Manejan conocimiento impreciso, 8) Usan datos y lenguajes simbólicos. Hablamos de?</p>
+   <input type='radio' name='rp1' id='rp12' value='1'> Sistemas de gestión de datos.<br>
+   <input type='radio' name='rp1' id='rp22' value='2'> Sistemas expertos.<br>
+   <input type='radio' name='rp1' id='rp32' value='3'> Sistemas en tiempo real.<br>
+   <input type='radio' name='rp1' id='rp42' value='4'> Sistemas de información tradicionales.<br>
+   <textarea class='correcta' name='correcta2' type='text' id='correcta2' value='' disabled='disabled' style='visibility : hidden;'/>2</textarea><br>
+   <button type='button' class='btn btn-info' data-toggle='collapse' data-target='#demo2'>Respuesta correcta?</button>
+   <div id='demo2' class='collapse'>
+   Respuesta correcta: Sistemas expertos.
+   </div><br>
+<hr width='90%'><br>
+   <p>3:Un sistema experto basado en redes Bayesianas, soluciona un problema:</p>
+   <input type='radio' name='rp2' id='rp13' value='1'> Basado en redes neuronales.<br>
+   <input type='radio' name='rp2' id='rp23' value='2'> Basado en reglas determinísticas.<br>
+   <input type='radio' name='rp2' id='rp33' value='3'> Basado en datos estadísticos.<br>
+   <input type='radio' name='rp2' id='rp43' value='4'> Basado en lógica difusa.<br>
+   <textarea class='correcta' name='correcta3' type='text' id='correcta3' value='' disabled='disabled' style='visibility : hidden;'/>3</textarea><br>
+   <button type='button' class='btn btn-info' data-toggle='collapse' data-target='#demo3'>Respuesta correcta?</button>
+   <div id='demo3' class='collapse'>
+   Respuesta correcta: Basado en datos estadísticos.
+   </div><br>
+<hr width='90%'><br>
+   <p>4:Puede constituirse por un conjunto de reglas y echos almacenados en un repositorio.</p>
+   <input type='radio' name='rp3' id='rp14' value='1'> Información.<br>
+   <input type='radio' name='rp3' id='rp24' value='2'> Base de datos.<br>
+   <input type='radio' name='rp3' id='rp34' value='3'> Conocimiento.<br>
+   <input type='radio' name='rp3' id='rp44' value='4'> Base de conocimiento.<br>
+   <textarea class='correcta' name='correcta4' type='text' id='correcta4' value='' disabled='disabled' style='visibility : hidden;'/>4</textarea><br>
+   <button type='button' class='btn btn-info' data-toggle='collapse' data-target='#demo4'>Respuesta correcta?</button>
+   <div id='demo4' class='collapse'>
+   Respuesta correcta: Base de conocimiento.
+   </div><br>
+<hr width='90%'><br>
+   <p>5:Un algoritmo de programación puede ser resuelto por una máquina de turing?</p>
+   <input type='radio' name='rp4' id='rp15' value='1'> No<br>
+   <input type='radio' name='rp4' id='rp25' value='2'> Parcialmente.<br>
+   <input type='radio' name='rp4' id='rp35' value='3'> No lo se.<br>
+   <input type='radio' name='rp4' id='rp45' value='4'> Si.<br>
+   <textarea class='correcta' name='correcta5' type='text' id='correcta5' value='' disabled='disabled' style='visibility : hidden;'/>4</textarea><br>
+   <button type='button' class='btn btn-info' data-toggle='collapse' data-target='#demo5'>Respuesta correcta?</button>
+   <div id='demo5' class='collapse'>
+   Respuesta correcta: Si.
+   </div><br>
+<hr width='90%'><br>
+   <p>6:Software que emula el comportamiento de un experto humano en la solución de un problema.</p>
+   <input type='radio' name='rp5' id='rp16' value='1'> Sistemas inteligentes<br>
+   <input type='radio' name='rp5' id='rp26' value='2'> Sistemas de gestión<br>
+   <input type='radio' name='rp5' id='rp36' value='3'> Redes Bayesianas<br>
+   <input type='radio' name='rp5' id='rp46' value='4'> Sistemas expertos<br>
+   <textarea class='correcta' name='correcta6' type='text' id='correcta6' value='' disabled='disabled' style='visibility : hidden;'/>4</textarea><br>
+   <button type='button' class='btn btn-info' data-toggle='collapse' data-target='#demo6'>Respuesta correcta?</button>
+   <div id='demo6' class='collapse'>
+   Respuesta correcta: Sistemas expertos
+   </div><br>
+<hr width='90%'><br>
+   <p>7:Modelo matemático que consiste en un autómata capaz de implermentar cualquier problema matemático expresado por medio de un algoritmo.</p>
+   <input type='radio' name='rp6' id='rp17' value='1'> Máquina de turing.<br>
+   <input type='radio' name='rp6' id='rp27' value='2'> Máquina enigma.<br>
+   <input type='radio' name='rp6' id='rp37' value='3'> Máquina Colosus.<br>
+   <input type='radio' name='rp6' id='rp47' value='4'> Cadena de markov.<br>
+   <textarea class='correcta' name='correcta7' type='text' id='correcta7' value='' disabled='disabled' style='visibility : hidden;'/>1</textarea><br>
+   <button type='button' class='btn btn-info' data-toggle='collapse' data-target='#demo7'>Respuesta correcta?</button>
+   <div id='demo7' class='collapse'>
+   Respuesta correcta: Máquina de turing.
+   </div><br>
+<hr width='90%'><br>
+   <p>8:Es la capacidad de comprender, evocar, movilizar e integrar constructivamente lo que se ha aprendido y de utilizarlo para enfrentarse a nuevas situaciones: </p>
+   <input type='radio' name='rp7' id='rp18' value='1'> Inteligencia artificial.<br>
+   <input type='radio' name='rp7' id='rp28' value='2'> Inteligencia.<br>
+   <input type='radio' name='rp7' id='rp38' value='3'> Razonamiento.<br>
+   <input type='radio' name='rp7' id='rp48' value='4'> Lógica formal.<br>
+   <textarea class='correcta' name='correcta8' type='text' id='correcta8' value='' disabled='disabled' style='visibility : hidden;'/>2</textarea><br>
+   <button type='button' class='btn btn-info' data-toggle='collapse' data-target='#demo8'>Respuesta correcta?</button>
+   <div id='demo8' class='collapse'>
+   Respuesta correcta: Inteligencia.
+   </div><br>
+<hr width='90%'><br>
+   <input type='submit' name='Enviar' id='ok' value='evaluar'/>
+</form>
+<div>
+
+    </div><!--fin de cuerpo-->
+    <div id='pie'>
+        MI Jesús Alejandro Flores Hernandez
+    </div>
+</div> <!--fin de contenedor-->
+</body> </html>
+
