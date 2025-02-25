@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html>
+    <title>percptron con salidas OR</title>
+<head>
+    <meta charset="utf-8" />
+    <title>clasificarOR</title>
+    <style>
+        body{
+            display: block;
+        }
+
+        #div_imagen>mi_imagen{
+            float:left;
+        }
+        #titulo{
+            border:1px solid grey;
+            padding: 2px;
+        }
+        #mi_grafica{
+            float:left;
+            padding-right: 5px;
+        }
+        #mi_div{
+            float:left;  
+            border:1px solid grey;
+            padding-left: 3px;
+        }
+        #div_imagen{
+            /* display:inline-block; */
+            float:left;
+            border:1px solid grey;
+        }
+        #canvas{
+            border:1px solid grey; 
+            float:left; 
+            margin: 10;
+            background: #D3D3D3;
+        }
+        input{
+            display: block; 
+        }
+        td{
+            text-align: right;
+        }
+        td.verde{
+            color: green;
+        }
+        td.azul{
+            color: blue;
+        }
+        .boton{
+            text-decoration: none;
+            padding: 5px;
+            font-weight: 600;
+            font-size: 15px;
+            color: #ffffff;
+            background-color: #1883ba;
+            border-radius: 6px;
+            border: 2px solid #0016b0;
+        }
+        #customers {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            /*width: 100%;*/
+        }
+
+        #customers td, #customers th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #customers tr:nth-child(even){background-color: #f2f2f2;}
+
+        #customers tr:hover {background-color: #ddd;}
+
+        #customers th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+    
+</head>
+<body>
+    <div id="principal">
+        <p id="titulo">
+            Profesor: JFLORES Materia: Programación avanzada. Tema: Clasificacion con <strong>perceptron</strong> para las salidas de la funcion OR:<br>
+            Perceptron w0+w1*x1+w2*x2<br><br>
+            El conjunto de puntos (azules y verdes) representan la salida del OR, <mark>Haga clic en el botón entrenar</mark> <br>
+            y siga haciendo clic hasta obtener la línea correcta que separa ambas clases de puntos (se mostrara en azul). <br><br>
+            
+            Con el <mark>botón graficar</mark> puede probar buscar a mano la línea modificando los valores de los inputText "w0" y"w1".
+        </p>
+        <div id="div_trabajo">
+            <div id="mi_grafica">
+                <canvas id="canvas" width="400" height="300"></canvas>
+            </div><br>
+            <div id="mi_div">
+                <p>Para trazar linea</p>
+                <p>y=w0+w1*x</p>
+                <input type='number' id='w0' placeholder='w0'><br>
+                <input type='number' id='w1' placeholder='w1'><br>
+                <input type="button" id="traza_recta" class="boton" value="graficar " >
+                <p>Si desea entrenar:</p>
+                <input type="button" id="perceptron" class="boton" value="entrenar" >
+                <p>x2=[-(w1*x1)-w3]/w2</p>
+                <br>
+                <p id="salida"></p>
+            </div>
+            <div id="div_imagen">
+                <table id="customers">
+                    <caption>Tabla OR</caption>
+                    <thead>
+                        <tr>
+                            <td>x1</td><td>x2</td><td>OR</td><td>color</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>-1</td><td>-1</td><td>-1</td><td class="verde">verde</td>
+                        </tr>
+                        <tr>
+                            <td>-1</td><td> 1</td><td> 1</td><td class="azul">azul</td>
+                        </tr>
+                            <td> 1</td><td>-1</td><td> 1</td><td class="azul">azul</td>
+                        </tr>
+                        <tr>
+                            <td> 1</td><td> 1</td><td> 1</td><td class="azul">azul</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    let area_grafica={
+        "alto_canvas":0,
+        "ancho_canvas":0,
+        "alto_grafica":0,
+        "ancho_grafica":0,
+        "minx":0,
+        "miny":0,
+        "maxx":0,
+        "maxy":0,
+        "padding":5
+    };
+    //puntos a graficar (x1,x2) se toman como (x,y)
+    var puntos=[
+        {"x":-1, "y":-1, "clase":-1},
+        {"x":-1, "y": 1, "clase": 1},
+        {"x": 1, "y":-1, "clase": 1},
+        {"x": 1, "y": 1, "clase": 1}
+        
+        ];
+    //en Z las salidas correctas, en W los pesos, en Y las estimaciones
+    let per={
+        "X":[[-1,-1],[-1,1],[1,-1],[1,1]],
+        "W":[0,0,-1],
+        "Z":[[-1],   [1],   [1],   [1]],
+        "Y":[[0],    [0],   [0],   [0]],
+        "entrenado":false,
+        "iteracion":0
+    };
+    /**
+     * Traza una linea con los valores dados w0, w1 para x1*w1+x0*w0
+     * @w0 {float} - valor de w0
+     * @w1 {float} - valor de w1
+     */
+    function linea(ctx,w0,w1){
+        ctx.save();
+        ctx.beginPath()
+        let radio=1;
+        let ancho_canvas=area_grafica.ancho_canvas;
+        let alto_canvas=area_grafica.alto_canvas;
+        let maxx=area_grafica.maxx;
+        let maxy=area_grafica.maxy;
+        let minx=area_grafica.minx;
+        let miny=area_grafica.miny;
+        let padding=area_grafica.padding;
+        //calcula punto uno segun formula de linea
+        let x=minx; //que corresponde al punto minimo de la grafica
+        let px=(x-minx)*ancho_canvas/(maxx-minx)+padding;
+        let y=w0+w1*x;
+        //ajusta escala
+        let py=(y-miny)*alto_canvas/(maxy-miny);
+        //invierte coordenadas
+        py=alto_canvas-py+padding;
+        //ir al punto 1 sin graficar
+        ctx.moveTo(px, py);
+        //toma el ultimo punto x del canvas
+        x=maxx; //que corresponde al punto ancho_canvas de la ventana
+        //px=ancho_canvas;
+        px=(maxx-minx)*ancho_canvas/(maxx-minx)+padding;
+        //calcula punto 2 segun formula de linea
+        y=w0+w1*x;
+        //ajusta escala
+        py=(y-miny)*alto_canvas/(maxy-miny);
+        //invierte coordenadas
+        py=alto_canvas-py;
+        ctx.lineTo(px, py);
+        ctx.stroke();
+        
+        ctx.restore();
+    }
+    /**
+     * Traza una linea con los valores actuales de w en la variable json llamada per
+     * @ctx {objeto} - contexto del canvas
+     * @color {string} - color de la linea
+     */
+    function lineaPerceptron(ctx,color){
+        ctx.save();
+        ctx.beginPath()
+        let radio=1;
+        let ancho_canvas=area_grafica.ancho_canvas;
+        let alto_canvas=area_grafica.alto_canvas;
+        let maxx=area_grafica.maxx;
+        let maxy=area_grafica.maxy;
+        let minx=area_grafica.minx;
+        let miny=area_grafica.miny;
+        let padding=area_grafica.padding;
+        //calcula punto uno segun formula de linea
+        let x=minx; //que corresponde al punto minimo de la grafica
+        let px=(x-minx)*ancho_canvas/(maxx-minx)+padding;
+        //let y=w0+w1*x;
+        //0=W[0]*x0+w[1]*x1+w[2]
+        //x1=-(w[0]*x0)-w[2]/w[1]
+        let y=(-1*(per.W[0]*x)-per.W[2])/per.W[1];
+        //ajusta escala
+        let py=(y-miny)*alto_canvas/(maxy-miny);
+        //invierte coordenadas
+        py=alto_canvas-py+padding;
+        //ir al punto 1 sin graficar
+        ctx.moveTo(px, py);
+        //console.log("x0= "+px+" y0="+py);
+        //toma el ultimo punto x del canvas
+        x=maxx; //que corresponde al punto ancho_canvas de la ventana
+        //calcula punto 2 segun formula de linea
+        y=(-1*(per.W[0]*x)-per.W[2])/per.W[1];
+        px=(x-minx)*ancho_canvas/(maxx-minx);
+        py=(y-miny)*alto_canvas/(maxy-miny);
+        //ajusta escala
+        py=(y-miny)*alto_canvas/(maxy-miny);
+        //invierte coordenadas
+        py=alto_canvas-py+padding;
+        //console.log("x1= "+px+" y1="+py);
+        ctx.strokeStyle=color;
+        ctx.lineTo(px, py);
+        ctx.stroke();
+        ctx.restore();
+    }
+    /**
+     * pone un punto en el canvas
+     * @ctx {objeto} - contexto del canvas
+     * @objeto {json} - punto a graficar {"x":0, "y":0, "clase":-1}
+     * @radio {int} - radio del circulo
+     * @color1 {string} - color del circulo
+     * @color2 {string} -color borde del circulo
+     */
+    function pon_punto(ctx, objeto, radio, color1, color2){
+        ctx.save();
+        ctx.strokeStyle=color1;
+        ctx.fillStyle=color2;
+        ctx.beginPath();
+        //obtener alto del canvas
+        let ancho_canvas=area_grafica.ancho_canvas;
+        let alto_canvas=area_grafica.alto_canvas;
+        let maxx=area_grafica.maxx;
+        let maxy=area_grafica.maxy;
+        let minx=area_grafica.minx;
+        let miny=area_grafica.miny;
+        let padding=area_grafica.padding;
+        //poner a escala
+        let py=objeto.y;
+        py=(py-miny)*alto_canvas/(maxy-miny);
+        let px=objeto.x;
+        px=(px-minx)*ancho_canvas/(maxx-minx)+padding;
+        //console.log("x="+px+" y="+py);
+        //invierte coordenadas
+        py=alto_canvas-py+padding;
+        ctx.arc(px, py, radio, 0, 2*Math.PI);
+        if(color2) {ctx.fill()} else {ctx.stroke()};
+        ctx.stroke();
+        ctx.restore();
+    }
+    /**
+     * pon el centro de la gráfica
+     */
+    function ponCentro(){
+        ctx.save();
+        let texto="(0,0)";
+        ctx.beginPath();
+        let px=area_grafica.ancho_canvas/2;
+        let py=area_grafica.alto_canvas/2;
+        //
+        ctx.strokeText(texto,px-23,py+10);
+        ctx.strokeText("-1",0,py+10);
+        ctx.strokeText("1",area_grafica.ancho_canvas-5,py+10);
+        ctx.strokeText("1",px-9,10);
+        ctx.strokeText("-1",px-12,area_grafica.alto_canvas);
+        //
+        ctx.moveTo(px,0);
+        ctx.lineTo(px,area_grafica.alto_canvas)
+        ctx.stroke()
+        ctx.moveTo(0,py);
+        ctx.lineTo(area_grafica.ancho_canvas,py)
+        ctx.stroke();
+        ctx.restore();
+    }
+    signo=x=>(x<0)?-1:1;
+    /**
+     * Evaluaa la funcion en el renglon dado
+     * y=w0*x0+w1*x1+w2 para el renglon dado
+     * @param {number} renglon
+     * @returns {number} y
+     */
+    function sumatoria(renglon){
+        //
+        return per.W[0]*per.X[renglon][0]+per.W[1]*per.X[renglon][1]+per.W[2]*1;
+    }
+    /**
+     * Entrenar la red
+     * Calcula la salida del perceptron y ajusta los pesos
+     */
+    function perceptron(){
+        if(per.entrenado) {
+            console.log("Iteracion: "+per.iteracion+" La red ya esta entrenada");
+            alert("La red ya esta entrenada");
+            return;
+        }
+        per.iteracion++;
+        let fallo=false;
+        for(let i=0; i<4;i++){
+            //calcula la salida
+            per.Y[i]=signo(sumatoria(i));
+            //console.log("y(i)="+per.Y[i]+" z(i)="+per.Z[i]);
+            if (per.Y[i]!=per.Z[i]){
+                //ajustamos pesos
+                //Dwj(k)=n(k)*[z(k)-y(k)]*xj(k)
+                //wj(k+1)=wj(k)+Dwj(k)
+                let discrepancia=(Number(per.Z[i])-Number(per.Y[i]));
+                let delta0=Number(discrepancia*Number(per.X[i][0]));
+                let delta1=Number(discrepancia*Number(per.X[i][1]));
+                let delta2=Number(discrepancia*Number(1));
+                per.W[0]=per.W[0]+delta0;
+                per.W[1]=per.W[1]+delta1;
+                per.W[2]=per.W[2]+delta2;
+                console.log("Iteracion: "+per.iteracion+" sesgo en reng="+i+" Y="+per.Y[i]+" Z="+per.Z[i]+" discrep="+discrepancia);
+                fallo=true;
+                break;
+            }
+            //console.log("correcto en reng="+i+" Y="+per.Y[i]+" Z="+per.Z[i]);
+        }
+        if(fallo){
+            per.entrenado=false
+        }else{
+            per.entrenado=true
+        }
+        if(per.entrenado){
+            lineaPerceptron(ctx,"blue");
+        }else{
+            lineaPerceptron(ctx,"red");
+        }
+        console.log("W[0,1,2]="+per.W);
+        document.getElementById("salida").innerText="w1, w2, w3 = "+per.W.toString();
+    }
+    window.onload=function(){
+        c1=document.getElementById("canvas");
+        ctx=c1.getContext("2d");
+        document.getElementById("perceptron").addEventListener("click",perceptron);
+        document.getElementById("traza_recta").addEventListener("click",function(){
+            let valor0=document.getElementById("w0").value;
+            let valor1=document.getElementById("w1").value;
+            //
+            let w0=Number(isNaN(valor0)?0:valor0);
+            let w1=Number(isNaN(valor1)?0:valor1);
+            //console.log("w0="+w0+" w1="+w1);
+            //linea(ctx,2,0.1);
+            linea(ctx,w0,w1);
+        });
+
+        //dimensiones del canvas
+        area_grafica.alto_canvas=ctx.canvas.clientHeight-10;
+        area_grafica.ancho_canvas=ctx.canvas.clientWidth-10;
+        //obtener valores máximos x e y
+        let puntos_x=puntos.map(item=>item.x);
+        let puntos_y=puntos.map(item=>item.y);
+        area_grafica.maxx = Math.max(...puntos_x);
+        area_grafica.maxy = Math.max(...puntos_y);
+        area_grafica.minx = Math.min(...puntos_x);
+        area_grafica.miny = Math.min(...puntos_y);
+        area_grafica.ancho_grafica=area_grafica.maxx-area_grafica.minx;
+        area_grafica.alto_grafica=area_grafica.maxy-area_grafica.miny;
+        //console.log("minx="+area_grafica.minx +" miny="+area_grafica.miny);
+        //console.log("ancho_canvas="+area_grafica.ancho_canvas +" lto_canvas="+area_grafica.alto_canvas);
+        //graficar puntos
+        puntos.forEach(elem=>{
+            color=(elem.clase==1)?"blue":"green";
+            pon_punto(ctx, elem, 5, "red", color)
+        });
+        ponCentro();
+        
+    }
+</script>
+</html>
