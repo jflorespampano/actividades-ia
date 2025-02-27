@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <style>
+        body{
+            display: block;
+        }
+        #div_imagen{
+            display:inline-block;
+            border:1px solid grey;
+        }
+        #div_imagen>mi_imagen{
+            display:block;
+        }
+        #titulo{
+            border:1px solid grey;
+            padding: 2px;
+        }
+        #mi_grafica{
+            float:left;
+            padding-right: 5px;
+        }
+        #mi_div{
+            float:left;  
+            border:1px solid grey;
+            padding-left: 3px;
+        }
+        #canvas{
+            border:1px solid grey; 
+            float:left; 
+            margin: 10;
+            background: #D3D3D3;
+        }
+        input{
+            display: block; 
+        }
+        td{
+            text-align: right;
+        }
+        td.verde{
+            color: green;
+        }
+        td.azul{
+            color: blue;
+        }
+        .boton{
+            text-decoration: none;
+            padding: 5px;
+            font-weight: 600;
+            font-size: 15px;
+            color: #ffffff;
+            background-color: #1883ba;
+            border-radius: 6px;
+            border: 2px solid #0016b0;
+        }
+        #customers {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            /*width: 100%;*/
+        }
+
+        #customers td, #customers th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #customers tr:nth-child(even){background-color: #f2f2f2;}
+
+        #customers tr:hover {background-color: #ddd;}
+
+        #customers th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+    
+</head>
+<body>
+    <div id="principal">
+        <div id="div_trabajo">
+            <p id="titulo">Para agregar puntos (x,y, clase), indique la clase (0/1) y haga clic en el área gráfica, repita hasta completar su conjunto de puntos.
+            </p>
+            <div id="mi_grafica">
+                <canvas id="canvas" width="800" height="600"></canvas>
+            </div>
+            <div id="mi_div">
+                <label for='miId'>area gráfica -50, 50</label>
+                <label for='miId'>dame x</label>
+                <input type='number' id='x' placeholder='x'><br>
+                <label for='miId'>dame y</label>
+                <input type='number' id='y' placeholder='y'><br>
+                <label for='miId'>dame clase (0,1)</label>
+                <input type='number' id='clase' placeholder='clase' min="0" max="1" value="1"><br>
+                <input type="button" id="llena_tabla" class="boton" value="llena tabla" ><br>
+                <input type="button" id="btn_salida" class="boton" value="muestra arreglo" >
+                <br>
+                <div style="overflow:scroll;height:200px;width:200px;">
+                    <table id="customers">
+                        <caption>Tabla OR</caption>
+                        <thead>
+                            <tr>
+                                <td>x1</td><td>x2</td><td>OR</td>
+                            </tr>
+                        </thead>
+                        <tbody id="datos_tabla">   
+                        </tbody>
+                    </table>
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+    <p id="salida"></p>
+</body>
+<script>
+    let area_grafica={
+        "alto_canvas":0,
+        "ancho_canvas":0,
+        "alto_grafica":0,
+        "ancho_grafica":0,
+        "minx":0,
+        "miny":0,
+        "maxx":0,
+        "maxy":0,
+        "padding":5
+    };
+    //puntos a graficar
+    var puntos=[
+        
+    ];
+    var vec_salida=[];
+    function pon_punto(ctx, objeto, radio, color1, color2){
+        ctx.save();
+        ctx.strokeStyle=color1;
+        ctx.fillStyle=color2;
+        ctx.beginPath();
+        let py=objeto.y;
+        let px=objeto.x;
+        ctx.arc(px, py, radio, 0, 2*Math.PI);
+        if(color2) {ctx.fill()} else {ctx.stroke()};
+        ctx.stroke();
+        ctx.restore();
+    }
+    function ponCentro(){
+        ctx.save();
+        let texto="(0,0)";
+        ctx.beginPath();
+        let px=area_grafica.ancho_canvas/2;
+        let py=area_grafica.alto_canvas/2;
+        //
+        ctx.strokeText(texto,px-23,py+10);
+        ctx.strokeText("-50",0,py+10);
+        ctx.strokeText("50",area_grafica.ancho_canvas-5,py+10);
+        ctx.strokeText("50",px-9,10);
+        ctx.strokeText("-50",px-12,area_grafica.alto_canvas);
+        //
+        ctx.moveTo(px,0);
+        ctx.lineTo(px,area_grafica.alto_canvas)
+        ctx.stroke()
+        ctx.moveTo(0,py);
+        ctx.lineTo(area_grafica.ancho_canvas,py)
+        ctx.stroke();
+        ctx.restore();
+    }
+    function llena_tabla(){
+        let s="";
+        puntos.forEach(x=>{
+            s+="<tr><td>"+x.x+"</td><td>"+x.y+"</td><td>"+x.clase+"</td></tr>";
+        });
+        document.getElementById("datos_tabla").innerHTML=s;
+        
+    }
+    
+    function calcula_area_grafica(){
+        area_grafica.maxx = 50;
+        area_grafica.maxy = 50;
+        area_grafica.minx = -50;
+        area_grafica.miny = -50;
+        area_grafica.ancho_grafica=area_grafica.maxx-area_grafica.minx;
+        area_grafica.alto_grafica=area_grafica.maxy-area_grafica.miny;
+    }
+    
+    window.onload=function(){
+        c1=document.getElementById("canvas");
+        ctx=c1.getContext("2d");
+        canvas.addEventListener('mousedown', function(evt) {
+            function getMousePos(canvas, evt) {
+                let ClientRect = canvas.getBoundingClientRect();
+                return {
+                    x: Math.round(evt.clientX - ClientRect.left),
+                    y: Math.round(evt.clientY - ClientRect.top)
+                };
+            }
+            function escala(objeto){
+                //poner a escala
+                let ClientRect = canvas.getBoundingClientRect();
+                let py=objeto.y*100/evt.clientY;
+                let px=objeto.x*100/evt.clientX;
+                objeto.x=Math.round(px);
+                objeto.y=Math.round(py);
+                objeto.y=evt.clientY-objeto.y;
+
+            }
+            let punto={"x": 0, "y": 0, "clase": 1};
+            let mousePos = getMousePos(canvas, evt);
+            punto.x=mousePos.x;
+            punto.y=mousePos.y;
+            let claseValue=document.getElementById("clase").value
+            punto.clase=claseValue==1?1:-1
+            puntos.push(punto)
+            escala(punto);
+            color=(punto.clase==1)?"blue":"green";
+            let radio=5;
+            pon_punto(ctx, mousePos, radio, "red", color);
+            console.log('escala: ' + punto.x + ',' + punto.y);
+            
+        }, false);
+
+        document.getElementById("llena_tabla").addEventListener("click",function(){
+            llena_tabla();
+        });
+        document.getElementById("btn_salida").addEventListener("click", function(){
+            document.getElementById("salida").innerText=JSON.stringify(puntos);
+        })
+        //dimensiones del canvas
+        area_grafica.alto_canvas=ctx.canvas.clientHeight-10;
+        area_grafica.ancho_canvas=ctx.canvas.clientWidth-10;
+        //obtener valores máximos x e y
+        calcula_area_grafica();
+        ponCentro();
+    }
+</script>
+</html>

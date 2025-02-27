@@ -2,7 +2,7 @@
 ## objetivo:
 Entender conceptos de AA
 
-Del archivos pdf que puede encontrar en la carpeta /rp-actividades, realice lo siguiente:
+Del archivo pdf que puede encontrar en la carpeta /rp-actividades, realice lo siguiente:
 
 1. del archivo: "Resumen AA y Tensor Flow.pdf" leer el tema: "Aprendizaje automático" desde la página 3 a la 8 (Aprendizaje automático).
 2. del archivo: "Resumen AA y Tensor Flow.pdf" leer el tema: "función de pérdida" desde la página 10 a la 15 (función de perdida)

@@ -2,7 +2,7 @@
 
 ## objetivo
 
-graficar el resuylytado del perceptron en js.
+graficar el resulytado del perceptron en js.
 
 ## con chartjs
 
