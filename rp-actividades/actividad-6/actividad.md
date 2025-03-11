@@ -12,7 +12,7 @@ Generar puntos aleatorios para pruebas
 
 3. Pruebe el archivo "generar_conjunto de datos.html", genere 4 conjuntos de N datos linealmente separables y pruebelo con el código del perceptrón.
 
-4. Modifique el código del perceptrón para agregar el código del aarchivo: "generar_conjunto de datos.html"
+4. Modifique el código del perceptrón para agregar el código del archivo: "generar_conjunto de datos.html"
 
 ## Entregables
 
