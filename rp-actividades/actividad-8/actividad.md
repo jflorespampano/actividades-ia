@@ -66,7 +66,8 @@ for i=1:nct
 end
 ```
 
-Pruebe el archivo persimple_cn_GenAleat_de_CTok.sce
+12. Pruebe el archivo persimple_cn_GenAleat_de_CTok.sce
+
 Expliquelo en una presentacion ppt y convierta a pdf
 
 Entregaables:
