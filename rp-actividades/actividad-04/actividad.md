@@ -12,6 +12,6 @@ En esta actividad introducira un código js en su equipo, el código esta en el 
 
 ## Entregable
 
-1. código en su equipod e computo.
+1. código en su equipo de computo.
 
 2. muestre su código al profesor.

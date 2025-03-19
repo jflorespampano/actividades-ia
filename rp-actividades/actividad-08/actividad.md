@@ -24,11 +24,13 @@ R= No se pueden multiplicar directamente, sin embargo si se puede A'*B
 9. Genere un conjunto de trabajo de 20 puntos aleatorios clasificados en 2 clases.
 10. crear los arreglos A=[1,2,3,4,5,6], b=[1,1,3,4,5,9]
 11. pruebe las sentencias: "find(A~=B)" Y "find(A==B)", dedezca su funcionamiento.
+12. prueba el archivo "perceptronOR2022.sce" que clasifica las salidas del or
 
-El siguiente código genera un conjunto de 20 datos clasificcados en 2 clases y los grafica, pruebelo y expliquelo en una presentación ppt y convierta a pdf. 
+13. El siguiente código genera un conjunto de 20 datos clasificcados en 2 clases y los grafica, pruebelo y expliquelo en una presentación ppt y convierta a pdf. 
+
 ```m
 nct=20; //tamaño del conjunto de trabajo
-x=2*rand(2,nct)-1;
+x=2*rand(2,nct)-1; //me da un conjunto de valores + y - aleatorios
 x1=x(1,:);//Arreglo x1 contiene coordenadas x
 y1=x(2,:);//Arreglo y1 contiene coordenadas y
 plot(x1,y1,'*');
@@ -66,7 +68,7 @@ for i=1:nct
 end
 ```
 
-12. Pruebe el archivo persimple_cn_GenAleat_de_CTok.sce
+14. Pruebe el archivo persimple_cn_GenAleat_de_CTok.sce
 
 Expliquelo en una presentacion ppt y convierta a pdf
 
