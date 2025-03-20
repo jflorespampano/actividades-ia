@@ -1,7 +1,7 @@
 # Actividades 
 
 1. entender conceptos IA, Regresión líneal, reconcmiento de patrones,
-2. entender conceptos de AA, MA, probar código que separa conjuntos de puntoa con una recta, cambiando sus parametros manualmente, código en js archivo html.
+2. entender conceptos de AA, MA, probar código que separa conjuntos de puntos con una recta, cambiando sus parametros manualmente, código en js archivo html.
 3. hacer resumen de AA, funcion de perdida y cálculo de gradiente
 4. Probar el "perceptronANDsimple.html"
 5. Probar el "perceptronANDChart.html" que que usa la biblioteca chart para graficar y el código "perceptronOrGraficado.html" muestra el perceptrón graficado con funciones en js.
