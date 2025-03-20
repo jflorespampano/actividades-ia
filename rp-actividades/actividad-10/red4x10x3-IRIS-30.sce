@@ -2,7 +2,7 @@
 //marzo 2025
 //red neuronal de 4 entradas 10 neuronas ocultas y 3 salidas
 //para predecir salidas de las observaciones de la flor IRIS
-//probado con 30 observaciones de IRIS
+//probado con 30 observaiones de IRIS
 //Las salidas que pueden ser 3 valores (1,2,3) se toman como
 //[1,0,0] paraa 1, [0,1,0] para 2 y [0,0,1] para 3 y se usa
 //la función sigmoide en la salida de las neuronas. 

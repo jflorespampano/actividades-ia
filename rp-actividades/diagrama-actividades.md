@@ -10,23 +10,22 @@
 8. entender el código del perceptron en scilab para la función or y para separar un conjunto aleatorio de datos previamente clasificados.
 09. probar el código "red4x3x3-IRIS-30.sce".
 10. entender la función de activacion y la retropropagación.
-11. probar la red sigmoide de 2x2x1
-12. probar playgroun tensorflow
-13. crear una red neuronal en scilab para predecir las etiquetas sobre enfermedad cardiaca.
-14. instalar biblioteca ANN para redes neuronales en scilab (crear video)
-15. crear una RN con ANN para OR (crear video)
-16. crear una RN con ANN para IRIS (crear video)
-17. crear una RN con ANN para enfermedades cardiacas (crear video)
-18. crear una RN con ANN para predecir las etiquetas sobre enfermedad cardiaca.
-19. instalar el compildor para el lenguaje R y aprender las sentencias básicas
-20. codificar una red neuronal para las salidas del or en R.
-21. codificar una red neuronal para predecir las etiquetas de la flor iris en R.
-22. codificar un RN para predecir enfermedades cardiacas en R.
-23. entender conceptos básicos de tensores.
-24. crear una red neuronal con TF.
-25. procesar los datos de IRIS con TF.
-26. procesar los datos sobre enfermedad cardiaca con TF.
-27. Hacer video sobre enfermedad cardiaca en TF.
-28. intoducción a algoritmos genéticos.
-29. introducción a SVM.
-30. SVM para IRIS en R.
+11. probar playgroun tensorflow
+12. crear una red neuronal en scilab para predecir las etiquetas sobre enfermedad cardiaca.
+13. instalar biblioteca ANN para redes neuronales en scilab (crear video)
+14. crear una RN con ANN para OR (crear video)
+15. crear una RN con ANN para IRIS (crear video)
+16. crear una RN con ANN para enfermedades cardiacas (crear video)
+17. crear una RN con ANN para predecir las etiquetas sobre enfermedad cardiaca.
+18. instalar el compildor para el lenguaje R y aprender las sentencias básicas
+19. codificar una red neuronal para las salidas del or en R.
+20. codificar una red neuronal para predecir las etiquetas de la flor iris en R.
+21. codificar un RN para predecir enfermedades cardiacas en R.
+22. entender conceptos básicos de tensores.
+23. crear una red neuronal con TF.
+24. procesar los datos de IRIS con TF.
+25. procesar los datos sobre enfermedad cardiaca con TF.
+26. Hacer video sobre enfermedad cardiaca en TF.
+27. intoducción a algoritmos genéticos.
+28. introducción a SVM.
+29. SVM para IRIS en R.
