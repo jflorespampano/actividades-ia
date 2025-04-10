@@ -21,7 +21,7 @@ Y = [0; 1; 1; 1]';
 // Parámetros de entrenamiento
 learning_rate = [0.1, 0];// 0.1;
 
-//W= ann_FF_init(N);
+W= ann_FF_init(N);
 // no funciona esta linea W= ann_FF_init(N, 'sigmoid');
 
 epochs = 500;
@@ -36,6 +36,7 @@ En ann_FF_Std_online la funcion de activacion esta predefinida
 como sigmoide para clasificacion binaria y
 softmax para multiclase
 */
+
  W= ann_FF_Std_online(X,Y,N,W,learning_rate,epochs);
 
 // Probar la red
