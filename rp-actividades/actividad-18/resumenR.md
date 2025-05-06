@@ -107,3 +107,19 @@ El paquete e1071 es una herramienta robusta y versátil en el lenguaje de progra
 ```sh
 install.packages("e1071")
 ```
+
+# ejecutar scrip
+
+desde el gui en su ventana de comandos
+si debe instalar o cargar una biblioteca hagalo así:
+
+```sh
+install.packages("neuralnet")
+library(neuralnet)
+#para ejecutar un script:
+source("C:/trabajo2025/materialDidactico/reconoc-patrones/codigos/R/xor.r")
+```
+
+Otra forma de ejecutar script es 
+1. cargar el script
+2. en el menu editar seleccionar **ejecutar todo**

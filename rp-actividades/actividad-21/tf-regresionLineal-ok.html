@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <style>
+       #canvas{
+            border:1px solid grey; 
+            float:left; 
+            margin: 10;
+            background: #D3D3D3;
+        }
+        
+        #div_imagen{
+            width: 600px;
+            height: 400px;
+            overflow: hidden;
+            position: relative;
+        }
+    </style>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+    <!-- Load TensorFlow.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.13.0"> </script>
+    <script src="clsGrafica.js"></script>
+  </head>
+
+  <body>
+    <div class="w3-row w3-container">
+      <div class="w3-row w3-padding">
+        <h4 class="w3-teal w3-center w3-padding">Ejemplo de regresión Lineal con Tensor Flow</h4>
+        <button class="w3-btn w3-blue-grey" id="btnToggle">Ocultar Ayuda</button>
+      </div>
+      <div class="w3-row" id="miDiv" style = "display: none;">
+        <p class="w3-padding" style = "text-align: justify;">
+          Programa que predice etiquetas <strong>Y</strong> para una coordenada <strong>X</strong>, usando un modelo de red neuronal para una regresión lineal.<br>
+          Los puntos azules son los datos de entrenamiento [x,y]= [1,1],[2,3],[3,5],[4,7],
+          despues del entrenamiento, usted pondrá en el Input Tex, valores <strong>X</strong> a predecir y al hacer clic en el <strong>botón predecir</strong>, las predicciones aparecerán como un punto verde.<br>
+          Los valores en el input Text deben ser &lt=4.7 para que puedan visualizarse en el área grafica, 
+          si da valores X mayores, el programa predice la etiqueta <strong>Y</strong> y la muestra en la consola pero no será visible en el área gráfica. <br>
+          Lo que hace el programa es ajustar una recta al conjunto de puntos de entrenamiento y 
+          lo que usted debe observar es que dado su valor X, la etiqueta Y que el sistema predice debe ajustarse a la recta
+          imaginaria que pasa por los datos de entrenamiento.<br> Pruebe por ejemplo con los siguientes valores de X: 1.4, 3.2, 4.3, 3.8, 2.1
+          <strong>El programa se hizo usando Tensor Flow.</strong>
+        </p>
+      </div>
+      <div class="w3-row l3-container">
+        <div class="w3-col l7">
+          <div id="div_imagen">
+            <canvas id="canvas" width="600" height="400"></canvas>
+          </div>
+        </div>
+        <div class="w3-col l5 w3-padding">
+          <label id="lbl_espera" for="avance">Entrenando...</label><br>
+          <progress id="avance" max="100" value="0"> 0% </progress><br>
+          <div id="divResultados">
+            <labe>dato X a predecir:</labe>
+            <input type="text" id="txt_x"value="1.4">
+            <input type="button" id="btn_predecir" value="predecir" onclick="predecir()" disabled>
+            <br><br>
+            <div id="div_resultados" width="80" height="200" style="border:solid">
+              dato, predicción<br>
+              -----------------<br>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </body>
+
+  <!-- código de la prediccion para regresion lineal, con la biblioteca TF-->
+  <script>
+    //datos de trabajo, el formato de los datos es [x,y], es decir dato, etiqueta
+    let misDatos=[
+      [1,1],[2,3],[3,5],[4,7]
+    ];
+    //elementos para graficar
+    //obtenemos el canvas donde se garficará
+    var c1=document.getElementById("canvas");
+    var ctx=c1.getContext("2d");
+    let puntos_x=misDatos.map(item=>item[0]);
+    let puntos_y=misDatos.map(item=>item[1]);
+    let graficas=new clsGraficas(ctx,puntos_x, puntos_y);
+
+    //Tensor flow
+    const model = tf.sequential();
+
+    //hacer la prediccion
+    function predecir(){
+      //model.predict(tf.tensor2d([5], [1, 1])).print();
+        //obtenemos el dato x obtenido del input text
+        let strX=document.getElementById("txt_x").value;
+        let x=parseFloat(strX);
+        //creamos un vecor de 1x1 para meter el dato x
+        let vector=[];
+        vector.push(x);
+        //const prediction = model.predict(tf.tensor2d([5], [1, 1]));
+        // Usamos el modelo para inferir la etiqueta de X 
+        const prediction = model.predict(tf.tensor2d(vector, [1, 1]));
+        //obtenemos un arreglo de datos a partir del tensor de respuesta 
+        //con la funcion data que devuelve una promesa con el arreglo obtenido
+        //en data
+        prediction.data().then(data => {
+          document.getElementById("div_resultados").innerHTML+="<br>Dato: "+x+" , Predicción: "+data[0].toFixed(3);
+          console.log("y:");
+          //como el tensor trae un solo dato, tiene la forma tensor2d([ys], [1, 1]), 
+          //genero un arreglo de 1x1, el primer dato del arreglo tiene el dato ys
+          console.log(data[0]);
+          //graficamos el punto
+          let punto={"x":0, "y":0, "clase":0};
+          punto.x=x;
+          punto.y=data[0];
+          let color="green";
+          graficas.pon_punto(punto, 5, "red", color)
+          //graficas.pon_punt
+          document.getElementById("txt_x").select();
+        });
+    }
+
+    function entrenar(){
+      document.getElementById("avance").value=0;
+      // Define un modelo para  regresion lineal
+      model.add(tf.layers.dense({units: 1, inputShape: [1]}));
+      // Prepara el  model para entrenamiento especificando la perdida y el optimizador.
+      model.compile({loss: 'meanSquaredError', optimizer: 'sgd'});
+      //obtenemos los valores x y de los datos
+      var columnx = [];
+      var columny = [];
+      for(var i=0; i<misDatos.length; i++){
+          columnx.push(misDatos[i][0]);
+          columny.push(misDatos[i][1]);
+      }
+      //Genera algunos datos para el entrenamiento. lo puntos (1,1),(2,3),(3,5),(4,7)
+      //const xs = tf.tensor2d([1, 2, 3, 4], [4, 1]);
+      //const ys = tf.tensor2d([1, 3, 5, 7], [4, 1]);
+      //creamos los tensores para datos y etiquetas
+      const xs = tf.tensor2d(columnx, [4, 1]);
+      const ys = tf.tensor2d(columny, [4, 1]);
+      //Entrenamos el modelo con esos datos y 100 iteraciones
+      //puede usar model.fit  si su conjunto de datos no es muy grande, debe enviar como parametros los
+      //datos (las xs), las etiquetas (los ys), las iteraciones (epochs), model.fit devuelve una promesa
+      const epocas=100
+      let avance=0
+      model.fit(xs, ys, {
+          epochs: epocas,
+          callbacks: {
+              onEpochEnd:()=>{
+                  avance=avance>=epocas?epocas:avance+1
+                  document.getElementById("avance").value=avance;
+                  // console.log("avance:",avance)
+              }
+          }
+        }).then(() => {
+        document.getElementById("btn_predecir").disabled = false;
+        document.getElementById("lbl_espera").innerText="Modelo entrenado";
+        document.getElementById("txt_x").select();
+        document.getElementById("divResultados").style.display = 'block';
+        
+      });
+    }
+
+
+    window.onload=async function(){
+      const miDiv = document.getElementById('miDiv');
+      miDiv.style.display = 'none';
+
+      const btnToggle = document.getElementById('btnToggle');
+      btnToggle.textContent = 'Mostrar Ayuda';
+      btnToggle.addEventListener('click', () => {
+        const miDiv = document.getElementById('miDiv');
+        if (miDiv.style.display === 'none') {
+          miDiv.style.display = 'block';
+          btnToggle.textContent = 'Ocultar Ayuda';
+        } else {
+          miDiv.style.display = 'none';
+          btnToggle.textContent = 'Mostrar Ayuda';
+        }
+      });
+      //
+      document.getElementById("divResultados").style.display = 'none';
+      graficas.grafica_puntos(misDatos);
+      await entrenar()
+    }
+  </script>
+</html>
