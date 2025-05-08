@@ -18,7 +18,7 @@
 </head>
 <body>
     <div class="w3-row w3-container w3-padding">
-        <h3 class="w3-teal w3-padding">Entrenamiento de la Red Neuronal</h3>
+        <h3 class="w3-teal w3-padding w3-center">Red Neuronal para salidas del OR</h3>
         <p>Esta red neuronal simple tiene como objetivo aprender la función OR.</p>
         <button id="trainButton" class="w3-button w3-blue">Entrenar Red</button>
         <input type="number" name="epocas" id="epocas" value="100">
@@ -35,7 +35,13 @@
             </div>
         </div>
         <div class="w3-col l3 w3-container">
-            <p id="output"></p> 
+            <p id="output">
+                x1 , x2  : or <br>
+                [-1 ,-1] : 0<br>
+                [-1 , 1]  : 1<br>
+                [ 1 ,-1]  : 1<br>
+                [ 1 , 1]  : 1<br>
+            </p> 
         </div>
     </div>
 
@@ -99,22 +105,34 @@
                 [1, 0],
                 [1, 1]
             ]
+            const salida = [
+                [0],
+                [1],
+                [1],
+                [1]
+            ]
             // const prediction = model.predict(tf.tensor2d([[1, 0]]));
             // const prediction = model.predict(tf.tensor2d([entradas[2]]));
             // prediction.print(); // Imprime la salida para [1, 0]
-            let salida=''
+            let i=0
+            document.getElementById('output').innerText  = `entradas: prediccion : real
+            ---------------------------`
+            document.getElementById('output').innerText += `
+                x1 , x2  : (% ) : b : real`
             entradas.forEach((elem, index) => {
                 const prediction = model.predict(tf.tensor2d([entradas[index]]));
                 // prediction.print(); // Imprime la salida para [1, 0]
                 // console.log("entrada:",`[${entradas[index][0]},${entradas[index][1]}] : 0`)
-                
                 prediction.data().then(data => {
+                    let salidatxt=''
                     const x1=entradas[index][0]?' 1':'-1'
                     const x2=entradas[index][1]?' 1':'-1'
                     // console.log("salida:",`[${x1},${x2}]`,":",data[0])
-                    salida = `[${x1},${x2}] : ` + data[0].toFixed(2);
-                    document.getElementById('output').innerText += `
-                    ${salida}`
+                    const respp=data[0].toFixed(2)
+                    const respb = respp>0.5?' : 1':' : 0'
+                    salidatxt += `
+                    [${x1},${x2}] : ` + respp  + respb + ` :   ${salida[index]}`
+                    document.getElementById('output').innerText += `${salidatxt}`
                 })
             });
         }

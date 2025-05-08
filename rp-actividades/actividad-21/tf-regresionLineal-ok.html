@@ -72,6 +72,7 @@
     let misDatos=[
       [1,1],[2,3],[3,5],[4,7]
     ];
+    const epocas=100
     //elementos para graficar
     //obtenemos el canvas donde se garficará
     var c1=document.getElementById("canvas");
@@ -140,7 +141,7 @@
       //Entrenamos el modelo con esos datos y 100 iteraciones
       //puede usar model.fit  si su conjunto de datos no es muy grande, debe enviar como parametros los
       //datos (las xs), las etiquetas (los ys), las iteraciones (epochs), model.fit devuelve una promesa
-      const epocas=100
+      
       let avance=0
       model.fit(xs, ys, {
           epochs: epocas,
@@ -162,6 +163,7 @@
 
 
     window.onload=async function(){
+      document.querySelector("#lbl_espera").innerText=`Entrenado con ${epocas} epocas...`
       const miDiv = document.getElementById('miDiv');
       miDiv.style.display = 'none';
 

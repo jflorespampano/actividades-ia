@@ -192,6 +192,8 @@
     window.onload = async function(){
         //sincronizamos las epocas con el atributo mas del control progress
         document.querySelector("#avance").max=epocas
+        //mostrando mensaje de inicio
+        document.querySelector("#output").textContent=`Entrenado con ${epocas} epocas...`
         grafica()
         await trainModel()
         await predict()

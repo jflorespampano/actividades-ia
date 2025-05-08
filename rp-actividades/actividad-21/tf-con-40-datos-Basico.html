@@ -216,7 +216,7 @@ const DATOS_CLASSES = [1,-1];
                     onEpochEnd: async (epoch, logs)=>{
                         //console.log("Epoca: "+epoch+" logs:"+logs.loss);
                         document.querySelector('#output').innerText = 
-                            "Entrenando ... Epoca: "+epoch+" perdida:"+logs.loss;
+                            `Entrenando, Epoca: ${epoch+1}/${numberOfEpochs} perdida:${logs.loss}`
                         await tf.nextFrame();
                     },
                 }
