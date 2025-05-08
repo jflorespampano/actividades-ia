@@ -30,7 +30,12 @@ class clsGraficas{
         this.area_grafica.ancho_grafica = this.area_grafica.maxx-this.area_grafica.minx;
         this.area_grafica.alto_grafica = this.area_grafica.maxy-this.area_grafica.miny;
     }
-    grafica(){
+
+    /**
+     * 
+     * @param {*} puntos [{"x":5.2, "y":2.3, "clase":1},...]
+     */
+    graficaArrayObject(puntos){
         var xMax=this.area_grafica.maxx, yMax=this.area_grafica.maxy;
         var xMin=this.area_grafica.minx, yMin=this.area_grafica.miny;
         var xRange=xMax-xMin;
@@ -47,14 +52,35 @@ class clsGraficas{
             ctx.fill();
         }
     }
-    //recibe {"x":0, "y":0, "clase":0}, radio del punto (5px)
-    //color2 es color relleno del punto, color1 es color de linea del punto
+
     /**
-     * pone un punto en la ventana grafica.
-     * @param {object} objeto - {"x":0, "y":0, "clase":0}.
-     * @param {int} radio - radio del punto en la grafica.
-     * @param {string} color1 - color del punto.
-     * @param {string} color2 - color del relleno del punto.
+     * 
+     * @param {*} puntos [[x,y,clase],...]
+     */
+    graficaArray(puntos){
+        var xMax=this.area_grafica.maxx, yMax=this.area_grafica.maxy;
+        var xMin=this.area_grafica.minx, yMin=this.area_grafica.miny;
+        var xRange=xMax-xMin;
+        var yRange=yMax-yMin;
+        const ctx=this.ctx;
+        for (var i=0; i<puntos.length; i++){
+            if (puntos[i][2]==1){
+                ctx.fillStyle="blue";
+            }else{
+                ctx.fillStyle="red";
+            }
+            ctx.beginPath();
+            ctx.arc((puntos[i][0]-xMin)*canvas.width/xRange, (puntos[i][1]-yMin)*canvas.height/yRange, 5, 0, Math.PI*2);
+            ctx.fill();
+        }
+    }
+
+    /**
+     * 
+     * @param {*} objeto {"x":0, "y":0, "clase":0}
+     * @param {*} radio radio del punto (5px)
+     * @param {*} color1 es color de linea del punto
+     * @param {*} color2 es color relleno del punto
      */
     pon_punto(objeto, radio, color1, color2){
         this.ctx.save();
@@ -79,8 +105,10 @@ class clsGraficas{
         this.ctx.stroke();
         this.ctx.restore();
     }
+
     /**
-     * @param {array} puntos - arreglo de puntos a graficar cada punto tiene [x,y,clase]
+     * 
+     * @param {*} puntos con formato [[x,y,clase],...]
      */
     grafica_puntos(puntos){
         let punto={};
@@ -89,20 +117,20 @@ class clsGraficas{
         this.area_grafica.alto_canvas=this.ctx.canvas.clientHeight-5;
         this.area_grafica.ancho_canvas=this.ctx.canvas.clientWidth-5;
         //obtener valores máximos x e y
-        // let puntos_x = puntos.map(function(value,index) { return value[0]; });
-        // let puntos_y = puntos.map(function(value,index) { return value[1]; });
+        let puntos_x = puntos.map(function(value,index) { return value[0]; });
+        let puntos_y = puntos.map(function(value,index) { return value[1]; });
         //let col3 = puntos.map(function(value,index) { return value[2]; });
-        //this.area_grafica.maxx = Math.max(...puntos_x);
-        // this.area_grafica.maxx =10;
-        //this.area_grafica.maxy = Math.max(...puntos_y);
-        // this.area_grafica.maxy =10;
+        this.area_grafica.maxx = Math.max(...puntos_x)+1;
+        this.area_grafica.maxy = Math.max(...puntos_y)+1;
         
         puntos.forEach(elem=>{
-            punto={"x":0, "y":0};
+            punto={"x":0, "y":0, "clase":0};
             punto.x=elem[0];
             punto.y=elem[1];
-            color="blue";
+            punto.clase=elem[2];
+            color=(punto.clase==1)?"blue":"green";
             this.pon_punto(punto, 5, "red", color)
         });
     }
+    
 }//fin de clase clsGraficas

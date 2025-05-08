@@ -4,7 +4,8 @@
     <title>Regresion Lineal B</title>
   </head>
   <body>
-    <p>Modelo de regresión líneal con Tensor Flow, Entrenando la red...</p>
+    <p>Modelo de regresión líneal con Tensor Flow</p>
+    <p>Entrenando la red...</p>
     <p id="avance"></p>
   </body>
   <!-- Load TensorFlow.js -->
@@ -12,16 +13,24 @@
   <script>
     const epocas = 700; // número de épocas para el entrenamiento
     console.log("modelo entrenado con los datos:x=[1, 2, 3, 4], y=[1, 3, 5, 7]")
-    // Define un modelo para regresión lineal0.
+    //Define un modelo secuencial. El más común que consta de una pila de capas 
+    //donde las entradas fluyen directamente a las salidas
     const model = tf.sequential();
+    //agrega una capa densa donde: 
+    //cada neurona está conectada a todas las neuronas de la capa anterior.
+    //units: 1: Especifica que la capa tendrá 1 neurona (output de dimensión 1)
+    //inputShape: [1]: Especifica que la entrada tendrá una dimensión de 1 (un solo valor).
     model.add(tf.layers.dense({units: 1, inputShape: [1]}));
-    // Prepara el modelo para entrenamiento especificando: la perdida (loss) y la optimización(optimizer).
+    //configuramos el modelo para entrenamiento especificando: 
+    //la perdida (loss) La métrica que el modelo intentará minimizar durante el entrenamiento
+    //y la optimización(optimizer) 
+    //que es el algoritmo que ajusta los pesos de la red para minimizar la función de pérdida.
     model.compile({loss: 'meanSquaredError', optimizer: 'sgd'});
     // tag para mostrar el avance
     const progreso = document.querySelector('#avance');
     progreso.innerText = `Progreso: 0/${epocas} épocas completadas`;
     
-    // Ponemos algunos datos y etiquetas para entrenamiento
+    // Ponemos algunos datos XS y sus etiquetas YS para entrenamiento
     const xs = tf.tensor2d([1, 2, 3, 4], [4, 1]);
     const ys = tf.tensor2d([1, 3, 5, 7], [4, 1]);
     // entrenamos el modelo usando los datos
@@ -33,7 +42,7 @@
         }
       }
     }).then(() => {
-      // Use el modelo para hacer inferencias sobre un punto de datos que el modelo no haya visto antes:
+      // Usamos el modelo para hacer inferencias sobre un punto de datos que el modelo no haya visto antes:
       //aqui por ejemplo sobre el dato 5
       // Abra la consola en las herramientas de desarrollo del navegador para ver el resultado
       console.log("predicción para el dato 5:")

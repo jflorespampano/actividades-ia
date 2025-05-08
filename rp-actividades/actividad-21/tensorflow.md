@@ -323,7 +323,7 @@ Entrenar una red neuronal para ajusta una recta a estos valores:
 
 ```js
 
-      // Define un modelo para regresión lineal0.
+      // Define un modelo para regresión lineal.
       const model = tf.sequential();
       model.add(tf.layers.dense({units: 1, inputShape: [1]}));
       // Prepara el modelo para entrenamiento especificando: la perdida (loss) y la optimización(optimizer).
@@ -342,6 +342,76 @@ Entrenar una red neuronal para ajusta una recta a estos valores:
     
 ```
 El código anterior lo puede ver en el archivo: "tf-regresionLineal-basico-html"
+
+## Exlpicació básica del código: 
+
+### la sentencia: const model = tf.sequential();
+
+Esta línea de código crea un modelo secuencial de red neuronal usando TensorFlow.js. 
+
+¿Qué es un modelo secuencial?
+Definición: Un modelo secuencial es una pila lineal de capas de red neuronal donde:
+
+a. El flujo de datos es secuencial (de una capa a la siguiente en orden)
+
+b. Cada capa tiene exactamente un tensor de entrada y un tensor de salida
+
+Analogía: Imagina un ensamble de filtros donde los datos pasan por cada uno en orden:
+
+Entrada → Capa 1 → Capa 2 → ... → Capa N → Salida
+Partes del código:
+tf: El objeto principal de TensorFlow.js
+
+sequential(): Método que crea un modelo secuencial
+
+
+### la sentencia: model.add(tf.layers.dense({units: 1, inputShape: [1]}));
+
+1. model.add(): Método para añadir una capa al modelo secuencial.
+2. tf.layers.dense(): Crea una capa densa, donde cada neurona está conectada a todas las neuronas de la capa anterior, por defecto incluye un sesgo (bias) y función de activación lineal
+
+Opciones de configuración:
+
+1. units: 1: Especifica que la capa tendrá 1 neurona (output de dimensión 1)
+2. inputShape: [1]: Define que la capa espera un input de forma [1] (un valor escalar)
+
+### La sentencia: model.compile({loss: 'meanSquaredError', optimizer: 'sgd'});
+
+Esta línea configura el modelo para el entrenamiento definiendo dos aspectos críticos:
+
+1. Función de Pérdida (loss: 'meanSquaredError')
+Qué es: La métrica que el modelo intentará minimizar durante el entrenamiento
+
+Mean Squared Error (MSE):
+
+Calcula el promedio de los cuadrados de las diferencias entre valores predichos y reales
+
+Fórmula: MSE = 1/n * Σ(y_real - y_pred)^2
+
+Usos típicos:
+
+Problemas de regresión (predecir valores continuos)
+
+Cuando los errores grandes deben penalizarse más que los pequeños (por el cuadrado)
+
+2. Optimizador (optimizer: 'sgd')
+Qué es: El algoritmo que ajusta los pesos de la red para minimizar la función de pérdida
+
+Stochastic Gradient Descent (SGD):
+
+Versión básica del descenso de gradiente
+
+Ajusta pesos en dirección opuesta al gradiente de la pérdida
+
+Parámetros clave (que aquí usan valores por defecto):
+
+learningRate: Tamaño de los pasos de ajuste (por defecto: 0.01)
+
+momentum: Para evitar oscilaciones (0 por defecto)
+
+### la sentencia: model.fit(xs, ys, {epochs: 100}).then(() => {})
+
+entrena el modelo con 100 epocas
 
 ## versión con graficación
 

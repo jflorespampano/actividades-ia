@@ -115,8 +115,8 @@
             let puntos_x = puntos.map(function(value,index) { return value[0]; });
             let puntos_y = puntos.map(function(value,index) { return value[1]; });
             //let col3 = puntos.map(function(value,index) { return value[2]; });
-            this.area_grafica.maxx = Math.max(...puntos_x);
-            this.area_grafica.maxy = Math.max(...puntos_y);
+            this.area_grafica.maxx = Math.max(...puntos_x)+1;
+            this.area_grafica.maxy = Math.max(...puntos_y)+1;
             
             puntos.forEach(elem=>{
                 punto={"x":0, "y":0, "clase":0};

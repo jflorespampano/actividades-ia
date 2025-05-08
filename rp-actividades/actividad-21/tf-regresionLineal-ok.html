@@ -83,36 +83,39 @@
     //Tensor flow
     const model = tf.sequential();
 
-    //hacer la prediccion
+    /**
+     * 
+     * hacer la prediccion esta asociado al evento clic del boton predecir
+     */
     function predecir(){
       //model.predict(tf.tensor2d([5], [1, 1])).print();
-        //obtenemos el dato x obtenido del input text
-        let strX=document.getElementById("txt_x").value;
-        let x=parseFloat(strX);
-        //creamos un vecor de 1x1 para meter el dato x
-        let vector=[];
-        vector.push(x);
-        //const prediction = model.predict(tf.tensor2d([5], [1, 1]));
-        // Usamos el modelo para inferir la etiqueta de X 
-        const prediction = model.predict(tf.tensor2d(vector, [1, 1]));
-        //obtenemos un arreglo de datos a partir del tensor de respuesta 
-        //con la funcion data que devuelve una promesa con el arreglo obtenido
-        //en data
-        prediction.data().then(data => {
-          document.getElementById("div_resultados").innerHTML+="<br>Dato: "+x+" , Predicción: "+data[0].toFixed(3);
-          console.log("y:");
-          //como el tensor trae un solo dato, tiene la forma tensor2d([ys], [1, 1]), 
-          //genero un arreglo de 1x1, el primer dato del arreglo tiene el dato ys
-          console.log(data[0]);
-          //graficamos el punto
-          let punto={"x":0, "y":0, "clase":0};
-          punto.x=x;
-          punto.y=data[0];
-          let color="green";
-          graficas.pon_punto(punto, 5, "red", color)
-          //graficas.pon_punt
-          document.getElementById("txt_x").select();
-        });
+      //obtenemos el dato x obtenido del input text
+      let strX=document.getElementById("txt_x").value;
+      let x=parseFloat(strX);
+      //creamos un vecor de 1x1 para meter el dato x
+      let vector=[];
+      vector.push(x);
+      //const prediction = model.predict(tf.tensor2d([5], [1, 1]));
+      // Usamos el modelo para inferir la etiqueta de X 
+      const prediction = model.predict(tf.tensor2d(vector, [1, 1]));
+      //obtenemos un arreglo de datos a partir del tensor de respuesta 
+      //con la funcion data que devuelve una promesa con el arreglo obtenido
+      //en data
+      prediction.data().then(data => {
+        document.getElementById("div_resultados").innerHTML+="<br>Dato: "+x+" , Predicción: "+data[0].toFixed(3);
+        console.log("y:");
+        //como el tensor trae un solo dato, tiene la forma tensor2d([ys], [1, 1]), 
+        //genero un arreglo de 1x1, el primer dato del arreglo tiene el dato ys
+        console.log(data[0]);
+        //graficamos el punto
+        let punto={"x":0, "y":0, "clase":0};
+        punto.x=x;
+        punto.y=data[0];
+        let color="green";
+        graficas.pon_punto(punto, 5, "red", color)
+        //graficas.pon_punt
+        document.getElementById("txt_x").select();
+      });
     }
 
     function entrenar(){
@@ -176,7 +179,10 @@
       });
       //
       document.getElementById("divResultados").style.display = 'none';
-      graficas.grafica_puntos(misDatos);
+      //ponemos los puntos en el formato que espera la función de graficar
+      const puntosAgraficar=misDatos.map(item=>([item[0], item[1], 1]))
+      graficas.grafica_puntos(puntosAgraficar);
+      // graficas.graficaArray(misDatos);
       await entrenar()
     }
   </script>

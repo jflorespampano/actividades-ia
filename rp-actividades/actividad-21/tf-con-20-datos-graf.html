@@ -178,6 +178,7 @@
     }
 
 
+    
     function grafica(){
         //obtenemos el canvas donde se garficará
         var canvas = document.getElementById("canvas");
@@ -185,7 +186,7 @@
         let puntos_x=puntos.map(item=>item.x);
         let puntos_y=puntos.map(item=>item.y);
         let graficas=new clsGraficas(ctx, puntos_x, puntos_y);
-        graficas.grafica()
+        graficas.graficaArrayObject(puntos)
     }
     
     window.onload = async function(){
