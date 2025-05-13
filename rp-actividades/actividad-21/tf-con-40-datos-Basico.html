@@ -134,15 +134,12 @@ const DATOS_CLASSES = [1,-1];
         return tf.tidy(()=>{
             const dataByClass=[];
             const targetsByClass=[];
-            console.log('length=',DATOS_CLASSES.length);
-            console.log('datos antes:',dataByClass);
-            console.log('etiquetas antes',targetsByClass);
+            //separa los datos y sus etiquetas o targets y
             for(let i=0; i< DATOS_CLASSES.length; ++i){
                 dataByClass.push([]);
                 targetsByClass.push([]);
             }
-            console.log('datos despues:',dataByClass);
-            console.log('etiquetas despues',targetsByClass);
+            
             //separa los datos y sus etiquetas o targets y
             //convierte las etiquetas de clases de [1,-1] a [1,0]
             for(const example of DATOS_DATA){
@@ -156,8 +153,8 @@ const DATOS_CLASSES = [1,-1];
                 dataByClass[target].push(data);
                 targetsByClass[target].push(target);
             }
-            console.log('datos:',dataByClass);
-            console.log('etiquetas',targetsByClass);
+            // console.log('datos:',dataByClass);
+            // console.log('etiquetas',targetsByClass);
             const xTrains = [];
             const yTrains = [];
             const xTests = [];
@@ -173,12 +170,9 @@ const DATOS_CLASSES = [1,-1];
                     
                     
             const concatAxis = 0;
-            console.log('concat:');
+
             const test1 = xTrains;
             const test2 = tf.concat(xTrains);
-
-            console.log(test1);
-            console.log(test2);
                     
             return[
                 tf.concat(xTrains, concatAxis),tf.concat(yTrains, concatAxis),
@@ -194,6 +188,10 @@ const DATOS_CLASSES = [1,-1];
         const model = tf.sequential();
         const learningRate = .01;
         const numberOfEpochs = 90;
+        //adam () adaptative moment estimation es un optimizador que ajusta la tasa de aprendizaje
+        //de cada peso de la red neuronal, es un optimizador muy utilizado en el aprendizaje profundo
+        //learningRate es la tasa de aprendizaje, un valor pequeño indica que el modelo
+        //ajustara lentamente los pesos, un valor grande indica que el modelo ajustara rapidamente
         const optimizer = tf.train.adam(learningRate);
         //sigmoide proporciona salida enre 0 y 1
         model.add(tf.layers.dense(
@@ -204,10 +202,12 @@ const DATOS_CLASSES = [1,-1];
         model.add(tf.layers.dense(
             { units:2, activation: 'softmax'}
         ));
+        //optimizador indica como se ajustaran los pesos de la red
+        //categoricalCrossentropy mide el error entre predicciones y etiquetas reales
         model.compile({
             optimizer:optimizer,
-            loss: 'categoricalCrossentropy',
-            metrics: ['accuracy']
+            loss: 'categoricalCrossentropy', //funcion de perdida para problemas multiclase
+            metrics: ['accuracy'] //metricas para evaluar el modelo durante el aprendizaje
         });
         const history = await model.fit(xTrain, yTrain,
             {
@@ -224,6 +224,7 @@ const DATOS_CLASSES = [1,-1];
         );
         return model;
     }
+
     async function entrenar(){
         //0.2 dice 20% de datos para pruebas y 80% para entrenamiento
         const [xTrain, yTrain, xTest, yTest] = getData(0.2);
