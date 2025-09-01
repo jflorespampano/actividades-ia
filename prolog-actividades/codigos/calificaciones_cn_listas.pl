@@ -24,3 +24,9 @@ ultimaNota(Estudiante, Tema, Nota):-
 vecesQueCurso(Estudiante, Tema, Veces):-
   notas(Estudiante, Tema, Notas),
   length(Notas, Veces).
+
+% veces que reprobo
+% Contar elementos menores que 6
+contar_menores_6(Lista, Count) :-
+    findall(X, (member(X, Lista), X < 6), Menores),
+    length(Menores, Count).
