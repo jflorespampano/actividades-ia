@@ -6,105 +6,6 @@
 
 Realice la siguiente actividad para crear una red neuronal en R usando la biblioteca **neuralnet**
 
-## instalación
-
-Instalar el lenguaje R desde: Página oficial de R  [instalar](https://www.r-project.org/)
-Si lo requiere, apoyese en esta guia de instalación [guia de instalación](https://www.icesi.edu.co/editorial/empezando-usar-web/Instal.html#sec:InstalWin)
-
-## introduccion
-
-
-R es un  software libre y de código abierto, es una mejor opcion que scilab para redes neuronales.
-Al instalar R tendra un acceso directo desde el escritorio, ejecutelo y verá la consola de R con el cursor(>).
-
-Comandos de la consola:
-```r
-q() #sale de la consola
-# crear variaable
-x<-4 #crea la variable x
-x #muestra la variable x
-print(x) #muetra la variable x
-# si desea ayuda sobre un comando escriba:
-help(print)
-y<-seq(1:10) #crea una sequencia numerica del 1 al 10
-```
-
-Graficar
-```r
-#pruebe lo siguiente
-x<-seq(1:10)
-y<-seq(1:10)
-plot(x,y)
-```
-Operadores: +,-,*,/,^, %%(modulo), %/% (division entera)
-
-
-```r
-# pruebe lo siguiente:
-x<-seq(1:10)
-y<-x^2
-plot(x,y)
-```
-
-**recomendación** de estilo: Deja un espacio antes y después de operadores binarios como +, -, * y /. También deja espacios antes de abrir y cerrar paréntesis, a menos que estés evaluando una función.
-
-Los elementos en R se almacenan como objetos, si desea monitorear los objetos en su espacio de trabajo ponga:
-```r
-objects()
-```
-
-## funciones básicas
-
-```r
-x<-4
-sqrt(x)
-log(10)
-```
-
-## operadores relacionales
-
-<>,<=,>=,==,!=, ! (no lógico), & (y lógico), | (or lógico)
-
-ejemplo: z != y & log(z) > 3 #devolvera true/false
-
-## arreglos
-
-crear vector (array de una dimensión)
-
-```r
-ventas <- c(2, 3, 4.5, 5)
-# crear una sequencia
-x <- c(1:10)
-# crear una sequencia
-y<-seq(from =-2, to = 10, by=2)
-```
-
-rep(x, times, each)
-
-```r
-ventas <- c(2, 3, 4.5, 5)
-v2 <- rep(ventas, times=3)
-```
-
-función paste
-
-```r
-# pruebe lo siguente
-nombres2 <- paste(c("x","y"), rep(1:10, each=2), sep="_")
-```
-
-```r
-# crear matriz
-mi_matriz <- matrix(1:6, nrow = 2, ncol = 3)
-# Crear un vector
-mi_vector <- c(1, 2, 3, 4, 5, 6)
-# Convertir el vector en una matriz de 2 filas y 3 columnas
-mi_matriz <- matrix(mi_vector, nrow = 2, ncol = 3)
-nrow(m) #nos da el numero de renglones(filas) de m
-```
-## comandos prncipales
-
-## instalar paquetes
 
 ## paquete e1071:
 
@@ -152,9 +53,36 @@ La función **mutate_if(is.character, as.factor)** modifica la columna character
 
 El operador |> en R, conocido como el operador de pipe nativo, fue introducido en la versión 4.1.0 de R y se utiliza para encadenar operaciones de manera más legible y fluida. Este operador permite pasar el resultado de una operación como entrada (argumento) a otra función. Se inspira en el operador %>% del paquete magrittr, pero es parte del núcleo del lenguaje.
 
+Como resumen de la sentencia anterior:
+```r
+iris <- iris |> dplyr::mutate_if(is.character, as.factor)
+```
+Hace:
+
+|> (Pipe operator):
+
+Toma el objeto a la izquierda (iris) y lo pasa como primer argumento a la función de la derecha
+Equivalente a: dplyr::mutate_if(iris, is.character, as.factor)
+
+dplyr::mutate_if():
+
+mutate_if: Función de dplyr que aplica una transformación solo a las columnas que cumplen una condición
+Primer argumento: .tidyselect - la condición que deben cumplir las columnas
+Segundo argumento: .funs - la función a aplicar
+
+is.character:
+Condición: selecciona solo las columnas que son de tipo character (texto)
+
+as.factor:
+Función que convierte variables de tipo character a factor (variable categórica)
+
+¿Qué hace exactamente?
+Convierte todas las columnas de tipo character en el dataset iris a factores (variables categóricas)
+
+
 Veamos ahora un resumen de IRIS ejecutando:
 
-```sh
+```r
 summary(iris)
 ```
 Hasta ahora lo que hemos hecho en obteener y formatear el conjunto de datos iris en la variable iris.
