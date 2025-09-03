@@ -30,11 +30,16 @@ Comandos de la consola:
 q() #sale de la consola
 help(print) # si desea ayuda sobre un comando escriba:
 getwd() # devuelve el directoriode  trabajo
-setwd("C:\otro_directorio") # cambiar el directorio de trabajo
+setwd("C:/otro_directorio") # cambiar el directorio de trabajo
+setwd("C:/trabajo/jflorespampano@gmail.com/actividades-ia/rp-actividades/actividad-18") # cambiar el directorio de trabajo
 # Ver archivos
 list.files()
 # Ver directorios
 list.dirs()
+# Ejecutar scrpt desde la consola de R
+source("naiveBayes.e1071.iris.simple.r", echo = FALSE)
+ctr+L limpiar consola
+
 ```
 
 ## Graficar
