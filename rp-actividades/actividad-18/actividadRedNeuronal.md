@@ -1,7 +1,3 @@
-# lenguaje R
-
- Objetivo: instalar el compildor para el lenguaje R y aprender las sentencias básicas.
-
 ## Actividad
 
 Realice la siguiente actividad para crear una red neuronal en R usando la biblioteca **neuralnet**

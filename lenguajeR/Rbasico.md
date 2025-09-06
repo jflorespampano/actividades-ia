@@ -1,6 +1,6 @@
-# R
+# Lenguaje R
 
-R es un lenguaje de programación y entorno computacional dedicado a la estadística. R es diferente a otros lenguajes de programación, esto es porque fue creado con el único propósito de hacer estadística. Esta característica es la razón de que R sea un lenguaje de programación, que puede resultar absurdo en algunos sentidos para personas con experiencia en otros lenguajes, pero también es la razón por la que R es una herramienta muy poderosa para el trabajo en estadística, puesto que funciona de la manera que una persona especializada en esta disciplina desearía que lo hiciera.
+R es un lenguaje de programación y entorno computacional de código abierto, dedicado a la estadística. R es diferente a otros lenguajes de programación, esto es porque fue creado con el único propósito de hacer estadística. Esta característica es la razón de que R sea un lenguaje de programación, que puede resultar absurdo en algunos sentidos para personas con experiencia en otros lenguajes, pero también es la razón por la que R es una herramienta muy poderosa para el trabajo en estadística, puesto que funciona de la manera que una persona especializada en esta disciplina desearía que lo hiciera.
 
 R tiene sus orígenes en S, un lenguaje de programación creado en los Laboratorios Bell de Estados Unidos. Sí, los mismos laboratorios que inventaron el transistor, el láser, el sistema operativo Unix y algunas otras cosas más.
 
@@ -11,41 +11,55 @@ En R, todo es un objeto. Todos los datos y estructuras de datos son objetos. Ade
 
 ## instalación
 
+* Instala el lenguaje R desde: Página oficial de R  
+     * [instalar](https://www.r-project.org/)
+* Si lo requiere, apoyese en esta guia de instalación 
+     * [guia de instalación](https://www.icesi.edu.co/editorial/empezando-usar-web/Instal.html#sec:InstalWin)
 
-Instala el lenguaje R desde: Página oficial de R  
-[instalar](https://www.r-project.org/)
-Si lo requiere, apoyese en esta guia de instalación 
-[guia de instalación](https://www.icesi.edu.co/editorial/empezando-usar-web/Instal.html#sec:InstalWin)
-[Rstudio](https://posit.co/download/rstudio-desktop/)
+* Opcionalmente puede instalar
+     * [Rstudio](https://posit.co/download/rstudio-desktop/)
 
 ## consola
 
 
+**Ejecutar consola de R**
+
 R es un  software libre y de código abierto, es una mejor opcion que scilab para redes neuronales.
 Al instalar R tendra un acceso directo desde el escritorio, ejecutelo y verá la consola de R con el cursor(>).
 
-Comandos de la consola:
+R es un iterprete, por lo tnto peuede  desde la  consola de R ejecutar una  a una sus sentencias o puede crear scripts en un editor y ejecutarlos  desde la consola.
+
+Algunos comandos de la consola:
 
 ```r
 q() #sale de la consola
 help(print) # si desea ayuda sobre un comando escriba:
-getwd() # devuelve el directoriode  trabajo
-setwd("C:/otro_directorio") # cambiar el directorio de trabajo
 setwd("C:/trabajo/jflorespampano@gmail.com/actividades-ia/rp-actividades/actividad-18") # cambiar el directorio de trabajo
+getwd() # devuelve el directorio de  trabajo
+setwd("C:/otro_directorio") # cambiar el directorio de trabajo
 # Ver archivos
 list.files()
 # Ver directorios
 list.dirs()
-# Ejecutar scrpt desde la consola de R
+# Ejecutar script desde la consola de R
+# por ejempo si quiero ejecutar el archivo: "naiveBayes.e1071.iris.simple.r"
 source("naiveBayes.e1071.iris.simple.r", echo = FALSE)
 ctr+L limpiar consola
+# ver los dataset que veine precargados en R
+library(help = "datasets")
+# ruta donde se almacenan
+# Ruta del paquete "datasets"
+system.file(package = "datasets")
+
+# Ruta de un dataset específico (ej: iris)
+system.file("data", "iris.rda", package = "datasets")
 
 ```
 
 ## Graficar
 
 ```r
-#pruebe lo siguiente
+# desde la consola, pruebe las sentencias
 x<-seq(1:10)
 y<-seq(1:10)
 plot(x,y)
@@ -54,7 +68,7 @@ Operadores: +,-,*,/,^, %%(modulo), %/% (division entera)
 
 
 ```r
-# pruebe lo siguiente:
+# desde la consola pruebe lo siguiente:
 x<-seq(1:10)
 y<-x^2
 plot(x,y)
@@ -67,44 +81,6 @@ Los elementos en R se almacenan como objetos, si desea monitorear los objetos en
 objects()
 ```
 
-## sesion
-
-Los objetos y funciones de R son almacenados en la memoria RAM de nuestra computadora.
-
-Cuando ejecutamos R, ya sea directamente o a través de RStudio, estamos creando una instancia del entorno  de este lenguaje. cada instancia es una sesión.
-
-Todos los objetos y funciones creadas en una sesión, permanecen sólo en ella, no son compartidos entre sesiones, sin embargo una sesión puede tener el mismo directorio de trabajo que otra sesión.
-
-Es posible tener más de una sesión de R activa en la misma computadora.
-
-Cuando cerramos R, también cerramos nuestra sesión. Se nos preguntará si deseamos guardar el contenido de nuestra sesión para poder volver a ella después. Esto se guarda en un archivo con extensión **.Rdata* en tu directorio de trabajo.
-
-Para conocer los objetos y funciones que contiene nuestra sesión, usamos la función ls(), que nos devolverá una lista con los nombres de todo lo guardado en la sesión.
-
-ls()
-
-
-De manera más precisa, nuestra sesión es un entorno de trabajo y los objetos pertenecen a un entorno específico.
-
-Los entornos son un concepto importante al hablar de lenguajes de programación, pero también son un tema que sale del alcance de este libro.
-
-Con que recuerdes que cada sesión de R tiene su propio entorno global, eso será suficiente.
-
-```r
-# Guarda todos los objetos, funciones, datos, etc.
-save.image("mi_sesion.RData")
-
-# o en archivo->guardar area de trabajo en RGui
-# ousando ctrl+s
-# O usando el menú de RStudio:
-# Session -> Save Workspace As...
-# Para recuperar todo
-load("mi_sesion.RData")
-
-# O usando el menú de RStudio:
-# Session -> Load Workspace...
-```
-
 ## asignación
 
 los comentarios enmpiezan con el caracter #
@@ -112,7 +88,7 @@ los comentarios enmpiezan con el caracter #
 variable <- valor
 
 ```r
-# crear variaable
+# crear variable
 x<-4 #crea la variable x
 x #muestra la variable x
 print(x) #muetra la variable x
@@ -128,19 +104,6 @@ sqrt(x)
 log(10)
 ```
 
-## scripts
-
-Los scripts son documentos cdigo en R, pero R los puede leer y ejecutar el código que contienen.
-
-Aunque R permite el uso interactivo, es recomendable que guardes tu código en un archivo .R. En realidad, en proyectos complejos, es posible que sean necesarios mútiples scripts para distintos fines.
-
-Podemos abrir y ejecutar scripts en R usando la función source(), dandole como argumento la ruta del archivo .R en nuestra computadora, entre comillas.
-
-Por ejemplo.
-
-source("C:/Mis scripts/mi_script.R")
-Cuando usamos RStudio y abrimos un script con extensión .R, este programa nos abre un panel en el cual podemos ver su contenido. De este modo podemos ejecutar todo el código que contiene o sólo partes de él.
-
 
 ## tipos de datos
 
@@ -155,7 +118,7 @@ Vacio	          NULL	          null
 
 Además de estos tipos, en R también contamos con datos complejos numéricos complejos (con una parte real y una imaginaria), raw (bytes), fechas y raster, entre otros. Estos tipos tiene aplicaciones muy específicas, por ejemplo, los datos de tipo fecha son ampliamente usados en economía, para análisis de series de tiempo.
 
-Enteros y numeericos
+### Enteros y numericos
 
 Los datos enteros son enteros
 Los datos numéricos son numeros con parte decimal
@@ -224,32 +187,47 @@ ejemplo: is.numeric(5)
 
 ### aritmeticos
 
-Operador	        Operación	Ejemplo	Resultado
-+	Suma	        5 + 3	    8
--	Resta	        5 - 3	    2
-*	Multiplicación	5 * 3	    18
-/	División	    5 /3	    1.666667
-^	Potencia	    5 ^ 3	    125
-%%	División entera	5 %% 3	    2
+
+| Operador | Operación      | Ejemplo | Resultado   |
+|----------|----------------|---------|-------------|
+| `+`      | Suma           | `5 + 3` | `8`         |
+| `-`      | Resta          | `5 - 3` | `2`         |
+| `*`      | Multiplicación | `5 * 3` | `15`        |
+| `/`      | División       | `5 / 3` | `1.666667`  |
+| `^`      | Potencia       | `5 ^ 3` | `125`       |
+| `%%`     | División entera| `5 %% 3`| `2`         |
 
 ### relacionales
 
-Operador	            Comparación	Ejemplo	Resultado
-<	Menor que	            5 < 3	FALSE
-<=	Menor o igual que	    5 <= 3	FALSE
->	Mayor que	            5 > 3	TRUE
->=	Mayor o igual que	    5 >= 3	TRUE
-==	Exactamente igual que	5 == 3	FALSE
-!=	No es igual que	        5 != 3	TRUE
 
+| Operador | Comparación         | Ejemplo   | Resultado |
+|----------|---------------------|-----------|-----------|
+| `<`      | Menor que           | `5 < 3`   | `FALSE`   |
+| `<=`     | Menor o igual que   | `5 <= 3`  | `FALSE`   |
+| `>`      | Mayor que           | `5 > 3`   | `TRUE`    |
+| `>=`     | Mayor o igual que   | `5 >= 3`  | `TRUE`    |
+| `==`     | Exactamente igual que | `5 == 3` | `FALSE`   |
+| `!=`     | No es igual que     | `5 != 3`  | `TRUE`    |
 
 ### logicos
 
-Operador	Comparación	Ejemplo	            Resultado
-x | y	    x Ó y es verdadero	            TRUE | FALSE	TRUE
-x & y	    x Y y son verdaderos	        TRUE & FALSE	FALSE
-!x	        x no es verdadero (negación)	!TRUE	        FALSE
-isTRUE(x)	x es verdadero (afirmación)	    isTRUE(TRUE)	TRUE
+### Tablas de Operadores Lógicos en R
+
+| Operador    | Comparación                 | Ejemplo          | Resultado |
+|-------------|-----------------------------|------------------|-----------|
+| `x \| y`    | x Ó y es verdadero          | `TRUE \| FALSE`  | `TRUE`    |
+| `x & y`     | x Y y son verdaderos        | `TRUE & FALSE`   | `FALSE`   |
+| `!x`        | x no es verdadero (negación)| `!TRUE`          | `FALSE`   |
+| `isTRUE(x)` | x es verdadero (afirmación) | `isTRUE(TRUE)`   | `TRUE`    |
+
+
+
+| Operador    | Comparación                 | Ejemplo          | Resultado |
+|-------------|-----------------------------|------------------|-----------|
+| `x \| y`    | x Ó y es verdadero          | `TRUE \| FALSE`  | `TRUE`    |
+| `x & y`     | x Y y son verdaderos        | `TRUE & FALSE`   | `FALSE`   |
+| `!x`        | x no es verdadero (negación)| `!TRUE`          | `FALSE`   |
+| `isTRUE(x)` | x es verdadero (afirmación) | `isTRUE(TRUE)`   | `TRUE`    |
 
 ### asignación
 
@@ -407,7 +385,21 @@ El paquete e1071 es una herramienta robusta y versátil en el lenguaje de progra
 install.packages("e1071")
 ```
 
-# ejecutar scrip
+## scripts
+
+Los scripts son documentos codigo en R, pero R los puede leer y ejecutar el código que contienen.
+
+Aunque R permite el uso interactivo, es recomendable que guardes tu código en un archivo .R. En realidad, en proyectos complejos, es posible que sean necesarios mútiples scripts para distintos fines.
+
+Podemos abrir y ejecutar scripts en R usando la función source(), dandole como argumento la ruta del archivo .R en nuestra computadora, entre comillas.
+
+Por ejemplo.
+
+source("C:/Mis scripts/mi_script.R")
+
+Cuando usamos RStudio y abrimos un script con extensión .R, este programa nos abre un panel en el cual podemos ver su contenido. De este modo podemos ejecutar todo el código que contiene o sólo partes de él.
+
+### ejecutar scrip
 
 desde el gui en su ventana de comandos
 si debe instalar o cargar una biblioteca hagalo así:
@@ -430,9 +422,80 @@ Otra forma de ejecutar script es
 table(iris$Species)
 ```
 
+## sesion
 
+Los objetos y funciones de R son almacenados en la memoria RAM de nuestra computadora.
+
+Cuando ejecutamos R, ya sea directamente o a través de RStudio, estamos creando una instancia del entorno  de este lenguaje. cada instancia es una sesión.
+
+Todos los objetos y funciones creadas en una sesión, permanecen sólo en ella, no son compartidos entre sesiones, sin embargo una sesión puede tener el mismo directorio de trabajo que otra sesión.
+
+Es posible tener más de una sesión de R activa en la misma computadora.
+
+Cuando cerramos R, también cerramos nuestra sesión. Se nos preguntará si deseamos guardar el contenido de nuestra sesión para poder volver a ella después. Esto se guarda en un archivo con extensión **.Rdata* en tu directorio de trabajo.
+
+Para conocer los objetos y funciones que contiene nuestra sesión, usamos la función ls(), que nos devolverá una lista con los nombres de todo lo guardado en la sesión.
+
+ls()
+
+
+De manera más precisa, nuestra sesión es un entorno de trabajo y los objetos pertenecen a un entorno específico.
+
+Los entornos son un concepto importante al hablar de lenguajes de programación, pero también son un tema que sale del alcance de este libro.
+
+Con que recuerdes que cada sesión de R tiene su propio entorno global, eso será suficiente.
+
+```r
+# Guarda todos los objetos, funciones, datos, etc.
+save.image("mi_sesion.RData")
+
+# o en archivo->guardar area de trabajo en RGui
+# ousando ctrl+s
+# O usando el menú de RStudio:
+# Session -> Save Workspace As...
+# Para recuperar todo
+load("mi_sesion.RData")
+
+# O usando el menú de RStudio:
+# Session -> Load Workspace...
+```
+
+## 6 bibliotecas importantes de R
+
+1. dplyr: Dominando la Manipulación de Datos
+```sh
+install.packages("dplyr")
+library(dplyr)
+```
+2. ggplot2: Eleva tu Juego de Visualización de Datos
+```sh
+install.packages("ggplot2")
+library(ggplot2)
+```
+3. GWalkR: Convierte tus Datos en una Aplicación de Visualización Interactiva
+```sh
+install.packages("GWalkR")
+library(GWalkR)
+```
+4. tidyr: El Arte de Organizar Datos
+```sh
+install.packages("tidyr")
+library(tidyr)
+```
+5. readr: Simplifica la Entrada y Salida de Datos
+```sh
+install.packages("readr")
+library(readr)
+```
+6. caret: Aprendizaje Automático Simplificado
+```sh
+install.packages("caret")
+library(caret)
+```
 ## ligas
 
-[ver analisis de datos basico](https://openwebinars.net/blog/introduccion-lenguaje-r/)
-[refrencia](https://bookdown.org/jboscomendoza/r-principiantes4/introduccion-que-es-r-y-para-que-es-usado.html)
-[configuracion basica](https://docs.kanaries.net/es/topics/R/6-r-lib-for-beginners)
+1. [Comprehensive R Archive Network](https://cran.r-project.org/)
+2. [Ver analisis de datos basico](https://openwebinars.net/blog/introduccion-lenguaje-r/)
+3. [Refrencia](https://bookdown.org/jboscomendoza/r-principiantes4/introduccion-que-es-r-y-para-que-es-usado.html)
+4. [Configuracion basica](https://docs.kanaries.net/es/topics/R/6-r-lib-for-beginners)
+6. [6 bibliotecas básicas](https://docs.kanaries.net/es/topics/R/6-r-lib-for-beginners)

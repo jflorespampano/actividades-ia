@@ -1,0 +1,76 @@
+---
+title: "Ejemplo RMarkdown"
+author: "Jesus Alejandro Flores Hernandez"
+date: "2025-09-05"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float: true
+    collapse: true
+    smooth_scroll: true
+    theme: journal
+    highlight: kate
+    df_print: paged
+    code_folding: show
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+Este es un documento markdown para archivos HTML, PDF, y MS Word. para mas detalles ver: <http://rmarkdown.rstudio.com>.
+
+Cuando haga click en el **Knit** button el documento será generado incluyendo contenido y salidas de sus trozos de código R dentro del documento. Puede incrustar código R e la siguiente forma:
+
+Usaremos para este ejemplo, el dataset cars que es uno de los conjuntos de datos incorporados más conocidos en R.
+
+Descripción del DataSet:
+
+* Datos recopilados en 1920s
+* Experimentos de frenado de automóviles
+* Uno de los primeros estudios de este tipo
+
+Variables:
+
+* speed: Velocidad del vehículo (millas por hora - mph)
+* dist: Distancia de frenado (pies)
+
+Podemos insertar trozos de código. Aquí muestro cómo escribir un bloque de código en R:
+
+
+`` ```{r} ``
+
+cars
+
+`` ``` ``
+
+Resultado: se muestra los datos cars.
+
+```{r}
+cars
+```
+
+Mostramos un resumen estadístico de los  datos de cars:
+
+```{r cars}
+summary(cars)
+```
+
+## Incluir graficas
+
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+Note que el parámetro `echo = FALSE` agregado al pedazo de código previene la impresión del código R que genera el plot.
+
+```{r}
+print("Fin")
+```
+
+```{r}
+print("otro saludo")
+```
