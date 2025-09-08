@@ -1,6 +1,20 @@
 # Naive Bayes para Iris
 
-para el conjunto de datos Iris, crear un clsificados Bayesiano Simple, en lenguaje R.
+para el conjunto de datos Iris, crear un clsificador Bayesiano Simple, en lenguaje R.
+Queremos saber cual es la probabilidad de que una observacion sea de la clase $c$ , dado un conjunto de características o taributos $x_i$.
+
+Apliacamos la fomrula de naive Bayes
+
+$$P(c|x)=∏_{i=1}^n P(x_i|c ) P(c)$$
+
+## Estimación de probabilidades
+
+Estimar $P(c)$ es tan sencillo como calcular la frecuencia de la clase en el conjunto de entrenamiento:
+
+
+ $$P(c)=\frac{n_c}{N}$$
+
+Siendo $n_c$ el numero de registros de clase $c$ y $N$ el total de elementos en el conjunto de entrenamiento.
 
 ## cargar paquetes
 

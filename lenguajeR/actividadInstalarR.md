@@ -11,8 +11,10 @@ R es un lenguaje de programación y entorno computacional dedicado a la estadís
 
 ## instalación
 
-Instalar el lenguaje R desde: Página oficial de R  [instalar](https://www.r-project.org/)
-Si lo requiere, apoyese en esta guia de instalación [guia de instalación](https://www.icesi.edu.co/editorial/empezando-usar-web/Instal.html#sec:InstalWin)
-[Rstudio](https://posit.co/download/rstudio-desktop/)
+Instalar el lenguaje R desde: Página oficial de R:
 
-Apoyese en los archivos de esta carpeta como "Rbasico.md".
+* [Instalar R](https://www.r-project.org/)
+Si lo requiere, apoyese en esta guia de instalación [guia de instalación](https://www.icesi.edu.co/editorial/empezando-usar-web/Instal.html#sec:InstalWin)
+* [Rstudio](https://posit.co/download/rstudio-desktop/)
+
+Apoyese en los archivos de esta carpeta como "Rbasico.md" y "RStudio.md".

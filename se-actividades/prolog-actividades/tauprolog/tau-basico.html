@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <script src="tau-prolog.js"></script>
+    </head>
+    <body>
+        <input type="button" id="busca" value="consultar si ana programa html" onclick="consulta()"/>
+    </body>
+	<script id="habilidades.pl" type="text/prolog">
+		programa(ana,c).
+		programa(juan,java).
+		programa(ana,html).
+    </script>
+    
+	<script>
+		function consulta(){
+            var session = pl.create();
+            var parser=session.consult("habilidades.pl");
+			if (parser===true){
+                /*carga la pregunta*/
+                session.query("programa(ana,html).");
+                /*realiza la pregunta y y ejecuta la función anonima con la respuesta a la pregunta*/
+                /*answere es asincrona por lo que ejecuta una función en modo callback cuando tiene el resultado*/
+                session.answer(function(respuesta){
+                    let r=pl.format_answer( respuesta );
+					console.log( "respuesta: "+ r);
+                });
+            }else{
+                alert("error en la bc");
+            }
+        }
+	</script>
+</html>

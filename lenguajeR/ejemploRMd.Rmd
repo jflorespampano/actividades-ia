@@ -21,11 +21,11 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## R Markdown
 
-Este es un documento markdown para archivos HTML, PDF, y MS Word. para mas detalles ver: <http://rmarkdown.rstudio.com>.
+Este es un documento markdown para generar archivos HTML, PDF, y MS Word. para mas detalles ver: <http://rmarkdown.rstudio.com>.
 
 Cuando haga click en el **Knit** button el documento será generado incluyendo contenido y salidas de sus trozos de código R dentro del documento. Puede incrustar código R e la siguiente forma:
 
-Usaremos para este ejemplo, el dataset cars que es uno de los conjuntos de datos incorporados más conocidos en R.
+Usaremos para este ejemplo, el dataset **cars** que es uno de los conjuntos de datos incorporados más conocidos en R.
 
 Descripción del DataSet:
 
@@ -74,3 +74,9 @@ print("Fin")
 ```{r}
 print("otro saludo")
 ```
+
+## incluir ecuacion en latex
+
+$$P(y \mid x_1, \dots, x_n) = \frac{P(y) \prod_{i=1}^{n} P(x_i \mid y)}{P(x_1, \dots, x_n)}$$
+
+

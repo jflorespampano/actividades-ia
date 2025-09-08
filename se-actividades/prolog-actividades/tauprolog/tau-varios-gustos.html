@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <script src="tau-prolog.js"></script>
+    </head>
+    <body>
+        <input type="button" id="busca" value="consultar Base" onclick="consulta()"/>
+    </body>
+	<script id="gustos.pl" type="text/prolog">
+		le_gusta_a(margara,manzana).
+		le_gusta_a(margara,papaya).
+        le_gusta_a(calderon,ron).
+        le_gusta_a(calderon,brandy).
+        le_gusta_a(calderon,whiskey).
+    </script>
+    
+	<script>
+        var session = pl.create();
+        function callback(respuesta){
+            let r= respuesta.toString();
+            console.log( "respuesta: "+ r);
+        }
+		function consulta(){
+            
+            var parser=session.consult("gustos.pl");
+			if (parser===true){
+                /*carga la pregunta*/
+                session.query("le_gusta_a(calderon,X).");
+                session.answer(callback);
+                session.answer(callback);
+                session.answer(callback);
+                session.answer(callback);
+            }else{
+                alert("error en la bc");
+            }
+        }
+	</script>
+</html>

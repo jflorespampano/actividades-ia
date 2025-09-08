@@ -72,7 +72,7 @@ Sirve para crear documentos reproducibles que integran:
 
 **Ejemplos de segmento de código:**
 
-<pre>
+<pre style="background-color: #c0c0c0">
 ```{r}
 
 tu código aqui
@@ -84,7 +84,7 @@ tu código aqui
 
 o
 
-<pre>
+<pre style="background-color: #c0c0c0">
 ```{r message=FALSE, warning=FALSE}
 
 tu código aqui
@@ -95,7 +95,7 @@ tu código aqui
 
 o
 
-<pre>
+<pre style="background-color: #c0c0c0">
 ```{r message=FALSE, warning=FALSE, rows.print = 20}
 
 tu código aqui
@@ -105,7 +105,7 @@ tu código aqui
 
 o
 
-<pre>
+<pre style="background-color: #c0c0c0">
 ```{r eval=FALSE}
 
 Este código se mostrará pero no ejecutará
@@ -117,10 +117,10 @@ print(x)
 
 ## encabezado del archivo RMarkdown mejorado
 
-```
+```yaml
 output: 
   html_document:
-    toc:true #tabla de contenido
+    toc: true #tabla de contenido
     toc_depth: 3 
     toc_float: true 
     collapse: true 
@@ -142,8 +142,8 @@ Significado:
     * highlight: kate # usa el estilo kate para coolorear el código
     * df_print: paged # mustra las tablas de datos grandes con paginación
     * code_folding: show # permite al usuario mostrar/ ocultar bloques de código
-## ejemplo
 
-Vea el archivo: './ejemploRMd.Rmd'
+## Ejemplo
 
-Y su resultado: 'ejemploRMd.html'
+* Vea el archivo: './ejemploRMd.Rmd'
+* Y su resultado: 'ejemploRMd.html'
