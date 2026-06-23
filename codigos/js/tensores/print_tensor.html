@@ -1,0 +1,30 @@
+<html>
+    <!--ref 1: https://js.tensorflow.org/tutorials/core-concepts.html-->
+  <head>
+    <!-- biblioteca TensorFlow.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.13.0"> </script>
+
+    <script>
+        //matriz de ceros 3 reng 5 columnas
+        console.log("un tensor con ceros");
+        const zeros=tf.zeros([3, 5]);
+        zeros.print();
+        const c = tf.tensor2d([[1.0, 2.0, 3.0], [10.0, 20.0, 30.0]]);
+        c.print();
+        const xs = tf.tensor2d([0, 0, 0, 1, 1, 0, 1, 1],[4, 2]);
+        xs.print();
+        const ys = tf.tensor2d([0, 1, 1, 0],[4, 1]);
+        ys.print();
+        console.log("crear un tensor con un valor inicial");
+        tf.fill([2, 2],4).print();
+        
+        console.log("linespace");
+        //crea un tensor de 20 elementos entre 0 y 9
+        tf.linspace(0,9,20).print();
+        
+    </script>
+  </head>
+
+  <body>
+  </body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-vis"></script>
+</head>
+<body>
+    
+</body>
+<script>
+    const data = [
+        { x: 1, y: 2 },
+        { x: 2, y: 3 },
+        { x: 3, y: 5 },
+        { x: 4, y: 7 },
+        { x: 5, y: 11 }
+    ];
+
+    const series = ['series'];
+
+    const surface = { name: 'Scatter Plot', tab: 'Charts' };
+
+    tfvis.render.scatterplot(surface, { values: data, series }, {
+        xLabel: 'X Axis',
+        yLabel: 'Y Axis',
+        height: 300
+    });
+</script>
+</html>

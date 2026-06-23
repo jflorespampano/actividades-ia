@@ -1,0 +1,193 @@
+<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN'>
+<html>
+<head><title>Actividades interactivas para el alumno</title>
+<style type='text/css'>
+BODY {font: 8pt Verdana, Geneva, Arial, Helvetica, sans-serif; margin: 10 0 10 0px; text-align: center; background-color: #ebebeb;}
+#contenedor{text-align: left;width: 770px;margin: auto;}
+#cabecera{background-color: #d0d0ff;color: #333300;font-size:12pt;font-weight: bold;padding: 3 3 3 10px;}
+#cuerpo{margin: 10 0 10 0px;}
+#lateral{width: 160px;background-color: #999999;float:left;}
+#lateral ul{margin : 0 0 0 0px;padding: 0 0 0 0px;list-style: none;}
+#lateral li{background-color: #ffffff;margin: 2 2 2 2px;padding: 2 2 2 2px;font-weight: bold;}
+#lateral a{color: #3333cc;text-decoration: none;}
+#principal{margin-left: 170px;background-color: #ffffff;padding: 4 4 4 4px;width: 460px;}
+#otrolado{width: 120px;float: right;}
+#pie{background-color: #cccccc;padding: 3 10 3 10px;text-align:right;clear: both;
+} 
+	</style>
+
+<script type="text/javascript">
+	function evaluarExamen(){
+		correctas=0;
+		total=0;
+		mensaje='';
+		j=0;
+		var x = document.getElementsByClassName('respuesta');
+		var cuantas=x.length;
+		for(j=1;j<=cuantas ;j++){
+			valorR1 = document.getElementById("os"+j).value;
+			if (valorR1==0){
+				mensaje+="pregunta "+j+" correcta \n";
+				correctas++;
+			}else{
+				mensaje+="pregunta "+j+" incorrecta \n";
+			}
+		}
+		total=(correctas/cuantas)*100;
+		alert(mensaje + " calificacion:"+total);
+		return true;
+	}
+</script>
+ <link rel='stylesheet' href='bootstrap/bootstrap.min.css'>
+ <script src='bootstrap/jquery.min.js'></script>
+ <script src='bootstrap/bootstrap.min.js'></script>
+</head>
+
+<body>
+<div id='contenedor'>
+  <div id='cabecera'> Actividad interactiva Para sem 9:(077)-Programación Avanzada </div>
+  <div id='cuerpo'>
+   <div id='lateral'>
+    <ul><li><a href='#'>UNACAR</a><li><a href='#'>LTI</a><li><a href='#'>ISC</a><li><a href='#'>ICO</a>
+	    <li><a href='#'>IDM</a><li><a href='#'>LI</a>
+    </ul>
+   </div>
+   <div id='otrolado'></div>
+
+<div id='principal' class='container'>
+
+<form action='#' method='post' name='frmExamen'  onsubmit='return evaluarExamen()'>
+<br>
+Pregunta 1<br>
+    El lenguaje PROLOG se usan en sistemas expertos cuando se tienen problemas
+<select class='respuesta' id='os1'>
+    <option value='0'>Deterministas</option>
+    <option value='1'>Con alto grado de incertidumbre</option>
+    <option value='2'>Bien definidos</option>
+</select>
+
+   
+<br>
+   <button type='button' class='btn btn-info' data-toggle='collapse' data-target='#demo1'>Respuesta correcta?</button>
+   <div id='demo1' class='collapse'>
+   Respuesta correcta: Deterministas
+   </div><br>
+<hr width='90%'><br>
+Pregunta 2<br>
+    Eduard Feidenbaum crea el sistema 
+<select class='respuesta' id='os2'>
+    <option value='1'>NAO</option>
+    <option value='0'>DENDRAL</option>
+    <option value='2'>DENDRAL</option>
+    <option value='3'>PROLOG</option>
+</select>
+
+    que interpreta estructuras moleculares
+<br>
+   <button type='button' class='btn btn-info' data-toggle='collapse' data-target='#demo2'>Respuesta correcta?</button>
+   <div id='demo2' class='collapse'>
+   Respuesta correcta: DENDRAL
+   </div><br>
+<hr width='90%'><br>
+Pregunta 3<br>
+    Santiago Ramon y Cajal fue un medico de origen 
+<select class='respuesta' id='os3'>
+    <option value='0'>Espanol</option>
+    <option value='1'>Aleman</option>
+    <option value='2'>Mexicano</option>
+    <option value='3'>Colombiano</option>
+</select>
+
+   
+<br>
+   <button type='button' class='btn btn-info' data-toggle='collapse' data-target='#demo3'>Respuesta correcta?</button>
+   <div id='demo3' class='collapse'>
+   Respuesta correcta: Espanol
+   </div><br>
+<hr width='90%'><br>
+Pregunta 4<br>
+    El doctor Joseph Weizembaun crea el programa 
+<select class='respuesta' id='os4'>
+    <option value='1'>NAO</option>
+    <option value='0'>ELIZA</option>
+    <option value='2'>DENDRAL</option>
+    <option value='3'>PROLOG</option>
+</select>
+
+    que imita el comportamiento de un psiquiatra
+<br>
+   <button type='button' class='btn btn-info' data-toggle='collapse' data-target='#demo4'>Respuesta correcta?</button>
+   <div id='demo4' class='collapse'>
+   Respuesta correcta: ELIZA
+   </div><br>
+<hr width='90%'><br>
+Pregunta 5<br>
+    Las redes Bayesianas se usan en sistemas expertos cuando se tienen problemas
+<select class='respuesta' id='os5'>
+    <option value='1'>Bien definidos</option>
+    <option value='0'>Con alto grado de incertidumbre</option>
+    <option value='2'>Deterministas</option>
+</select>
+
+   
+<br>
+   <button type='button' class='btn btn-info' data-toggle='collapse' data-target='#demo5'>Respuesta correcta?</button>
+   <div id='demo5' class='collapse'>
+   Respuesta correcta: Con alto grado de incertidumbre
+   </div><br>
+<hr width='90%'><br>
+Pregunta 6<br>
+    A principios de los 70 Edward Shortliffe creo el sistema experto 
+<select class='respuesta' id='os6'>
+    <option value='2'>DENDRAL</option>
+    <option value='0'>MYCIN</option>
+    <option value='3'>PROLOG</option>
+</select>
+
+    para el diagnistico de enfermedades infecciosas de la sangre
+<br>
+   <button type='button' class='btn btn-info' data-toggle='collapse' data-target='#demo6'>Respuesta correcta?</button>
+   <div id='demo6' class='collapse'>
+   Respuesta correcta: MYCIN
+   </div><br>
+<hr width='90%'><br>
+Pregunta 7<br>
+    
+<select class='respuesta' id='os7'>
+    <option value='0'>Alan Turin</option>
+    <option value='2'>Nokolaus Wirth</option>
+</select>
+
+    es uno de los padres de la inteligencia artificial
+<br>
+   <button type='button' class='btn btn-info' data-toggle='collapse' data-target='#demo7'>Respuesta correcta?</button>
+   <div id='demo7' class='collapse'>
+   Respuesta correcta: Alan Turin
+   </div><br>
+<hr width='90%'><br>
+Pregunta 8<br>
+    Lenguaje de programacion ideado por 
+<select class='respuesta' id='os8'>
+    <option value='1'>Joseph Weizembaum</option>
+    <option value='2'>Frank Rosenblatt</option>
+    <option value='0'>Alain Colmerauer</option>
+    <option value='3'>Jonh McCarty</option>
+</select>
+
+    en los anos 70 en la universidad de Aix Marseille
+<br>
+   <button type='button' class='btn btn-info' data-toggle='collapse' data-target='#demo8'>Respuesta correcta?</button>
+   <div id='demo8' class='collapse'>
+   Respuesta correcta: Alain Colmerauer
+   </div><br>
+<hr width='90%'><br>
+   <input type='submit' name='Enviar' id='ok' value='evaluar'/>
+</form>
+</div>
+    </div><!--fin de cuerpo-->
+    <div id='pie'>
+        MI Jesús Alejandro Flores Hernandez
+    </div>
+</div> <!--fin de contenedor-->
+</body> </html>
+

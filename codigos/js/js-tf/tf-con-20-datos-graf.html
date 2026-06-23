@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>prueba tf</title>
+    <style>
+        #mi_grafica{
+            border:1px solid grey; 
+            float:left; 
+            margin: 10;
+            background: #D3D3D3;
+        }
+    </style>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="clsGrafica.js"></script>
+</head>
+<body>
+    <div class="w3-row w3-container">
+        <div class="w3-row">
+            <h4 class="w3-teal">
+                Entrenamiento de la Red Neuronal
+            </h4>
+        </div>
+        <div class="w3-row">
+            <div class="w3-col l7">
+                <div class="" id="mi_grafica">
+                  <canvas id="canvas" width="600" height="400"></canvas>
+                </div>
+            </div>
+            <div class="w3-col l5">
+                <p id="output">
+                  entrenando...
+                </p>
+                <div id="barraAvance">
+                    <label id="lbl_espera" for="avance">
+                        Entrenando la red, tardara algunos segundos ...
+                    </label><br>
+                    <progress id="avance" max="5000" value="0"> 0% </progress><br>
+                </div>
+                <table class="w3-table w3-striped w3-bordered w3-hoverable">
+                    <thead>
+                        <tr>
+                            <th>x</th>
+                            <th>y</th>
+                            <th>pred(%)</th>
+                            <th>pred(0/1)</th>
+                            <th>correcto</th>
+                        </tr>
+                    </thead>
+                    <tbody id="datosTabla">
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+</body>
+<script>
+    var puntos=[
+        {"x":5.2, "y":2.3, "clase":1},
+        {"x":5.0, "y":1.9, "clase":1},
+        {"x":5.2, "y":2.0, "clase":1},
+        {"x":4.9, "y":2.0, "clase":1},
+        {"x":5.1, "y":1.8, "clase":1},
+        {"x":5.1, "y":1.9, "clase":1},
+        {"x":4.8, "y":1.8, "clase":1},
+        {"x":5.8, "y":2.2, "clase":1},
+        {"x":6.0, "y":1.8, "clase":1},
+        {"x":6.3, "y":1.8, "clase":1},
+        {"x":5.8, "y":1.8, "clase":1},
+        {"x":4.9, "y":1.8, "clase":1},
+        {"x":5.1, "y":2.0, "clase":1},
+        {"x":5.3, "y":1.9, "clase":1},
+        {"x":5.5, "y":2.1, "clase":1},
+        {"x":5.0, "y":2.0, "clase":1},
+        {"x":5.1, "y":2.4, "clase":1},
+        {"x":5.3, "y":2.3, "clase":1},
+        {"x":5.5, "y":1.8, "clase":1},
+        {"x":6.1, "y":2.3, "clase":1},
+        {"x":4.7, "y":1.4, "clase":-1},
+        {"x":4.5, "y":1.5, "clase":-1},
+        {"x":4.9, "y":1.5, "clase":-1},
+        {"x":4.0, "y":1.3, "clase":-1},
+        {"x":4.6, "y":1.5, "clase":-1},
+        {"x":4.5, "y":1.3, "clase":-1},
+        {"x":4.7, "y":1.6, "clase":-1},
+        {"x":3.3, "y":1.0, "clase":-1},
+        {"x":4.6, "y":1.3, "clase":-1},
+        {"x":3.9, "y":1.4, "clase":-1},
+        {"x":3.5, "y":1.0, "clase":-1},
+        {"x":4.2, "y":1.5, "clase":-1},
+        {"x":4.0, "y":1.0, "clase":-1},
+        {"x":3.6, "y":1.3, "clase":-1},
+        {"x":4.4, "y":1.4, "clase":-1},
+        {"x":4.1, "y":1.0, "clase":-1},
+        {"x":3.9, "y":1.1, "clase":-1},
+        {"x":4.7, "y":1.2, "clase":-1},
+        {"x":4.6, "y":1.4, "clase":-1},
+        {"x":4.0, "y":1.2, "clase":-1}
+    ];
+    //
+    var epocas=600 //con 5000 epocas hace una buena prediccion
+    //
+    // Crear el modelo
+    const model = tf.sequential();
+    model.add(tf.layers.dense({
+        inputShape: [2], // Dos entradas (x1, x2)
+        units: 1,        // Una salida
+        activation: 'sigmoid' // Activación sigmoide para clasificación binaria
+    }));
+
+    // Compilar el modelo
+    model.compile({
+        optimizer: tf.train.adam(),
+        loss: 'binaryCrossentropy',
+        metrics: ['accuracy']
+    });
+    
+    // Entrenar el modelo
+    async function trainModel() {
+        let avance=0
+        let trainingData = tf.tensor2d(getEntradas());
+        let outputData = tf.tensor2d(getSalidas());
+        const result = await model.fit(trainingData, outputData, {
+            epochs: epocas, // Número de iteraciones
+            shuffle: true,
+            callbacks: {
+                onEpochEnd:()=>{
+                    avance=avance>=epocas?epocas:avance+1
+                    document.getElementById("avance").value=avance;
+                    console.log("avance:",avance)
+                }
+            }
+        });
+        document.getElementById('output').innerText = 
+            `Entrenamiento completado. Precisión: ${result.history.acc[result.history.acc.length - 1]}
+            
+            Salida:
+        `;
+    }
+
+    // Predecir con el modelo entrenado
+    async function predict() {
+        const entradas = getEntradas();
+        const salidas = getSalidas()
+        let salidaT=''
+        entradas.forEach((elem, index) => {
+            const prediction = model.predict(tf.tensor2d([entradas[index]]));
+            
+            prediction.data().then(data => {
+                const x1=entradas[index][0]
+                const x2=entradas[index][1]
+                
+                salidaT=`
+                    <tr>
+                        <td>${x1}</td>
+                        <td>${x2}</td>
+                        <td>${data[0].toFixed(2)}</td>
+                        <td>${data[0]<0.5?0:1}</td>
+                        <td>${salidas[index]}</td>
+                    </tr>
+                `
+                document.getElementById("datosTabla").innerHTML+=salidaT
+            })
+        });
+    }
+
+    function getEntradas(){
+        return puntos.map(item=>[item.x, item.y]);
+    }
+
+    function getSalidas(){
+        return puntos.map(item=>[item.clase==-1?0:1]);
+    }
+
+
+    function grafica(){
+        //obtenemos el canvas donde se garficará
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
+        let puntos_x=puntos.map(item=>item.x);
+        let puntos_y=puntos.map(item=>item.y);
+        let graficas=new clsGraficas(ctx, puntos_x, puntos_y);
+        graficas.grafica()
+    }
+    
+    window.onload = async function(){
+        //sincronizamos las epocas con el atributo mas del control progress
+        document.querySelector("#avance").max=epocas
+        grafica()
+        await trainModel()
+        await predict()
+    };
+</script>
+</html>

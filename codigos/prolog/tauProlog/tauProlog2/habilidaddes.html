@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<script src="tau-prolog.js"></script>
+</head>
+<body>
+	<pre>
+		Ejemplo de Base de Conocimiento en Tau-Prolog/jflores<br>
+		Base de conocimiento de <strong>habilidades de personal para promoción y asignación de proyectos.</strong>
+	</pre>
+	<div style="height:200px;width:400px;overflow:scroll;border:solid 2px blue;">
+		
+		Para esta <strong>BC</strong> tenemos los siguiente hechos y reglas obtenidas del experto.<br><br>
+		<strong>Los hechos son los siguientes, los programadores tienen las certificaciones:</strong><br>
+		<ul>
+			<li>ana en c,html y metodologia</li>
+			<li>juan en java</li>
+			<li>luis en metodologia</li>
+			<li>pedro en sql y mysql</li>
+			<li>angel en sql</li>
+			<li>ana tiene 5 proyectos exitosos</li>
+			<li>ana tiene 4 proyectos no exitosos</Li>
+		</ul>
+
+		<br>
+		<strong>Las reglas son las siguientes, el programador:</strong><br>
+		<ul>
+			<li>Puede ascender a programador senior si tiene 2 certificaciones</li>
+			<li>Puede ser lider de proyecto si es programador senior y esta certificado en metodologia</li>
+			<li>Puede ascender a programador junior si tiene alguna certificacion</li>
+			<li>Puede ser administrador de sql si esta certificado en sql y mysql</li>
+			<li>Se le puede dar un proyecto critico si es o ha sido lider de proyecto y tiene mas proyectos exitosos que no exitosos</li>
+		</ul>
+
+	</div>
+	<p>La base de conocimiento en <strong>Tau-Prolog</strong> es:</p>
+	<div id="divBC" style="height:200px;width:400px;overflow:scroll;border:solid 2px orange;">
+
+	</div>
+	<p>
+		Consultas a la <strong>BC</strong>, seleccione en los combos, el nombre del programador y <br>
+		la habilidad requerida para ver si el programador seleccionado  la posee:
+	</p>
+	<div style="height:200px;width:700px;overflow:scroll;border:solid 2px green;"> 
+		 ¿Tiene 
+		<select id="empleado">
+			<option value="ana">ana</option>
+			<option value="juan" selected>juan</option>
+			<option value="luis">luis</option>
+			<option value="pedro">pedro</option>
+			<option value="angel">angel</option>
+		</select>
+		las habilidades para ser ser?:
+		<select id="sel_categoria">
+			<option value='junior'>programador junior</option>
+			<option value='senior'>programador senior</option>
+			<option value='lider'>lider de proyecto</option>
+			<option value='admin'>administrador de sql</option>
+		</select>
+	
+		<input type="button" id="busca" value="consultar Base" onclick="consulta()"/>
+		<p id="respuesta"></p>
+		<p id="respuesta2"></p>
+		<div>¿Se le puede dar un proyecto crítico?:
+			<input type="button" id="btn_critico" value="consultar Base" onclick="consulta_critico()"/>
+		</div>
+	</div>
+	<script id="habilidades.pl" type="text/prolog">
+		certificado(ana,c).
+		certificado(juan,java).
+		certificado(ana,html).
+		certificado(ana,metodologia).
+		certificado(luis,metodologia).
+		certificado(pedro,sql).
+		certificado(pedro,mysql).
+		certificado(angel,sql).
+		senior(X):-certificado(X,Y),certificado(X,Z), Y\=Z. 
+		lider(X):-senior(X),certificado(X,metodologia).
+		junior(X):-certificado(X,Y).
+		adminsql(X):-certificado(X,sql),certificado(X,mysql).
+		pr_exitosos(ana,5).
+		pr_no_exitosos(ana,4).
+		dar_pr_critico(X):-lider(X),pr_exitosos(X,Y),pr_no_exitosos(X,Z),(Y>Z).
+	</script>
+	<script>
+		function buscar(pregunta,p,mensaje){
+			var session = pl.create();
+			session.consult("habilidades.pl");
+			
+			session.query(pregunta);
+			var callback = function( answer ) { 
+				let r=pl.format_answer( answer );
+				console.log( "respuesta: "+ r);
+				if(r.substring(0,4)=='true'){
+					document.getElementById("respuesta").innerHTML=p+" SI tiene las habilidades "+mensaje;				
+				}else{
+					document.getElementById("respuesta").innerHTML=p+" NO tiene las habilidades "+mensaje;			
+				}
+			};
+			session.answer(callback);
+		}
+		function consulta(){
+			let puede_ser=document.getElementById("sel_categoria").value;
+			var p=document.getElementById("empleado").value;
+			if(p.length>0){
+				let pregunta="";
+				if(puede_ser=='junior'){
+					pregunta="junior("+p+")";
+				}else if(puede_ser=='senior'){
+					pregunta="senior("+p+")";
+				}else if(puede_ser=='lider'){
+					pregunta="lider("+p+")";
+				}else if(puede_ser=='admin'){
+					pregunta="adminsql("+p+")";
+				}
+				pregunta+='.';
+				console.log(pregunta,p);
+                respuesta=buscar(pregunta,p," para ser "+puede_ser);
+			}else{
+				document.getElementById("respuesta").innerHTML="debe escribir un nombre";
+			}
+		}
+		function consulta_critico(){
+			var p=document.getElementById("empleado").value;
+			if(p.length>0){
+				let pregunta="dar_pr_critico("+p+")"+'.';
+				console.log(pregunta);
+				respuesta=buscar(pregunta,p,"para dirigir un proyeto critico");
+				
+			}else{
+				document.getElementById("respuesta2").innerHTML="debe escribir un nombre";
+			}
+		}
+		window.onload=function(){
+			let bc=document.getElementById("habilidades.pl").innerText;
+			document.getElementById("divBC").innerText=bc;
+		};
+	</script>
+</body>
+</html>

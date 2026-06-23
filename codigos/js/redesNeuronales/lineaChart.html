@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráfica de una Recta con Chart.js</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<h2>Gráfica de una Recta: y = 2x + 1</h2>
+<canvas id="miGrafica" width="400" height="200"></canvas>
+
+<script>
+    // Definir la ecuación de la recta: y = mx + b
+    const m = 2; // Pendiente
+    const b = 1; // Intersección con el eje Y
+
+    // Generar puntos para la recta
+    const labels = [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5]; // Valores de x
+    const data = labels.map(x => m * x + b); // Calcular y para cada x
+
+    // Configuración de la gráfica
+    const config = {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: `y = ${m}x + ${b}`,
+                data: data,
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0 // Línea recta (sin suavizado)
+            }]
+        },
+        options: {
+            scales: {
+                x: {
+                    type: 'linear',
+                    position: 'bottom'
+                },
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    };
+
+    // Crear la gráfica
+    const ctx = document.getElementById('miGrafica').getContext('2d');
+    new Chart(ctx, config);
+</script>
+
+</body>
+</html>

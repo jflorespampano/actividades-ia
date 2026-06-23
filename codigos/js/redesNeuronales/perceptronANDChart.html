@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perceptron And</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        #grafica{
+            padding: 10px;
+            float: left;
+            width: 600px;
+            height: 400px;
+            border: solid 1px;
+        }
+        #divTabla{
+            width: 200px;
+            padding: 10px;
+            border: solid 1px;
+            float: left;
+        }
+        canvas{
+            width:"200";
+            height:"600";
+        }
+        /**/
+        table {
+            width: 30%;
+            border-collapse: collapse; /* Une los bordes de las celdas */
+        }
+        th, td {
+            border: 1px solid black; /* Líneas de separación entre celdas */
+            padding: 4px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2; /* Color de fondo para las celdas de encabezado */
+        }
+    </style>
+</head>
+<body>
+
+<h2>Perceptron para las salidas de And graficadas con Chart.js</h2>
+<div>
+    <div id="grafica">
+        <canvas id="miGrafica"></canvas>
+    </div>
+    <div id="divTabla">
+        <table>
+            <thead>
+                <tr>
+                    <th>a</th>
+                    <th>b</th>
+                    <th>Clase</th>
+                    <th>Color</th>
+    
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>rojo</td>
+                </tr>
+                <tr>
+                    <td>0</td>
+                    <td>1</td>
+                    <td>0</td>
+                    <td>rojo</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>rojo</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>azul</td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <label id="salida" for="">Salida</label>
+    </div>
+</div>
+
+<script>
+    //Perceptron
+    function entrena(){
+        // Datos de entrenamiento (X) y etiquetas (y)
+        const X = [[0, 0], [0, 1], [1, 0], [1, 1]];
+        const y = [0, 0, 0, 1];
+
+        // Inicialización de pesos y bias
+        let w = [Math.random(), Math.random()];
+        let b = Math.random(); //bias (b) o sesgo equivale a w3
+        const eta = 0.1; // Tasa de aprendizaje
+
+        // Función de propagación hacia adelante
+        const forward = (x) => {
+        const sum = w[0] * x[0] + w[1] * x[1] + b;
+        return sum > 0 ? 1 : 0;
+        };
+
+        // Entrenamiento
+        for (let epoch = 0; epoch < 100; epoch++) { // Número de iteraciones
+            for (let i = 0; i < X.length; i++) {
+                const y_pred = forward(X[i]);
+                const e = y[i] - y_pred;
+                w[0] = w[0] + eta * e * X[i][0];
+                w[1] = w[1] + eta * e * X[i][1];
+                b = b + eta * e;
+            }
+        }
+
+        console.log("Pesos ajustados:", w);
+        console.log("Bias ajustado:", b);
+
+        var s=document.getElementById("salida")
+        s.innerText=`
+        Los parametros de la recta que divide la los puntos de la clase 0 con los de la clase 1 es
+
+        w0=${b}
+        w1=${w[0]}
+        w2=${w[1]}
+        `
+        return ({w0:b,w1:w[0],w2:w[1]})
+    }
+
+    //entrena
+    var {w0,w1,w2}=entrena()
+    console.log("Respuesta:",{w0,w1,w2})
+    // Generar puntos para la recta
+    //w0+w1x1+w2x2
+    //-w2x2=w0+w1x1
+    //x2=(w0+w1x1)/-w2
+    var m = w1; // Pendiente
+    var b = w0; // Intersección con el eje Y
+    var labels = [0.5, 0.8, 1, 1.2, 1.5]; // Valores de x
+    const data = labels.map(x => (w0+w1*x)/w2*-1); // Calcular y para cada x
+    console.log(`funcion de la recta: (${w0}+${w1}*x)/${w2}*-1)`,data)
+    console.log(`{(${labels[0]},${data[0]}),(${labels[1]},${data[1]})}`)
+    const dataLine = [
+        {x:labels[0],y:data[0]},
+        {x:labels[1],y:data[1]},
+        {x:labels[2],y:data[2]},
+        {x:labels[3],y:data[3]},
+        {x:labels[4],y:data[4]}
+    ]
+    // Configuración del gráfico
+    const config = {
+        type: 'scatter', // Tipo de gráfico (dispersión)
+        data: {
+            datasets: [{
+                label: 'Salidas 0',
+                data: [
+                    { x: 0, y: 0 },
+                    { x: 0, y: 1 },
+                    { x: 1, y: 0 }
+                ], // Coordenadas del punto
+                backgroundColor: 'red', // Color del punto
+                pointRadius: 5 // Tamaño del punto
+            },
+            {
+                label: 'Salidas 1',
+                data: [
+                    { x: 1, y: 1 }
+                ], // Coordenadas del punto
+                backgroundColor: 'blue', // Color del punto
+                pointRadius: 5 // Tamaño del punto
+            },
+            {
+                label: `recta`,
+                data: dataLine,
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0 // Línea recta (sin suavizado)
+            }]
+        },
+        options: {
+            scales: {
+                x: {
+                    type: 'linear',
+                    position: 'bottom',
+                    min: -1, // Límite mínimo del eje X
+                    max: 2  // Límite máximo del eje X
+                },
+                y: {
+                    min: -1, // Límite mínimo del eje Y
+                    max: 2  // Límite máximo del eje Y
+                }
+            }
+        }
+    };
+
+    // Crear la gráfica
+    const ctx = document.getElementById('miGrafica').getContext('2d');
+    new Chart(ctx, config);
+
+    
+</script>
+
+</body>
+</html>

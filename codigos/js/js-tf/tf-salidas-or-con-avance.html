@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Red Neuronal OR con TensorFlow.js</title>
+    
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    
+</head>
+<body>
+    <div class="w3-row w3-container w3-padding">
+        <h2 class="w3-teal">Entrenamiento de la Red Neuronal</h2>
+        <p>Esta red neuronal simple tiene como objetivo aprender la función OR.</p>
+        <button id="trainButton" class="w3-button w3-blue">Entrenar Red</button>
+        <input type="number" name="epocas" id="epocas" value="100">
+        <div id="barraAvance" style="display:none;">
+            <label id="lbl_espera" for="avance">Entrenando la red esto puede tardar unos segundos ...</label>
+            <progress id="avance" max="500" value="0"> 0% </progress><br>
+        </div>
+    </div>
+    
+    <div class="w3-row w3-container">
+        <div class="w3-col l7 w3-container w3-padding">
+            <div class="w3-padding" id="mi_grafica">
+                
+            </div>
+        </div>
+        <div class="w3-col l3 w3-container">
+            <p id="output"></p> 
+        </div>
+    </div>
+
+    <script>
+        var epocas=500
+        // Datos de entrada (x1, x2) y salidas esperadas (OR)
+        const trainingData = tf.tensor2d([
+            [0, 0],
+            [0, 1],
+            [1, 0],
+            [1, 1]
+        ]);
+        const outputData = tf.tensor2d([
+            [0],
+            [1],
+            [1],
+            [1]
+        ]);
+
+        // Crear el modelo
+        const model = tf.sequential();
+        model.add(tf.layers.dense({
+            inputShape: [2], // Dos entradas (x1, x2)
+            units: 1,        // Una salida
+            activation: 'sigmoid' // Activación sigmoide para clasificación binaria
+        }));
+
+        // Compilar el modelo
+        model.compile({
+            optimizer: tf.train.adam(),
+            loss: 'binaryCrossentropy',
+            metrics: ['accuracy']
+        });
+
+        // Entrenar el modelo
+        async function trainModel() {
+            let avance=0
+            const result = await model.fit(trainingData, outputData, {
+                epochs: epocas, // Número de iteraciones
+                shuffle: true,
+                callbacks: {
+                    onEpochEnd:()=>{
+                        avance=avance>=epocas?epocas:avance+1
+                        document.getElementById("avance").value=avance;
+                        console.log("avance:",avance)
+                    }
+                }
+            });
+            document.getElementById('output').innerText = 
+                `Entrenamiento completado. Precisión: ${result.history.acc[result.history.acc.length - 1]}
+                
+                Salida:
+            `;
+        }
+
+        // Predecir con el modelo entrenado
+        async function predictOR() {
+            const entradas = [
+                [0, 0],
+                [0, 1],
+                [1, 0],
+                [1, 1]
+            ]
+            // const prediction = model.predict(tf.tensor2d([[1, 0]]));
+            // const prediction = model.predict(tf.tensor2d([entradas[2]]));
+            // prediction.print(); // Imprime la salida para [1, 0]
+            let salida=''
+            entradas.forEach((elem, index) => {
+                const prediction = model.predict(tf.tensor2d([entradas[index]]));
+                // prediction.print(); // Imprime la salida para [1, 0]
+                // console.log("entrada:",`[${entradas[index][0]},${entradas[index][1]}] : 0`)
+                
+                prediction.data().then(data => {
+                    const x1=entradas[index][0]?' 1':'-1'
+                    const x2=entradas[index][1]?' 1':'-1'
+                    // console.log("salida:",`[${x1},${x2}]`,":",data[0])
+                    salida = `[${x1},${x2}] : ` + data[0].toFixed(2);
+                    document.getElementById('output').innerText += `
+                    ${salida}`
+                })
+            });
+            
+        }
+
+        // Asignar evento al botón
+        document.getElementById('trainButton').addEventListener('click', async () => {
+            epocas=document.querySelector("#epocas").value
+            document.querySelector("#avance").max=epocas
+            console.log("max:",document.querySelector("#avance").max)
+            console.log("epocas:",epocas)
+
+            document.querySelector("#barraAvance").style.display="block";
+            await trainModel();
+            document.querySelector("#lbl_espera").innerText="Red entrenada"
+            predictOR()
+            
+        });
+
+        
+        window.onload=function(){
+
+        }
+    </script>
+</body>
+</html>

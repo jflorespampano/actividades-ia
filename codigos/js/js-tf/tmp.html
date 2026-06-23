@@ -1,0 +1,30 @@
+<div id="principal">
+    <div id="div_imagen">
+        <canvas id="canvas" width="400" height="300"></canvas>
+    </div>
+    <div id="div_trabajo">
+        
+        <!--       -->
+        <div id="mi_div">
+            <label for='miId'>dame indice del punto a verificar</label>
+            <input type='number' id='indice' placeholder='ind'><br>
+            <p id="salida"></p>
+            <input type="button" id="verifica_punto" class="boton" value="verifica punto" disabled="true"><br>
+            <br>
+                
+            <div style="overflow:scroll;height:400px;width:250px;">
+                 <table id="customers">
+                    <caption>Datos</caption>
+                    <thead>
+                        <tr>
+                            <td>ind</td><td>x</td><td>y</td>
+                            <td>clase</td><td>pred</td>
+                        </tr>
+                    </thead>
+                    <tbody id="datos_tabla">   
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

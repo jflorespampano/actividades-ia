@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Red Neuronal en JavaScript</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.0.0/dist/tf.min.js"></script>
+</head>
+<body>
+  <script>
+    // Crear el modelo
+    const model = tf.sequential();
+
+    // Capa oculta: 10 neuronas, activación ReLU, 4 entradas
+    model.add(tf.layers.dense({
+      units: 10,
+      inputShape: [4],
+      activation: 'relu'
+    }));
+
+    // Capa de salida: 3 neuronas, activación softmax
+    model.add(tf.layers.dense({
+      units: 3,
+      activation: 'softmax'
+    }));
+
+    // Compilar el modelo
+    model.compile({
+      optimizer: 'adam',
+      loss: 'categoricalCrossentropy',
+      metrics: ['accuracy']
+    });
+
+    // Datos de ejemplo (4 entradas, 100 muestras)
+    const X = tf.randomNormal([100, 4]); // 100 muestras, 4 características
+    const y = tf.tensor2d(
+      Array.from({ length: 100 }, () => {
+        const label = Math.floor(Math.random() * 3); // Etiquetas aleatorias (0, 1, 2)
+        return [label === 0 ? 1 : 0, label === 1 ? 1 : 0, label === 2 ? 1 : 0]; // One-hot encoding
+      }),
+      [100, 3]
+    );
+
+    // Entrenar el modelo
+    async function trainModel() {
+      await model.fit(X, y, {
+        epochs: 10,
+        batchSize: 10,
+        callbacks: {
+          onEpochEnd: (epoch, logs) => {
+            console.log(`Época ${epoch + 1}: Pérdida = ${logs.loss.toFixed(4)}, Precisión = ${logs.acc.toFixed(4)}`);
+          }
+        }
+      });
+    }
+
+    // Ejecutar el entrenamiento
+    trainModel();
+  </script>
+</body>
+</html>

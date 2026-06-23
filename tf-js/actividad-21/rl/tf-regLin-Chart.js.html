@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-vis"></script> -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/5/w3.css">
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div id="mi-div" class="w3-container w3-teal w3-padding-16">
+        red neuronal para regresión líneal, entrenada con los datos azules
+        <br>los puntos rojos son las predicciones del modelo
+    </div>
+    <div class="w3-container" >
+        <!-- <canvas id="myChart" style="width: 200px; height: 100px;"></canvas> -->
+        <canvas id="myChart"></canvas>
+    </div>
+</body>
+<script>
+    function grafica(xs, ys, xpredict, ypredict){
+        // Convertir tensores a arrays para Chart.js
+        const xData = xs.dataSync();
+        const yData = ys.dataSync();
+        // Formatear datos en puntos x,y para scatter chart
+        const dataPoints = [];
+        for (let i = 0; i < xData.length; i++) {
+            dataPoints.push({
+                x: xData[i],
+                y: yData[i]
+            });
+        }
+        //
+        const xData2 = xpredict.dataSync();
+        const yData2 = ypredict.dataSync();
+        // Formatear datos de prediccion en puntos x,y para scatter chart
+        const dataPoints2 = [];
+        for (let i = 0; i < xData2.length; i++) {
+            dataPoints2.push({
+                x: xData2[i],
+                y: yData2[i]
+            });
+        }
+
+
+        // Obtener una referencia al elemento canvas
+        const canvas = document.getElementById('myChart');
+        // Cambiar las propiedades de width y height
+        canvas.width = 200;
+        canvas.height = 100;
+
+        // Get the canvas context
+        const ctx = document.getElementById('myChart').getContext('2d');
+        
+        // Create the chart
+        new Chart(ctx, {
+            type: 'scatter', // Use scatter chart type
+            data: {
+                datasets: [{
+                    label: 'Tensor Data',
+                    data: dataPoints,
+                    backgroundColor: 'rgba(54, 162, 235, 0.8)', // Blue color for points
+                    pointRadius: 5,
+                }
+                , {
+                    label: 'Prediction',
+                    data: dataPoints2,
+                    backgroundColor: 'rgba(255, 99, 132, 0.8)', // Red color for prediction
+                    pointRadius: 7,
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        type: 'linear',
+                        position: 'bottom',
+                        title: {
+                            display: true,
+                            text: 'X Values'
+                        }
+                    },
+                    y: {
+                        type: 'linear',
+                        title: {
+                            display: true,
+                            text: 'Y Values'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Dispose tensors to free memory (good practice)
+        // xs.dispose();
+        // ys.dispose();
+        return ctx
+    }
+    
+
+    async function entrena(){
+        // Create a simple model.
+        const model = tf.sequential();
+        model.add(tf.layers.dense({units: 1, inputShape: [1]}));
+    
+        // Prepare the model for training: Specify the loss and the optimizer.
+        model.compile({loss: 'meanSquaredError', optimizer: 'sgd'});
+    
+        // Generate some synthetic data for training. (y = 2x - 1)
+        const xs = tf.tensor2d([-1, 0, 1, 2, 3, 4], [6, 1]);
+        const ys = tf.tensor2d([-3, -1, 1, 3, 5, 7], [6, 1]);
+        
+        //grafica(xs, ys)
+
+        // Train the model using the data.
+        await model.fit(xs, ys, {epochs: 250});
+        return {model, xs, ys}
+    }
+
+    function predice(model,xs,ys){
+        // usaar el modelo para inferir datos
+        const predictValues = [1.2, 3.5, 2.4];
+        const res= model.predict(tf.tensor2d(predictValues, [predictValues.length, 1])).dataSync();
+
+        const xpredict = tf.tensor2d(predictValues, [predictValues.length, 1]);
+        const ypredict = tf.tensor2d(res, [predictValues.length, 1]);
+        tf.print(ypredict);
+        grafica(xs, ys, xpredict, ypredict)
+    }
+
+    entrena()
+        .then(({model,xs,ys}) => predice(model,xs,ys));
+
+
+</script>
+</html>

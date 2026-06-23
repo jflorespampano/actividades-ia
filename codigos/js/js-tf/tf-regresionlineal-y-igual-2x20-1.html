@@ -1,0 +1,47 @@
+<html>
+
+<head></head>
+
+<body>
+    <div id="output_field"></div>
+</body>
+<!--script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"> </script-->
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.11.2"></script>
+<script>
+    //https://www.youtube.com/watch?v=ZMkYL942RBw
+    //https://github.com/tensorflow/tfjs
+    //creamos la función learnlinear asincrona
+    //Usaremos una regresion lieneal para la recta y=2x-1,
+    //alimentamos algunos datos que caen el la recta:
+    //(x,y)=(-1,-3), (0,-1), (1,1),(2,3) etcetera
+    //entrenamos el modelo con esos datos
+    //predecimos el valor de la etiqueta para el dato 20
+    //que debería ser 39
+    async function learnLinear() {
+        //usamos modelo secuencial, las salidas de una capa son las entradas de la siguiente
+        const model = tf.sequential();
+        //agregamos una capa densa
+        model.add(tf.layers.dense({ units: 1, inputShape: [1] }));
+
+        model.compile({
+            loss: 'meanSquaredError',
+            optimizer: 'sgd'
+        });
+        //para los puntos (x,y)=(-1,-3), (0,-1), (1,1),(2,3) etcetera
+        //creamos 2 tensores uno para las x otra para las y
+        const xs = tf.tensor2d([-1, 0, 1, 2, 5, 9], [6, 1]); //arreglo, 6 filas 1 columna
+        const ys = tf.tensor2d([-3, -1, 1, 3, 9, 17], [6, 1]);
+
+        await model.fit(xs, ys, { epochs: 900 });
+        //para este ejemplo y=2x-1
+        //busquemos la prediccion de 20, sera y=2*20-1 = 39
+        //mostramos en output_field la prediccion para 20
+        document.getElementById('output_field').innerText =
+            model.predict(tf.tensor2d([2], [1, 1]));
+    }
+
+    learnLinear();
+
+</script>
+
+</html>

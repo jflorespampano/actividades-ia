@@ -1,0 +1,12 @@
+{
+  "name": "cardiac",
+  "version": "1.0.0",
+  "description": "Crear una red neuronal multicapa y entrenarla para un conjunto de datos dado.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node procesarDatos.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

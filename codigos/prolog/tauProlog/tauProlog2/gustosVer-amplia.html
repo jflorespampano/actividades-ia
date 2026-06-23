@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ES-mx">
+<head>
+    <meta charset="UTF-8">
+    <title>gustos</title>
+    <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+    <script src="tau-prolog.js"></script>
+</head>
+<body>
+    <!--ejemplo de uso de la biblioteca tau prolog, para revisar los gustos de personas-->
+    <div class="w3-container">
+        <div class="w3-content" style="max-width:700px">
+            <div class="w3-panel w3-leftbar w3-light-grey">
+                  <div class="w3-container w3-pale-green">
+                      <h2>Gustos</h2>
+                  </div>
+                  <div name="div_gustos" class="w3-container">
+                    <!-- el textarea Program, contiene la base de conocimiento (BC) -->
+                    <textarea class="example-textinput example-program" id="program" rows="4" cols="50">
+                        bebida(tequila).
+                        bebida(ron).
+                        fruta(manzana).
+                        fruta(pera).
+                        comida(ensalada).
+                        le_gusta_a(ana, ensalada).
+                        le_gusta_a(pepe, pastel).
+                        le_gusta_a(ana, manzana).
+                        le_gusta_a(pepe, tequila).
+                        le_gusta_a(luis, ron).
+                        le_gusta_a(luis, pera).
+                        le_gusta_a(ana, tequila).
+                        le_gusta_a(ana, pera).
+                        le_gusta_fruta_a(X,Y):-le_gusta_a(X,Y),fruta(Y).
+                    </textarea>
+                    <p>
+                        <!--El nombre de la persona de la que biscaremos sus gustos, si se deja en blanco buscara todos los gustos de todas las personas-->
+                        <input class="example-textinput example-goal" type="text" id="name" onKeyup="changeName();" value="" placeholder="Enter a name" />
+                        <!--tiene el evento onkeyup que lo que hace es poner el nombre de la persona en el nombre del boton, cuando se modifica el text-->
+                    </p>
+                    <p><!-- Botones -->
+                        <input class="w3-btn w3-green" type="button" value="ver todos los gustos" id="button" onClick="buscarGustos();" />
+                        <input class="w3-btn w3-green" type="button" value="Que frutas le gustan a" id="button2" onClick="buscarFrutasQueGustaA();" />
+                    </p>
+                    <!-- respuestas -->
+                    <div class="example-result" id="result"></div>
+                  </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+<script>
+/** gustos */
+
+// funcion Callback
+function show(name) {
+	// Obtiene el contenedor donde se pondra la respuesta
+	var result = document.getElementById("result");
+	// a continuacion show() devuelve una funcion que sera nuestra funcion callback
+    // revise en la documentacion de JS que una funcion puede devolver otra funcion como resultado
+	return function(answer) {
+		// Valid answer
+		if(pl.type.is_substitution(answer)) {
+			// obtenemos lo que le gusta a
+			var food = answer.lookup("X");
+			// obtenemos la person
+			var person = name != "Y" ? name : answer.lookup("Y");
+			// mostramos respuesta
+			result.innerHTML = result.innerHTML + "<div> A " + person + " le gusta " + food + "</div>";
+		}
+	};
+}
+
+// muestra los gustos de una persona
+function gustos(name) {
+	// Crea session
+	var session = pl.create(1000);
+	// trae BC program
+	var program = document.getElementById("program").value;
+	// Limpia salida
+	document.getElementById("result").innerHTML = "";
+	// Consulta la BC program
+	session.consult(program);
+	// Query goal (objetivo de consulta)
+	session.query("le_gusta_a(" + name + ", X).");
+	// buscar respuestas (answers)
+	session.answers(show(name), 1000);
+}
+
+/** Eventos */
+
+// onClick #button
+function buscarGustos() {
+	// obtiene  persona
+	var name = document.getElementById("name").value;
+	name = name != "" ? name : "Y";
+	// obtiene gustos 
+	gustos(name);
+}
+
+function muestra(name) {
+	// Obtenemos el contenedor de la salida
+	var result = document.getElementById("result");
+	// devolvemos la funcion callback
+	return function(answer) {
+		// Validamos la respuesta(answer)
+		if(pl.type.is_substitution(answer)) {
+			// obtenemos el valor de la fruta
+			var food = answer.lookup("X");
+			// obtenemos la persona
+			var person = name != "Y" ? name : answer.lookup("Y");
+			// mostramos respuesta
+			result.innerHTML = result.innerHTML + "<div> A " + person + " le gusta " + food + "</div>";
+		}
+	};
+}
+
+function buscarFrutasQueGustaA(){
+    // obtiene  persona
+	var name = document.getElementById("name").value;
+	name = name != "" ? name : "Y";
+	// obtiene gustos 
+    // Crea session
+    var session = pl.create(1000);
+	// trae BC program
+	var program = document.getElementById("program").value;
+	// Limpia salida
+	document.getElementById("result").innerHTML = "";
+	// Consulta program
+	session.consult(program);
+	// Query goal (objetivo de consulta)
+    console.log("le_gusta_fruta_a(" + name + ",X).");
+	session.query("le_gusta_fruta_a(" + name + ",X).");
+	// buscar respuestas () answers)
+	session.answers(muestra(name), 1000);
+}
+// onChange #name
+function changeName() {
+	var name = document.getElementById("name").value;
+	document.getElementById("button").value = name != "" ? "A " + name  + " que le gusta?" : "Ver todos sus gustos";
+	document.getElementById("button2").value = name != "" ? "Que frutas le gustan a  " + name  + "?" : "Ver todos a los ue les gusta fruta";
+}
+
+changeName();
+</script>
+</html>

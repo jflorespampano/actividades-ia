@@ -1,0 +1,25 @@
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.13.0"> </script>
+<script>
+    //crea tensor de rango 2 (matriz) desde un arreglo multidimensional
+    const a=tf.tensor([[1, 2], [3, 4]]);
+    a.print();
+    //o puede crear el tensor desde un arreglo plano y especificar el shape
+    const shape = [2, 2];
+    const b = tf.tensor([1, 2, 3, 4], shape);
+    console.log('shape:', b.shape);
+    b.print();
+    //
+    const a2 = tf.tensor([[1, 2], [3, 4]], [2, 2], 'int32');
+    console.log('shape:', a2.shape);
+    console.log('dtype', a2.dtype);
+    a2.print();
+    //reshape
+    const a3 = tf.tensor([[1, 2], [3, 4]]);
+    console.log('a3 shape:', a3.shape);
+    a3.print();
+
+    const b3 = a3.reshape([4, 1]);
+    console.log('b3 shape:', b3.shape);
+    b.print();
+    
+</script>

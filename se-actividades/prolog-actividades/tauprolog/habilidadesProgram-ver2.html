@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<script src="tau-prolog.js"></script>
+</head>
+<body>
+	<p>Base de conocimiento de habilidades de personal para promoción;</p>
+	<p>Tiene </p>
+	<select id="empleado">
+		<option value="ana">ana</option>
+		<option value="juan" selected>juan</option>
+		<option value="luis">luis</option>
+		<option value="pedro">pedro</option>
+		<option value="angel">angel</option>
+	</select>
+	<p>las habilidades para ser ser?:</p>
+	<select id="sel_categoria">
+		<option value='junior'>programador junior</option>
+		<option value='senior'>programador senior</option>
+		<option value='lider'>lider de proyecto</option>
+		<option value='admin'>administrador de sql</option>
+	</select>
+	<input type="button" id="busca" value="consultar Base" onclick="consulta()"/>
+	<p id="respuesta"></p>
+	<p>Se le puede dar un proyecto crítico:</p>
+	<p id="respuesta2"></p>
+	<input type="button" id="btn_critico" value="consultar Base" onclick="consulta_critico()"/>
+	<script id="habilidades.pl" type="text/prolog">
+		certificado(ana,c).
+		certificado(juan,java).
+		certificado(ana,html).
+		certificado(ana,metodologia).
+		certificado(luis,metodologia).
+		certificado(pedro,sql).
+		certificado(pedro,mysql).
+		certificado(angel,sql).
+		/* es programador senior si tiene 2 certificados */
+		senior(X):-certificado(X,Y),certificado(X,Z), Y\=Z. /* \= significa not(Y==Z)*/
+		/* es lider de proyecto si es programador senior y tiene certificado de metodología */
+		lider(X):-senior(X),certificado(X,metodologia).
+		/* es prog junior si tiene un certificado */
+		junior(X):-certificado(X,Y).
+		/* es administrador de bd si tiene certificado de sql y mysql*/
+		adminsql(X):-certificado(X,sql),certificado(X,mysql).
+		/* ana tiene 5 proyectos exitosos */
+		pr_exitosos(ana,5).
+		pr_no_exitosos(ana,4).
+		/* puede llevar un proyecto critico si tiene mas proyectos exitosos que no exitosos */
+		dar_pr_critico(X):-lider(X),pr_exitosos(X,Y),pr_no_exitosos(X,Z),(Y>Z).
+	</script>
+	<script>
+		function buscar(pregunta,p){
+			var session = pl.create();
+			var parser=session.consult("habilidades.pl");
+			var respuesta=false;
+			if (parser==true){
+				session.query(pregunta);
+				var callback = function( answer ) { 
+					let r=pl.format_answer( answer );
+					console.log( "respuesta: "+ r);
+					if(r.substring(0,4)=='true'){
+						respuesta=true;
+					}else{
+						respuesta=false;
+					}
+				};
+				session.answer(callback);
+			}else{
+				console.log("anazlizador: error "+parser);
+				respuesta=false;
+			}
+			return respuesta;
+		}
+		function consulta(){
+			let puede_ser=document.getElementById("sel_categoria").value;
+			var p=document.getElementById("empleado").value;//document.getElementById("persona").value;
+			if(p.length>0){
+				let pregunta="";
+				if(puede_ser=='junior'){
+					pregunta="junior("+p+")";
+				}else if(puede_ser=='senior'){
+					pregunta="senior("+p+")";
+				}else if(puede_ser=='lider'){
+					pregunta="lider("+p+")";
+				}else if(puede_ser=='admin'){
+					pregunta="adminsql("+p+")";
+				}
+				pregunta+='.';
+				console.log(pregunta,p);
+                r=respuesta=buscar(pregunta,p);
+                if (r){
+                    document.getElementById("respuesta").innerHTML=p+" si tiene las habilidades para ser "+puede_ser;
+                }else{
+                    document.getElementById("respuesta").innerHTML=p+" NO tiene las habilidades para ser "+puede_ser;
+                }
+				
+			}else{
+				document.getElementById("respuesta").innerHTML="debe escribir un nombre";
+			}
+		}
+		function consulta_critico(){
+			var p=document.getElementById("empleado").value;
+			if(p.length>0){
+				let pregunta="dar_pr_critico("+p+")"+'.';
+				console.log(pregunta);
+				r=respuesta=buscar(pregunta,p);
+				if (r){
+                    document.getElementById("respuesta2").innerHTML=p+" si tiene las habilidades para tener un proyecto critico";
+                }else{
+                    document.getElementById("respuesta2").innerHTML=p+" NO tiene las habilidades para tener un proyecto critico ";
+                }
+			}else{
+				document.getElementById("respuesta2").innerHTML="debe escribir un nombre";
+			}
+		}
+	</script>
+</body>
+</html>

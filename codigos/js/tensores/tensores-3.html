@@ -1,0 +1,22 @@
+<!--script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.13.0"> </script-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tensorflow/1.2.2/tf.js"> </script>
+
+<script> 
+    /*
+    const a = tf.tensor([[1, 2], [3, 4]]);
+    // devuelve un arreglo de valores multidimensional
+    a.array().then(array => console.log(array));
+    // devuelve  los datos planos del tensor.
+    a.data().then(data => console.log(data));
+    */
+    const x = tf.tensor([1, 2, 3, 4]);
+    const y = x.square();  // equivalent to tf.square(x)
+    y.print();
+
+    const a = tf.tensor([1, 2, 3, 4]);
+    const b = tf.tensor([10, 20, 30, 40]);
+    const y1 = a.add(b);  // equivalent to tf.add(a, b)
+    y1.print();
+    tf.memory();
+    console.log(tf.memory());
+</script>

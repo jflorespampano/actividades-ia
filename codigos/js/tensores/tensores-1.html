@@ -1,0 +1,72 @@
+<html>
+    <!--ref 1: https://js.tensorflow.org/tutorials/core-concepts.html-->
+  <head>
+    <!-- Load TensorFlow.js -->
+    <!--script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.13.0"> </script-->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.6.0/dist/tf.min.js"></script>
+
+    <!-- Place your code in the script tag below. You can also use an external .js file -->
+    <script>
+        //matriz de ceros 3 reng 5 columnas
+        console.log('tensor de ceros');
+        const zeros=tf.zeros([3, 5]);
+        zeros.print();
+        //
+        console.log('tensor de ceros');
+        print(zeros);
+        //tensor a partir de un arreglo de 2*3
+        const c = tf.tensor2d([[1.0, 2.0, 3.0], [10.0, 20.0, 30.0]]);
+        c.print();
+        //tensor de 4*2 a partir de un arreglo plano
+        const xs = tf.tensor2d([0, 0, 0, 1, 1, 0, 1, 1],[4, 2]);
+        xs.print();
+        //tensor de 4*1 a partir de un arreglo plano
+        const ys = tf.tensor2d([0, 1, 1, 0],[4, 1]);
+        ys.print();
+        //suma
+        console.log('suma');
+        // tensor_a = tf.tensor2d([[1,2]], dtype = tf.int32);
+        // tensor_b = tf.tensor2d([[3, 4]], dtype = tf.int32);
+        // tensor_add = tf.tensor2d([[0, 0]], dtype = tf.int32);
+        // tensor_add =tf.add(tensor_a, tensor_b);
+        // tensor_add.print();
+        // console.log('multiplicacion');
+        // tensor_c = tf.tensor2d([[1,2]], dtype = tf.int32);
+        // tensor_d = tf.tensor2d([[3], [4]], dtype = tf.int32);
+        // tensor_d.print();
+        const tensorA = tf.tensor([[1, 2], [3, 4], [5, 6]]);
+        const tensorB = tf.tensor([[1,-1], [2,-2], [3,-3]]);
+
+        // Tensor Addition
+        const tensorNew = tensorA.add(tensorB);
+        tensorNew.print();
+        
+
+        // Tensor Subtraction
+        const tensorR = tensorA.sub(tensorB);
+        tensorR.print();
+        //multiplicacion
+        const tensorM = tensorA.mul(tensorB);
+        tensorM.print();
+        //division
+        const tensorD = tensorA.div(tensorB);
+        tensorD.print();
+        //
+        const shape = [2, 2];
+        const b = tf.tensor([1, 2, 3, 4], shape);
+        console.log('shape:', b.shape);
+        b.print();
+        console.log('operaciones encadenadas');
+        const a = tf.tensor([[1, 2], [3, 4]]);
+        const y = tf.tidy(() => {
+          const result = a.square().log().neg();
+          return result;
+        });
+        y.print();
+
+    </script>
+  </head>
+
+  <body>
+  </body>
+</html>

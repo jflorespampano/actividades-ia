@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="tau-prolog.js"></script>
+</head>
+
+<body>
+
+    <textarea id="program" rows="4" cols="50" style="background-color:#879ecf">
+        gusta_a(luis, ensalada).
+        gusta_a(rosa, pastel).
+        gusta_a(luis, manzana).
+        gusta_a(rosa, pera).
+    </textarea>
+    <pre>
+        arriba se muestra la BC, haciendo clic en el botón
+        Busca los gustos de la persona que se indica en el inputText.
+        Si el inputText esta vacio se muestran los gustos de todas las
+        personas:
+
+    </pre>
+    <!-- Nombre del sujeto -->
+    <input type="text" id="name" onKeyup="changeName();" value="" placeholder="nombre" />
+
+    <!-- Button -->
+    <input type="button" value="ver que le gusta" id="button" onClick="prepararConsulta();" />
+
+    <!-- Resopuestas -->
+    <div class="example-result" id="result"></div>
+</body>
+<script type="text/javascript">
+
+
+    /***
+     * funcion gustos: mostrar los gustos de una persona
+     * @author jflores
+     * @param {string} name - nombre a buscar ('nombre' o variable Y)
+     */
+    function gustos(name) {
+        // Crear session
+        var session = pl.create(1000);
+        // ubicar la BC
+        var program = document.getElementById("program").value;
+        // Limpiar salida
+        document.getElementById("result").innerHTML = "";
+        // cargar la BC
+        session.consult(program);
+        //Preparar el objetivo de la consulta (Query goal)
+        //name trae el nombre de la persona o la variable Y
+        //para generar una consulta asi:
+        //gusta_a('ana',X).
+        //o asi:
+        //gusta_a(Y,X).
+        session.query("gusta_a(" + name + ", X).");
+        // Buscar respuestas
+        session.answers(function (answer) {
+            var result = document.getElementById("result");
+            // Validar respuesta
+            if (pl.type.is_substitution(answer)) {
+                // obtener el valor de la respuesta
+                var food = answer.lookup("X");
+                // obtener la persona
+                var person = name != "Y" ? name : answer.lookup("Y");
+                // mostrar respuesta
+                result.innerHTML = result.innerHTML + "<p> a " + person + " le gusta " + food + "</p>";
+                console.log(" le gusta " + food);
+            }
+        }, 1000);
+    }
+
+    /** eventos  */
+
+    /***
+     * funcion prepararConsulta
+     * accion: prepara consulta,pone en la variable name 
+     * el nombre dado por la persona y si el usuario
+     * dejo vacio el input name, pone la variable Y
+     * para poder crear la cosulta gusta_a('nombre') o gusta_a(Y).
+     * @author jflores
+     * 
+     */
+    function prepararConsulta() {
+        // Obtener la persona
+        var name = document.getElementById("name").value;
+        name = name != "" ? name : "Y";
+        // obtener gustos
+        gustos(name);
+    }
+
+    /***
+     * funcion changeName
+     * esta funcion es puramente de interfaz visual
+     * no tiene efecto en las consultas, solo sirve para visualizar
+     * en el botón el nombre que el usuario pone en el input
+     */
+    function changeName() {
+        var name = document.getElementById("name").value;
+        document.getElementById("button").value = "que le gusta a " + name;
+    }
+    //changeName();
+
+</script>
+
+</html>

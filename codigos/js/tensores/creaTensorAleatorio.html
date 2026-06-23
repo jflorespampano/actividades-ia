@@ -1,0 +1,20 @@
+<html>
+    <head></head>
+    <body>
+        <div id="output_field"></div>
+    </body>
+    <!--script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"> </script-->
+    <!--script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.11.2"></script-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tensorflow/1.2.2/tf.js"> </script>
+    <script>
+        window.onload=function(){
+            //crea un tensor de 10*7 con valores aleatorios
+            const data = tf.randomNormal([10, 7]);
+            data.print();
+            document.getElementById("output_field").innerText=data;
+        }
+        
+        
+
+    </script>
+</html>

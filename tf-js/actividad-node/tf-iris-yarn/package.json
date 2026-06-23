@@ -1,0 +1,17 @@
+{
+  "name": "tf-iris-yarn",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node irisClasificador.js",
+    "devvervose": "node irisClasificador.js --vervose"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    
+  }
+}

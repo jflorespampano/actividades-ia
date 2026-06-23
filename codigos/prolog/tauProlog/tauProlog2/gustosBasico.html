@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>Ejemplotau-prolog</title>
+	<script src="tau-prolog.js"></script>
+</head>
+<body>
+	<div id="divBC"></div>
+	<input type="text" id="persona" value="samuel"/>
+	<input type="button" id="busca" value="buscar gustos" onclick="buscar()"/>
+	<p id="respuesta">
+		Arriba se muestra una  Base de Conocimiento <br>
+		con un ejemplo de gustos de 2 personas samuel y daniel.<br>
+		Ponga el nombre de una persona en el input text y de clic 
+		en el boton.
+	</p>
+	<script id="gustos.pl" type="text/prolog">
+		le_gusta_a(samuel, ensalada).
+		le_gusta_a(daniel, pastel).
+		le_gusta_a(samuel, manzanas).
+		le_gusta_a(daniel, tequila).
+	</script>
+	<script>
+		//busca los gustos de samuel
+		function buscar(){
+			//crea el objeto principal
+			var session = pl.create();
+			//carga la base de conocimiento
+			session.consult("gustos.pl");
+			//crea la pregunta a partir de los controles html
+			let p=document.getElementById("persona").value;
+			let pregunta="le_gusta_a("+p+", X).";
+			//prepara nuestro elemento html id="respuesta" para la respuesta
+			let contenedor = document.getElementById("respuesta");
+			contenedor.innerHTML = "A samuel le gusta: "
+			//carga la pregunta
+			session.query(pregunta);
+			//declaramos la funcion callback, 
+			//el parametro answer traera la respuesta encontrada
+			//enviada por session.answer
+			let callback = function( answer ) { 
+				//si no devuelve false queda al menos una respuesta
+				//y llamamos recursivamente a callback
+				if(answer!==false){
+					console.log("aun hay datos");
+					session.answer(callback);
+				}
+				console.log("a "+p+" le gusta "+pl.format_answer( answer ) );
+				if(pl.type.is_substitution(answer)) {
+					// obtenemos el valor de la fruta
+					var food = answer.lookup("X");
+					//y la metemos en nuestro contenedor
+					contenedor.innerHTML = contenedor.innerHTML + food+", ";
+				}
+			}
+			//buscamos la respuesta a la pregunta formulada, enviandole la
+			//funcion callback que sera ejecutada cuando se encuentre una respuesta
+			session.answer(callback);
+			
+		}
+		window.onload=function(){
+			let bc=document.getElementById("gustos.pl").innerText;
+			document.getElementById("divBC").innerText=bc;
+		};
+	</script>
+</body>
+</html>
