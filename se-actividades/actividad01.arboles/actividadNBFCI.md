@@ -51,7 +51,7 @@ Rendimiento:
 * Regular (70-79 puntos)
 * Deficiente (≤ 69 puntos)
 
-Aplique Naive Bayes en lenguaje R, entrenelo con 80% de los datos y pruebe con los dems datos, haga su matriz de confusión.
+Aplique Naive Bayes en lenguaje R, entrenelo con 80% de los datos y pruebe con los demas datos, haga su matriz de confusión.
 
 ## Entregable
 
