@@ -10,6 +10,8 @@
 % Una regla que me indique cuantos ingredientes lleva un platillo
 % Una regla que me indique la lista de ingredientes de un platillo.
 %
+% \+ es el operador de negación como falla (negation as failure). 
+% En términos simples, \+ Objetivo es verdadero si el Objetivo no se puede probar, sustituye a not(Objetivo) en Prolog.
 
 % ***hechos***
 hay(limon).
