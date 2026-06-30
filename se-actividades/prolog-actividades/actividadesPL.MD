@@ -16,6 +16,71 @@ En la subcarpeta de esta carpeta `prolog-actividades/pdf` Revisa los archivos:
 
 ## Introducción
 
+### modus ponens
+
+```text
+P → Q    # condicional
+P        # hecho
+─────
+∴ Q
+```
+
+```text
+Si tenemos P → Q 
+y 
+tenemos P (P es verdadero), 
+
+entonces podemos concluir Q (Q es verdadero).
+
+Ejemplo:
+
+Premisa 1 (condicional): "Si está lloviendo, entonces el suelo está mojado".
+Premisa 2 (hecho): "Está lloviendo".
+Conclusión: "El suelo está mojado".
+```
+
+### Traducción a prolog
+Identificar los predicados: 
+* Definimos el predicado lloviendo que representa "está lloviendo".
+* Definimos el predicado suelo_mojado que representa "el suelo está mojado".
+
+Escribir la regla (la implicación)
+La implicación "Si está lloviendo, entonces el suelo está mojado" se escribe como:
+```prolog
+suelo_mojado :- lloviendo.
+```
+Escribir el hecho (la premisa)
+"Está lloviendo" se escribe como un hecho:
+```prolog
+% Regla (implicación): Si llueve, el suelo está mojado
+suelo_mojado :- lloviendo.
+
+% Hecho (premisa): Está lloviendo
+lloviendo.
+```
+
+### modus tollens
+
+```text
+P → Q
+¬Q
+─────
+∴ ¬P
+```
+
+```prolog
+% Regla: Si llueve, entonces calle_mojada
+calle_mojada :- lloviendo.
+
+% Hecho: La calle NO está mojada
+not(calle_mojada).
+
+% Para preguntar si no está lloviendo...
+% En Prolog no infiere ¬lloviendo automáticamente.
+```
+
+>Nota: En general, Prolog usa modus ponens, no modus tollens, porque está basado en la resolución SLD, que es un motor de búsqueda hacia adelante desde los hechos, no hacia atrás desde negaciones.
+
 ### Conceptos
 
 #### Base de conocimiento

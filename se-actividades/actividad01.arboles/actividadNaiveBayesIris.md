@@ -208,3 +208,26 @@ Media = 5.006, Desviación estándar = 0.352
 Esto significa que:
 * La longitud promedio del sépalo para setosa es 5.006 cm
 * La variabilidad alrededor de esa media es ±0.352 cm
+
+## Ejecutar desde script
+
+1. ubique el directorio de trabajo en la cosola de R
+   ```r
+   getwd()
+   ```
+2. a la carpeta que mostro `getwd()` copie el archivo: `naiveBayes.e1071.iris.simple.r` que esta en la carpeta: `actividades-ia\se-actividades\actividad01.arboles`
+3. Paquetes
+   ```r
+   # si no ha instalo los paquetes:
+   # install.packages("e1071")
+   # install.packages("caret")
+   # install.packages("ggplot2")
+   # instalelos
+  install.packages("e1071")
+  install.packages("caret")
+  install.packages("ggplot2")
+   ```
+4. ejecute el script:
+  ```r
+  source("naiveBayes.e1071.iris.simple.r")
+  ```

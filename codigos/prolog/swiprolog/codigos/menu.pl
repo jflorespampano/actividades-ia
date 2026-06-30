@@ -1,72 +1,83 @@
-/*
-este codigo fue provado con SWI-Prolog, al digitar una opcion DEBE de poner un punto despues
-y enter
-*/
+% Menú básico con opciones numéricas
+% ejecucion, en una consola de bash escriba: swipl -s este archivo.pl
+% escribir: menu.
+menu :-
+    write('===================================='), nl,
+    write('          MENU PRINCIPAL'), nl,
+    write('===================================='), nl,
+    write('1. Listar todas las personas'), nl,
+    write('2. Buscar persona por nombre'), nl,
+    write('3. Listar amigos de una persona'), nl,
+    write('4. Salir'), nl,
+    write('===================================='), nl,
+    write('Seleccione una opcion: '),
+    read(Opcion),
+    procesar_opcion(Opcion).
 
-/* pausa <- detiene la ejecucion del programa hasta que se pulse una tecla */
-pausa :- nl,write('Pulsa <return> para continuar ').
-%,skip(10).
+procesar_opcion(1) :-
+    write('Lista de personas:'), nl,
+    listar_personas,
+    menu.  % Volver al menú
 
-/* borraPantalla <- borra la pantalla */
-borraPantalla :- borraLinea(25).
-borraLinea(1) :- !,nl.
-borraLinea(N) :- nl,N1 is N-1,borraLinea(N1).
+procesar_opcion(2) :-
+    write('Ingrese el nombre: '),
+    read(Nombre),
+    buscar_persona(Nombre),
+    menu.
 
-/*Escribe caracteres*/
-escribe([]).
-escribe([X|Y]):-put(X),
-escribe(Y).
+procesar_opcion(3) :-
+    write('Ingrese el nombre: '),
+    read(Nombre),
+    listar_amigos(Nombre),
+    menu.
 
-%-------------------------Muestra mensaje de error---------------------------------
-error:-
-borraPantalla,
-escribe("No escribio un numero"), nl,
-escribe("O el numero escrito no esta en el rango del menu"),
-pausa.
+procesar_opcion(4) :-
+    write('Fin'), nl,
+    halt.
 
-%-------------------------Mensaje de Salida---------------------------------
-% se puede sustituir escribe por write
-salida:-
-borraPantalla,
-write("Gracias por usar el menu, hasta luego!"),nl,
-escribe("|---------------------------------------------------|"),nl,
-escribe("|--Universidad Latina de Costa Rica--|"),nl,
-escribe("|-Facultad de Ingenieria en Sistemas-|"),nl,
-escribe("|--------------Programacion IV--------------|"),nl,
-escribe("|-------Eduardo Gonzalez Chinchilla-----|"),nl,
-pausa,
-halt.
+procesar_opcion(_) :-
+    write('Opción no valida. Intente de nuevo.'), nl,
+    menu.
 
+% Predicados auxiliares
+% CORRECTO: Todas las acciones agrupadas en un solo argumento
+listar_personas :-
+    forall(persona(N, E, P),
+           ( write('  '),
+             write(N),
+             write(' - '),
+             write(E),
+             write(' años - '),
+             write(P),
+             nl
+           )).
+           
 
+buscar_persona(Nombre) :-
+    (   persona(Nombre, Edad, Profesion)
+    ->  write('Nombre: '), write(Nombre), nl,
+        write('Edad: '), write(Edad), nl,
+        write('Profesion: '), write(Profesion), nl
+    ;   write('Persona no encontrada.'), nl
+    ).
 
-%-------------------------Manejo de opciones Menu Principal---------------------------------
-opciones(X):-
-write("x es 1?"),
-write(X =:= 1),
-(
-    (X =:= 1) -> write("Opcion 1"),nl,pausa
-    ;
-    (X =:= 2) -> write("Opcion 2"),nl,pausa
-    ;
-    (X =:= 3) -> write("Opcion 3"),nl,pausa
-    ;
-    (X =:= 4) -> salida
-    ;
-    error
-).
+listar_amigos(Nombre) :-
+    (   findall(Amigo, amigo(Nombre, Amigo), Amigos),
+        Amigos \= []
+    ->  write('Amigos de '), write(Nombre), write(':'), nl,
+        forall(member(A, Amigos), (write('  '), write(A), nl))
+    ;   write('Persona no encontrada o sin amigos.'), nl
+    ).
 
-%-------------------------Menu Principal---------------------------------
+% Base de conocimiento de ejemplo
+persona(juan, 30, programador).
+persona(maria, 25, disenadora).
+persona(carlos, 35, ingeniero).
+persona(ana, 28, analista).
+persona(luis, 40, gerente).
 
-menu:-
-write("-----------Menu principal--------------"),nl,
-write("Digite su opcion:"),nl,
-tab(10),write("1) Opcion 1"),nl,
-tab(10),write("2) Opcion 2"),nl,
-tab(10),write("3) Opcion 3"),nl,
-tab(10),write("4) Salir"),nl,
-write("Su opcion es: "), read(X),
-opciones(X),
-menu.
-
-%----------------Carga el Menu Principal------------------
-%?-menu.
+amigo(juan, maria).
+amigo(juan, carlos).
+amigo(maria, ana).
+amigo(carlos, luis).
+amigo(ana, juan).

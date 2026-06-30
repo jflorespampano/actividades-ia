@@ -56,7 +56,76 @@ git pull
 core .
 ```
 
-Abrir una ventana de bash
+## Abrir una ventana de bash
 
 1. ir a la carpeta
 2. clic derecho/git bash here
+
+## crear carpeta de entregas en GitHub
+
+1. en su repositorio de Github de lado derecho, de clic en su foto de perfil.
+2. seleccione `Repositories`
+3. de clic en el botón verde `new`
+4. elija el nombre de su repositorio por ejemplo `entregasia`
+5. en la la seccion `Configuration/Choose visivility` elija `Public`
+6. de clic en el botón `create repository`
+7. copie la direccion de su repositorio que se muestra en la venta se verá algo como: `https://github.com/suusuario/entregasia.git`
+
+## crear la carpeta de entregas en local
+
+Para usar el repositorio que acaba de crear en GitHub tiene varias opciones, si aun no tiene un repositorio en local, la mas sencilla es clonarlo:
+
+1. vaya a la carpeta de trabajo (abra una ventana de bash en su carpeta de trabajo)
+2. para clonar el repositorio, en su ventana de bash ejecute:
+```
+git clone https://github.com/suusuario/entregasia.git
+```
+
+## primera entrega
+
+1. en su repositorio clonado, crear la estructura de carpetas siguiente:
+```text
+entregasia/
+├── recpat/    # Reconocimiento de Patrones
+├── se/        # Sistemas Expertos
+├── alg/       # Algoritmos de IA
+└── pp/        # Programación en paralelo
+    readme.md  # datos como su matrucla, nombre, materia, nombre del profesor, etc.
+```
+2. Para la primera actividad haga: crear una carpeta dentro de su repositorio local donde ubicara la entrega, por ejemplo, la actividad 1 ira: en:
+```text
+entregasia/
+├── recpat/    # Reconocimiento de Patrones
+├── se/        # Sistemas Expertos
+     └── actividad1
+├── alg/       # Algoritmos de IA
+└── pp/        # Programación en paralelo
+    readme.md
+```
+3. en la carpeta actividad1, iran los archivos de la actividad, como ejemplo en la carpeta actividad1 ponga un archivo *readme.md* y dentro coloque su matricula y su nombre (imagine que esa es la actividad solicitada).
+4. Para subir la actividad, abra una consola de bash en la carpeta raiz `entregasia` y ejecute los comandos:
+   ```bash
+   # si esta dentro de Vscode, aegurese que tiene todo guardado o de *ctrl+s* para guardar archivo.
+   # ejecute
+   git add .
+   # ejecute
+   git commit -m "subiento actividad 1"
+   # ejecute
+   git push
+   ```
+5. listo ha subido su actividad, copie la direccion de su repositorio y entreguela en la tarea solicitada en Teams.
+
+## entregas posteriores
+
+1. crear la carpeta de su acticvidad y cargue sus archivos.
+2. ejecute.
+   ```
+   git add .
+   git commit -m "subiendo actividad i"
+   git push
+   ```
+3. listo ha subido su actividadi
+
+>nota: En su repositorio de GitGHub no puede subir archivos mayores de 1Mb, no suba videos, si puede subir archivos pdf, word, ppt, excell, archivos de código, imagenes, mark down. Aunque puede subir archivos word y ppt, yo nunca le pediré subirlos en su lugar pedire archivos pdf. Para la actividad de árboles si le pedire un archivo Excell.
+
+Para entender el significado de los comandos: `git add .` , `git commit -m "subiendo actividad i"` y `git push`, consulte con su profesor en clase.

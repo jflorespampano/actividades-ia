@@ -19,10 +19,10 @@ cat("\nCreando particiones de entrenamiento y prueba:\n")
 train_index <- createDataPartition(iris$Species, p = 0.7, list = FALSE)
 
 # Crear conjuntos de entrenamiento y prueba
-# iris[train_index, ], train_indes especifica los índices de las filas a seleccionar
+# iris[train_index, ], train_index especifica los índices de las filas a seleccionar
 # espacio vacio despues de la coma: significa todas las columnas
 train_data <- iris[train_index, ]
-# obtenemos todas as filas que no estan en train_index
+# obtenemos todas las filas que no estan en train_index
 test_data <- iris[-train_index, ]
 
 
@@ -33,6 +33,9 @@ cat("Dimensiones del conjunto de prueba:\n")
 print(dim(test_data))
 
 ##### Entrena el modelo #####
+# Entrenar el modelo Naive Bayes usando la función naiveBayes del paquete e1071
+# La fórmula Species ~ . indica que queremos predecir la variable Species usando todas las demás variables como predictores.
+cat("\nEntrenando el modelo Naive Bayes...\n")
 
 modelo_nb <- naiveBayes(Species ~ ., data = train_data)
 
