@@ -5,7 +5,7 @@
     </head>
     <body>
         <!-- Program -->
-        <textarea class="example-textinput example-program" id="program">
+        <textarea class="example-textinput example-program" id="program" rows="10" cols="50">
             le_gusta_a(margara,manzana).
             le_gusta_a(margara,papaya).
             le_gusta_a(calderon,ron).
@@ -42,7 +42,7 @@
         }
 
         // Mostrar los gustos de una persona
-        function likes(name) {
+        function gustosDe(name) {
             // Crer session
             var session = pl.create(1000);
             // obtener el programa
@@ -65,7 +65,7 @@
             var name = document.getElementById("name").value;
             name = name != "" ? name : "Y";
             // Obtener gustos
-            likes(name);
+            gustosDe(name);
         }
 
         // onChange #name

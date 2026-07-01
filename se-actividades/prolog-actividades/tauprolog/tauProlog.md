@@ -4,7 +4,7 @@ Tau Prolog es un intérprete de Prolog del lado del cliente, completamente imple
 
 Cumplimiento del estándar ISO Prolog. El desarrollo de Tau Prolog se ha basado en el estándar ISO Prolog, diseñado para promover la aplicabilidad y portabilidad del texto y los datos de Prolog entre diversos sistemas de procesamiento de datos.
 
-Compatible con navegadores y Node.js. Tau Prolog se ha desarrollado para funcionar sin problemas tanto con Node.js como con un navegador. Simplemente use la etiqueta script o la función require para añadir Tau Prolog a su proyecto y empezar a programar.
+Compatible con navegadores y Node.js. Tau Prolog se ha desarrollado para funcionar sin problemas tanto con Node.js como con un navegador. Simplemente use la etiqueta script o la función `require` para añadir Tau Prolog a su proyecto y empezar a programar.
 
 
 Manipulación del DOM y gestión de eventos. Aprovechando lo mejor de JavaScript y Prolog, Tau Prolog permite gestionar eventos del navegador y modificar el DOM de una web mediante predicados de Prolog, lo que aumenta aún más la potencia de Prolog.

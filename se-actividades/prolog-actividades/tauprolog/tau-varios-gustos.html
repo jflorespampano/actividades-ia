@@ -5,6 +5,10 @@
     </head>
     <body>
         <input type="button" id="busca" value="consultar Base" onclick="consulta()"/>
+        <br>
+        <label for="mensaje">Salida:</label>
+        <br>
+        <textarea id="mensaje" name="mensaje" rows="20" cols="50" placeholder="Pregunta: le_gusta_a(calderon,X)."></textarea>
     </body>
 	<script id="gustos.pl" type="text/prolog">
 		le_gusta_a(margara,manzana).
@@ -15,21 +19,79 @@
     </script>
     
 	<script>
+        const bc=`
+        le_gusta_a(margara,manzana).
+        le_gusta_a(margara,papaya).
+        le_gusta_a(calderon,ron).
+        le_gusta_a(calderon,brandy).
+        le_gusta_a(calderon,whiskey).
+        `;
         var session = pl.create();
+        const mensaje = document.getElementById("mensaje");
         function callback(respuesta){
-            let r= respuesta.toString();
-            console.log( "respuesta: "+ r);
+            
+            // Verificar específicamente
+            if (respuesta === false) {
+                mensaje.value += "--- No hay más respuestas ---\n";
+                return false;
+            }
+            
+            // Verificar si es objeto y tiene X
+            if (respuesta && typeof respuesta === 'object' && 'X' in respuesta.links) {
+                mensaje.value += "X = " + respuesta.links.X + "\n";
+                return true; // Continuar buscando más respuestas
+            } else {
+                mensaje.value += "Respuesta inesperada: " + JSON.stringify(respuesta) + "\n";
+                return false; // Detener la búsqueda
+            }
         }
+
+        function obtenerTodasLasRespuestas() {
+            session.answer(function(respuesta) {
+                if (respuesta === false) {
+                    mensaje.value += "--- Todas las respuestas obtenidas ---\n";
+                    return;
+                }
+                
+                if (respuesta && typeof respuesta === 'object') {
+                    // Verificar todas las variables en la respuesta
+                    console.log("respuesta: " + JSON.stringify(respuesta));
+                    let variables = Object.keys(respuesta.links);
+                    if (variables.length > 0) {
+                        // Mostrar todas las variables
+                        for (let varName of variables) {
+                            console.log("Variable: " + varName);
+                            console.log("contenido: " + JSON.stringify(respuesta.links));
+                            mensaje.value += varName + " = " + respuesta.links[varName] + ", ";
+                        }
+                        mensaje.value += "\n";
+                    } else {
+                        mensaje.value += "Respuesta sin variables: " + JSON.stringify(respuesta) + "\n";
+                    }
+                    
+                    // Continuar obteniendo más respuestas
+                    obtenerTodasLasRespuestas();
+                } else {
+                    mensaje.value += "Respuesta inesperada: " + respuesta + "\n";
+                }
+            });
+        }
+
 		function consulta(){
             
             var parser=session.consult("gustos.pl");
 			if (parser===true){
+                
+                mensaje.value += `Base de conocimiento: ${bc} \nRespuesta a la pregunta: le_gusta_a(calderon,X).\n`
                 /*carga la pregunta*/
                 session.query("le_gusta_a(calderon,X).");
-                session.answer(callback);
-                session.answer(callback);
-                session.answer(callback);
-                session.answer(callback);
+                // consulta una por una
+                // session.answer(callback);
+                // session.answer(callback);
+                // session.answer(callback);
+                // session.answer(callback);
+                // consulta todas las respuestas de una vez
+                obtenerTodasLasRespuestas(); // Llamar a la función para obtener todas las respuestas
             }else{
                 alert("error en la bc");
             }
