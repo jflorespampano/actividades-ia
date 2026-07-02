@@ -122,10 +122,9 @@ Declarar variables en go
 
 
 
-Como parte de las convenciones de la comunidad de desarrollo de GO, si declara una variable sin 
-inicializar use la forma 1, si declara e inicializa una variable use la forma 3 en lugar de la forma 2. 
+>Nota: Como parte de las convenciones de la comunidad de desarrollo de GO, si declara una variable sin inicializar use la forma 1, si declara e inicializa una variable use la forma 3 en lugar de la forma 2. 
 
-Declarar variables 
+Ejemplo de declarar variables 
 
 ```go
 var ( 
@@ -146,7 +145,7 @@ a:=5
 b:=6 
 
 //asignación
-a,b=b,a
+a,b = b,a
 ```
 
 
@@ -179,6 +178,19 @@ func main() {
     persona.presentarse() 
 } 
 ```
+
+Desglose sintáctico:
+
+|Parte	|Significado |
+|-------|------------|
+|func	|Palabra clave para definir una función|
+|(p Persona)	|Receptor - esto es lo que hace que sea un método de Persona|
+|presentarse()	|Nombre del método|
+|{ ... }	|Cuerpo de la función|
+
+El receptor (p Persona):
+* p: Variable que recibe la instancia de Persona (como this o self en otros lenguajes)
+* Persona: Tipo al que pertenece este método
  
 ### 3 Apuntadores 
  
@@ -219,6 +231,30 @@ Tabla resumen de sintaxis:
 |Con nombre en retorno	|func nombre() (x int) {}|
 |Método	|func (r Receptor) nombre() {}|
 |Anónima	|func(p tipo) tipo {}(valor)|
+
+Los parámetros variádicos (o funciones variádicas) son aquellos que permiten recibir un número variable de argumentos del mismo tipo. En Go, se indican con tres puntos ... antes del tipo.
+
+Funcion con nombre en retorno
+```go
+func nombreFuncion() (nombre1 Tipo1, nombre2 Tipo2) {
+    // Los valores ya están inicializados con su valor cero
+    nombre1 = valor1
+    nombre2 = valor2
+    return  // Return vacío (retorna los valores nombrados)
+}
+```
+
+Funcion anónima
+```go
+func() {
+    // Cuerpo de la función
+}()
+
+// Con parámetros
+func(param1 Tipo1, param2 Tipo2) TipoRetorno {
+    // Cuerpo
+}(argumento1, argumento2)
+```
 
 En go las funciones pueden devolver más de un valor 
 

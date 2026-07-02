@@ -23,6 +23,7 @@ Puedes descargar un paquete personalizado que incluye solo los módulos que nece
 
 [descargar TP](https://github.com/tau-prolog/tau-prolog)
 [TP para node](https://www.npmjs.com/package/tau-prolog)
+Ejemplos en: `actividades-ia\codigos\prolog\tauProlog`
 
 ## ejemplo
 
