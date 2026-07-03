@@ -15,3 +15,7 @@ Descarga sci-lab [referencia/descarga](https://www.scilab.org/)
     3. haz el ejercicio: `Dropbox/archivos2025/ia/sci-lab/adjuntos/trazarLinea-SCILAB.pdf`
     4. haz el ejercicio: `jflorespampano@github.com\actividades-ia\sci-lab\actividad-08-sci-lab\actividad.md` para practicar arreglos con scilab
     5. haz el ejercicio: `jflorespampano@github.com\actividades-ia\sci-lab\actividad-08-sci-lab\perceptronOR2022.sce` para resolver el código para el OR
+6. fundamentos aprendizaje automático (Machine Learning). Estudia el archivo: 
+    1. Estudia los fundamentos teóricos de AA: `Dropbox\archivos2025\ia\tensorFlow\pdf\Resumen AA y Tensor Flow.pdf`
+    2. estudia el tensores en el archivo: `Dropbox\archivos2025\ia\tensorFlow\pdf\tensorflow.pdf`
+    3. prueba los ejercicios de tensores de la carpeta: `jflorespampano@github.com\actividades-ia\codigos\js\tensores`

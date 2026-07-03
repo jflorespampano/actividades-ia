@@ -6,7 +6,7 @@
     <title>Perceptron And</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        #grafica{
+        #contenedorCanvas{
             padding: 10px;
             float: left;
             width: 600px;
@@ -40,12 +40,15 @@
 </head>
 <body>
 
-<h2>Perceptron para las salidas de And graficadas con Chart.js</h2>
+<h2>Perceptron para las salidas de OR graficadas con Chart.js</h2>
 <div>
-    <div id="grafica">
+    <div id="contenedorCanvas">
         <canvas id="miGrafica"></canvas>
     </div>
     <div id="divTabla">
+        <label for="epocas">Numero de epocas</label>
+        <input type="text" id="epocas" placeholder="numero de epocas" value="100">
+        <input type="button" value="entrena" onclick="actualizarGrafica()">
         <table>
             <thead>
                 <tr>
@@ -89,15 +92,20 @@
 </div>
 
 <script>
-    //Perceptron
+    //Entrenar el perceptrón para la función OR
+    //ecuacion de la recta w0+w1*x1+w2*x2=0
     function entrena(){
         // Datos de entrenamiento (X) y etiquetas (y)
         const X = [[0, 0], [0, 1], [1, 0], [1, 1]];
         const y = [0, 1, 1, 1];
 
-        // Inicialización de pesos y bias
+        // tomaremos la ecuacion de la recta w0x0+w1x1+w2=0 y la repreentamos como en geometria análitica
+        // que se dfine como:  w0x0+w1x1+b=0 donde b equivale a w2 y
+        // donde w0 y w1 controlan la pendiente de la recta y 
+        // b es el sesgo que controla la posición de la recta en el plano
+        // Inicialización de pesos y bias aleatorios
         let w = [Math.random(), Math.random()];
-        let b = Math.random(); //bias (b) o sesgo equivale a w3
+        let b = Math.random(); //bias (b) o sesgo equivale a w2
         const eta = 0.1; // Tasa de aprendizaje
 
         // Función de propagación hacia adelante
@@ -107,7 +115,8 @@
         };
 
         // Entrenamiento
-        for (let epoch = 0; epoch < 100; epoch++) { // Número de iteraciones
+        const epocas = parseInt(document.getElementById("epocas").value) || 100;
+        for (let epoch = 0; epoch < epocas; epoch++) { // Número de iteraciones
             for (let i = 0; i < X.length; i++) {
                 const y_pred = forward(X[i]);
                 const e = y[i] - y_pred;
@@ -131,76 +140,117 @@
         return ({w0:b,w1:w[0],w2:w[1]})
     }
 
-    //entrena
-    var {w0,w1,w2}=entrena()
-    console.log("Respuesta:",{w0,w1,w2})
-    // Generar puntos para la recta
-    //w0+w1x1+w2x2
-    //-w2x2=w0+w1x1
-    //x2=(w0+w1x1)/-w2
-    var m = w1; // Pendiente
-    var b = w0; // Intersección con el eje Y
-    var labels = [-0.5, -0.1, 0.1, 0.5, 1]; // Valores de x
-    const data = labels.map(x => (w0+w1*x)/w2*-1); // Calcular y para cada x
-    console.log(`funcion de la recta: (${w0}+${w1}*x)/${w2}*-1)`,data)
-    console.log(`{(${labels[0]},${data[0]}),(${labels[1]},${data[1]})}`)
-    const dataLine = [
-        {x:labels[0],y:data[0]},
-        {x:labels[1],y:data[1]},
-        {x:labels[2],y:data[2]},
-        {x:labels[3],y:data[3]},
-        {x:labels[4],y:data[4]}
-    ]
-    // Configuración del gráfico
-    const config = {
-        type: 'scatter', // Tipo de gráfico (dispersión)
-        data: {
-            datasets: [{
-                label: 'Salidas 0',
-                data: [
-                    { x: 0, y: 0 }
-                ], // Coordenadas del punto
-                backgroundColor: 'red', // Color del punto
-                pointRadius: 3 // Tamaño del punto
-            },
-            {
-                label: 'Salidas 1',
-                data: [
-                    { x: 0, y: 1 },
-                    { x: 1, y: 0 },
-                    { x: 1, y: 1 }
-                ], // Coordenadas del punto
-                backgroundColor: 'blue', // Color del punto
-                pointRadius: 3 // Tamaño del punto
-            },
-            {
-                label: `recta`,
-                data: dataLine,
-                borderColor: 'rgb(75, 192, 192)',
-                tension: 0 // Línea recta (sin suavizado)
-            }]
-        },
-        options: {
-            scales: {
-                x: {
-                    type: 'linear',
-                    position: 'bottom',
-                    min: -1, // Límite mínimo del eje X
-                    max: 2  // Límite máximo del eje X
+    function muestraGrafica({w0,w1,w2}){
+        //entrena
+        //var {w0,w1,w2}=entrena()
+        console.log("Respuesta:",{w0,w1,w2})
+        // Generar puntos para la recta
+        //w0+w1x1+w2x2
+        //-w2x2=w0+w1x1
+        //x2=(w0+w1x1)/-w2
+        var m = w1; // Pendiente
+        var b = w0; // Intersección con el eje Y
+        var labels = [-0.5, -0.1, 0.1, 0.5, 1]; // Valores de x
+        const data = labels.map(x => (w0+w1*x)/w2*-1); // Calcular y para cada x
+        console.log(`funcion de la recta: (${w0}+${w1}*x)/${w2}*-1)`,data)
+        console.log(`{(${labels[0]},${data[0]}),(${labels[1]},${data[1]})}`)
+        const dataLine = [
+            {x:labels[0],y:data[0]},
+            {x:labels[1],y:data[1]},
+            {x:labels[2],y:data[2]},
+            {x:labels[3],y:data[3]},
+            {x:labels[4],y:data[4]}
+        ]
+        // Configuración del gráfico
+        const config = {
+            type: 'scatter', // Tipo de gráfico (dispersión)
+            data: {
+                datasets: [{
+                    label: 'Salidas 0',
+                    data: [
+                        { x: 0, y: 0 }
+                    ], // Coordenadas del punto
+                    backgroundColor: 'red', // Color del punto
+                    pointRadius: 3 // Tamaño del punto
                 },
-                y: {
-                    min: -1, // Límite mínimo del eje Y
-                    max: 2  // Límite máximo del eje Y
+                {
+                    label: 'Salidas 1',
+                    data: [
+                        { x: 0, y: 1 },
+                        { x: 1, y: 0 },
+                        { x: 1, y: 1 }
+                    ], // Coordenadas del punto
+                    backgroundColor: 'blue', // Color del punto
+                    pointRadius: 3 // Tamaño del punto
+                },
+                {
+                    label: 'Recta',
+                    data: dataLine,
+                    borderColor: 'rgb(75, 192, 192)',
+                    borderWidth: 1,           // ancho de linea
+                    borderDash: [],           // línea sólida
+                    tension: 0,               // Línea recta sin curvas
+                    pointRadius: 0,           // Sin puntos en la línea (opcional)
+                    showLine: true,           // Asegura que se muestre la línea
+                    fill: false,              // Sin relleno debajo
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)', // Color de relleno (si se usa fill)
+                    borderCapStyle: 'round',  // Bordes redondeados
+                    borderJoinStyle: 'round'  // Uniones redondeadas
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        type: 'linear',
+                        position: 'bottom',
+                        min: -1, // Límite mínimo del eje X
+                        max: 2  // Límite máximo del eje X
+                    },
+                    y: {
+                        min: -1, // Límite mínimo del eje Y
+                        max: 2  // Límite máximo del eje Y
+                    }
                 }
             }
-        }
-    };
+        };
 
-    // Crear la gráfica
-    const ctx = document.getElementById('miGrafica').getContext('2d');
-    new Chart(ctx, config);
+        //reconstruir el canvas para poder poner la nueva gráfica
+        destruirYRecrearCanvas();
+        const ctx = document.getElementById('miGrafica').getContext('2d');
+        new Chart(ctx, config);
+    }
+    //
+    function destruirYRecrearCanvas() {
+        const contenedor = document.getElementById('contenedorCanvas');
+        const canvasViejo = document.getElementById('miGrafica');
+        
+        // Eliminar el canvas viejo
+        contenedor.removeChild(canvasViejo);
+        
+        // Crear uno nuevo
+        const canvasNuevo = document.createElement('canvas');
+        canvasNuevo.id = 'miGrafica';
+        canvasNuevo.width = 600;
+        canvasNuevo.height = 400;
+        contenedor.appendChild(canvasNuevo);
+        
+        return canvasNuevo;
+    }
 
-    
+    //
+    function actualizarGrafica() {
+        var {w0,w1,w2}=entrena()
+        // Llamar a la función para mostrar la gráfica al cargar la página
+        muestraGrafica({w0,w1,w2})
+    }
+
+    // Llamar a la función para mostrar la gráfica al cargar la página
+    document.addEventListener('DOMContentLoaded', function() {
+        // Tu función aquí
+        console.log('El DOM está listo');
+        actualizarGrafica();
+    });
+
 </script>
 
 </body>
