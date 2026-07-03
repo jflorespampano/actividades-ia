@@ -6,9 +6,38 @@ R ofrece varias opciones poderosas para implementar redes neuronales, desde apro
 
 ### 1 neuralnet
 
-Para Redes Feed-Forward Básicas. Ideal para: empezar y problemas tabulares simples
+Para el siguiente ejemplo usaremos el conjunto de datos mtcar que viene preinstalado en R.
 
-Ejemplo (ver archivo: ejemplo1.r):
+Descripción:
+Estructura del Dataset
+* Formato: Es un data.frame (marco de datos).
+* Observaciones: Tiene 32 filas, cada una representando un modelo de automóvil diferente.
+* Variables: Contiene 11 variables, todas de tipo numérico
+
+Cada columna del dataset representa una característica específica del automóvil. Aquí está la descripción de cada una
+|Variable	|Descripción	|Unidades / Notas|
+|---------|-------------|----------------|
+|mpg	|Millas por galón (consumo de combustible)	|Millas / (US) galón|
+|cyl	|Número de cilindros	|Número|
+|disp	|Cilindrada del motor	|Pulgadas cúbicas (cu.in.)|
+|hp	  |Potencia bruta	|Caballos de fuerza (Gross horsepower)|
+|drat	|Relación del eje trasero	|(Rear axle ratio)|
+|wt	  |Peso del vehículo	|1000 libras (lb/1000)|
+|qsec	|Tiempo en el cuarto de milla	|1/4 mile time|
+|vs	  |Forma del motor	|0 = Motor en V, 1 = Motor en línea (straight)|
+|am	  |Tipo de transmisión	|0 = Automática, 1 = Manual|
+|gear	|Número de marchas |(cambios) hacia adelante	Número de engranajes|
+|carb	|Número de carburadores	|Número|
+
+Ejemplo (ver archivo: ejemplo1.r en R studio) 
+* cargarlo con menu/file/open file/ seleccionar archivo (`jflorespampano@github.com\actividades-ia\lenguajeR\actividad-18-RN-EN-R\ejemplo1.r`)
+* ejecutar con (ctrl+shift+enter):
+* los resultados aparecen en la consola en dos columnas real, predicho que tiene los valores reales y los predichos por el modelo.
+* haga clic en la pestaña `plots` de la ventana inferior izquierda para ver la red neuronal
+
+Queremos clasificar `vs` forma del motor: (en V=0 o en línea=1) con base en las características (mpg[millas por galon,] wt[peso del vehiculo], disp[Cilindrada del motor])
+
+El código que encontraras en ese archivo es el siguiente: 
 ```r
 # Instalación y carga
 install.packages("neuralnet")
