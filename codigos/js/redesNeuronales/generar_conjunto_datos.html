@@ -245,26 +245,31 @@
             }
             function escala(objeto){
                 //poner a escala
+                let punto={"x": 0, "y": 0, "clase": 1};
                 let ClientRect = canvas.getBoundingClientRect();
                 let py=objeto.y*100/evt.clientY;
                 let px=objeto.x*100/evt.clientX;
-                objeto.x=Math.round(px);
-                objeto.y=Math.round(py);
-                objeto.y=evt.clientY-objeto.y;
-
+                punto.x=Math.round(px);
+                punto.y=Math.round(py);
+                punto.y=evt.clientY-punto.y;
+                return punto;
             }
             let punto={"x": 0, "y": 0, "clase": 1};
             let mousePos = getMousePos(canvas, evt);
-            punto.x=mousePos.x;
-            punto.y=mousePos.y;
+            const padding = 5
+            punto.x=mousePos.x-(300)+padding;
+
+            punto.y=200-mousePos.y-padding;
             let claseValue=document.getElementById("clase").value
             punto.clase=claseValue==1?1:-1
+            const puntoConEscala = escala(punto);
             puntos.push(punto)
-            escala(punto);
+            // puntos.push(puntoConEscala)
             color=(punto.clase==1)?"blue":"green";
             let radio=5;
             pon_punto(ctx, mousePos, radio, "red", color);
-            console.log('escala: ' + punto.x + ',' + punto.y);
+            console.log('escala p : ' + punto.x + ',' + punto.y);
+            console.log('escala pc: ' + puntoConEscala.x + ',' + puntoConEscala.y);
             
         }, false);
 
