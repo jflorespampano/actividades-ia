@@ -6,6 +6,26 @@
         body{
             display: block;
         }
+        .fila {
+            display: flex;
+            gap: 20px;          /* Espacio entre columnas */
+            justify-content: space-between; /* Distribución uniforme */
+            padding: 20px;
+            background-color: #f5f5f5;
+            border-radius: 8px;
+        }
+
+        .columna {
+            flex: 1;            /* Reparte el espacio equitativamente */
+            background-color: white;
+            padding: 20px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            /* text-align: center; */
+            border: 1px solid #ddd;
+        }
+
+
         #div_imagen{
             display:inline-block;
             border:1px solid grey;
@@ -76,34 +96,39 @@
             background-color: #4CAF50;
             color: white;
         }
+        p{
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            font-size: 14px;
+            border: 1px solid grey;
+        }
     </style>
     
 </head>
 <body>
-    <div id="principal">
+    <div id="principal" class="fila">
         <div id="div_trabajo">
             <p id="titulo">Para agregar puntos (x,y, clase), indique la clase (0/1) y haga clic en el área gráfica, repita hasta completar su conjunto de puntos.
             </p>
-            <div id="mi_grafica">
-                <canvas id="canvas" width="800" height="600"></canvas>
+            <div id="mi_grafica" class="columna">
+                <canvas id="canvas" width="600" height="400"></canvas>
             </div>
-            <div id="mi_div">
+            <div id="mi_div" class="columna">
                 <label for='miId'>area gráfica -50, 50</label>
                 <label for='miId'>dame x</label>
                 <input type='number' id='x' placeholder='x'><br>
                 <label for='miId'>dame y</label>
                 <input type='number' id='y' placeholder='y'><br>
                 <label for='miId'>dame clase (0,1)</label>
-                <input type='number' id='clase' placeholder='clase' min="0" max="1" value="1"><br>
+                <input type='number' id='clase' placeholder='clase' min="0" max="1" value="0"><br>
                 <input type="button" id="llena_tabla" class="boton" value="llena tabla" ><br>
                 <input type="button" id="btn_salida" class="boton" value="muestra arreglo" >
                 <br>
                 <div style="overflow:scroll;height:200px;width:200px;">
                     <table id="customers">
-                        <caption>Tabla OR</caption>
+                        <caption>Tabla datos</caption>
                         <thead>
                             <tr>
-                                <td>x1</td><td>x2</td><td>OR</td>
+                                <td>x1</td><td>x2</td><td>clase</td>
                             </tr>
                         </thead>
                         <tbody id="datos_tabla">   
@@ -113,9 +138,17 @@
                 
             </div>
         </div>
+        <div id="div_salida" class="columna">
+            <p>Salida</p>
+            <p id="salida"></p>
+            <p id="salida2"></p>
+            <div>
+                <p id="salida3"></p>
+                <input type="button" id="copiarSalida" class="boton" value="copiar salida" onclick="copyToClipboard()">
+            </div>
+        </div>
         
     </div>
-    <p id="salida"></p>
 </body>
 <script>
     let area_grafica={
@@ -185,6 +218,20 @@
         area_grafica.alto_grafica=area_grafica.maxy-area_grafica.miny;
     }
     
+    function copyToClipboard() {
+        const result = document.getElementById("salida3").textContent;
+        console.log("Result=",result);
+        alert("Result="+result);
+        const textToCopy = result;
+
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            alert('¡Copiado al portapapeles!');
+        }).catch(err => {
+            console.error('Error al copiar: ', err);
+            alert('No se pudo copiar. Revisa la consola.');
+        });
+    }
+
     window.onload=function(){
         c1=document.getElementById("canvas");
         ctx=c1.getContext("2d");
@@ -221,11 +268,29 @@
             
         }, false);
 
+        function convertData(data) {
+            const x = data.map(item => [item.x, item.y]);
+            const y = data.map(item => item.clase === -1 ? 0 : (item.clase === 1 ? 1 : item.clase));
+            return { x, y };
+        }
+
+        function convertDataToString(data) {
+            const x = data.map(item => [item.x, item.y]);
+            const y = data.map(item => item.clase === -1 ? 0 : (item.clase === 1 ? 1 : item.clase));
+            const xStr = 'x=[' + x.map(pair => '[' + pair.join(',') + ']').join(',') + ']';
+            const yStr = 'y=[' + y.join(',') + ']';
+            return xStr + ';\n' + yStr;
+        }
+
         document.getElementById("llena_tabla").addEventListener("click",function(){
             llena_tabla();
+
         });
         document.getElementById("btn_salida").addEventListener("click", function(){
-            document.getElementById("salida").innerText=JSON.stringify(puntos);
+            document.getElementById("salida").innerText=JSON.stringify(puntos);   
+            document.getElementById("salida2").innerText=JSON.stringify(convertData(puntos));
+            document.getElementById("salida3").innerText=convertDataToString(puntos);
+            
         })
         //dimensiones del canvas
         area_grafica.alto_canvas=ctx.canvas.clientHeight-10;

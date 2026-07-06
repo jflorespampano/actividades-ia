@@ -83,3 +83,4 @@ console.log(perceptron.predict([-1, -1])); // Debería ser -1
 - Para problemas más complejos, se necesitarían redes neuronales más avanzadas, como las redes multicapa o las redes neuronales convolucionales.
 
 Este código es un buen punto de partida para entender cómo funciona un perceptrón y cómo se puede implementar en JavaScript.
+
