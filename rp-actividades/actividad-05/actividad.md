@@ -2,7 +2,7 @@
 
 ## objetivo
 
-graficar el resulytado del perceptron en js.
+graficar el resultado del perceptron en js.
 
 ## con chartjs
 
@@ -10,20 +10,20 @@ Chart js en una biblioteca de código abierto para js ([vea el siio](https://www
 
 ## Actividad:
 
-1. En su navegador ejecute el archivo "perceptronANDChart.html", vera que grafica los puntos del la salida del and y unos puntos grises de la recta que los separa, modifique el código para que trace la recta en lugar de 4 puntos grises.
+1. En su navegador ejecute el archivo "\actividades-ia\codigos\js\redesNeuronales\perceptronORChart.html", vera que grafica los puntos del la salida del or y una recta que los separa.
 
-2. Modifique el código anterior para que trabaje con las salidas del OR.
+2. Modifique el código anterior para que trabaje con las salidas del AND.
 
 
 
 
 ## con funciones de js
 
-3. Ejecute el archivo "perceptronORgraficado.html", estudie el codigo y  modifiquelo para que trabaje con las salidas el AND.
+3. Ejecute el archivo "\actividades-ia\codigos\js\redesNeuronales\perceptronORgraficado.html", estudie el codigo y  modifiquelo para que trabaje con las salidas el AND.
 
 ## actividad final
 
-4. Invente un conjuto de 20 puntos linealmente separanles, modifique el código del inciso 3 para que trace la línea que los separe.
+4. Invente conjuto de 40 puntos linealmente separanles usando el código: "\actividades-ia\codigos\js\redesNeuronales\generar_conjunto_datos.html", modifique el código "\actividades-ia\codigos\js\redesNeuronales\perceptronChart.html" para que trace la línea que los separe.
 
 ## Entregable
 

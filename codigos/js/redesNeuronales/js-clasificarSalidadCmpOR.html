@@ -153,7 +153,7 @@
         "maxy":0,
         "padding":5
     };
-    //puntos a graficar
+    //puntos a graficar (x1,x2) se toman como (x,y)
     var puntos=[
         {"x":-1, "y":-1, "clase":-1},
         {"x":-1, "y": 1, "clase": 1},
@@ -161,6 +161,7 @@
         {"x": 1, "y": 1, "clase": 1}
         
         ];
+    //en Z las salidas correctas, en W los pesos, en Y las estimaciones
     let per={
         "X":[[-1,-1],[-1,1],[1,-1],[1,1]],
         "W":[0,0,-1],
@@ -315,7 +316,14 @@
         ctx.restore();
     }
     signo=x=>(x<0)?-1:1;
+    /**
+     * Evaluaa la funcion en el renglon dado
+     * y=w0*x0+w1*x1+w2 para el renglon dado
+     * @param {number} renglon
+     * @returns {number} y
+     */
     function sumatoria(renglon){
+        //
         return per.W[0]*per.X[renglon][0]+per.W[1]*per.X[renglon][1]+per.W[2]*1;
     }
     /**
@@ -331,12 +339,13 @@
         per.iteracion++;
         let fallo=false;
         for(let i=0; i<4;i++){
+            //calcula la salida
             per.Y[i]=signo(sumatoria(i));
             //console.log("y(i)="+per.Y[i]+" z(i)="+per.Z[i]);
             if (per.Y[i]!=per.Z[i]){
                 //ajustamos pesos
-                //wj(k+1)=wj(k)+Dwj(k)
                 //Dwj(k)=n(k)*[z(k)-y(k)]*xj(k)
+                //wj(k+1)=wj(k)+Dwj(k)
                 let discrepancia=(Number(per.Z[i])-Number(per.Y[i]));
                 let delta0=Number(discrepancia*Number(per.X[i][0]));
                 let delta1=Number(discrepancia*Number(per.X[i][1]));
