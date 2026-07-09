@@ -1,4 +1,4 @@
-# actividad
+# actividad 1
 
 Usa el código `generar_conjunto_datos.html` y genera
 1. un conjunto de 7 puntos clase 0 y 7 puntos clase 1
@@ -21,3 +21,9 @@ el archivo `generar_conjunto_datos.html` funciona así:
 * haz clic en muestra arreglo
 * haz clic en el botón `copar salida` eso copiara tus puntos definidos al portapapeles
 * ve a tu código y pon pegar en el lugar que quieras.
+
+## Actividad 2
+
+realiza las actividades de los archivos
+ * `feature-ingeniering.md`
+ * `feature-ingeniering-ejercicio.md`

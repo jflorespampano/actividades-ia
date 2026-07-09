@@ -87,11 +87,109 @@ Comprobamos:
 
 ¡Lo logró! En el nuevo espacio 3D, el perceptrón trazó un plano (no una línea) que separa perfectamente los puntos.
 
-## otras funciones que podemos usar
+## Otras funciones que podemos usar
 
 Observa que tambien podemos usar:
 ```pyhton
-Z=(X1 + X2) ** 2
+Z=(X1 - X2) ** 2
 ```
 
 ![alt text](x1+x2alCuadrado.png)
+
+## Visualizar gráfica para encontrar plano de separación
+
+Geogebra es una herramienta matemática muy completa. Puedes graficar funciones discretas definiéndolas por partes o usando la herramienta de punto para marcar los valores que te interesan. La función Function[{<Lista de Números>}] te permite definir una función a partir de una lista de valores, donde los primeros dos números definen el inicio y el fin del dominio, y los siguientes son los valores de y.
+
+## Actividad 
+
+**Ejercicio 1:** Entra a Geogebra:
+
+1. [Geogebra](https://www.geogebra.org/calculator)
+
+2. Elije calculadora 3D
+
+Para las salidas del or exclusivo (XOR)
+|X1	|X2	|Y|
+|---|---|--|
+|0	|0	|0|
+|0	|1	|1|
+|1	|0	|1|
+|1	|1	|0|
+
+Pongamos la función XOR en 3D pero pensemos que la función sigue en 2D poniendo 0 en la coordenada Z. 
+
+|X1	|X2	|Z  |Salida (Y)|
+|---|---|-----------|----------|
+|0	|0	|0	|0|
+|0	|1	|0	|1|
+|1	|0	|0	|1|
+|1	|1	|0	|0|
+
+
+
+Grafique los puntos poniendo en geogebra:
+A = Punto( {0, 0, 0} )
+B = Punto( {0, 1, 0} )
+C = Punto( {1, 0, 0} )
+D = Punto( {1, 1, 0} )
+SetColor( A, 1, 0, 0)
+SetColor( D, 1, 0, 0)
+
+Rote la gráfica (arrastrando los ejes con el ratón) y verá que no puede encontrar la forma de poner un plano de separación de los puntos rojos y grises.
+Borre los puntos A, B, C, D
+
+3. Ahora usemos en Z la función kernel Z = X1 * X2
+
+|X1	|X2	|Z	|Salida (Y)|
+|---|---|-----------|----------|
+|0	|0	|0	|0|
+|0	|1	|0	|1|
+|1	|0	|0	|1|
+|1	|1	|1	|0|
+
+Grafique los puntos poniendo en Geogebra:
+A = Punto( {0, 0, 0} )
+B = Punto( {0, 1, 0} )
+C = Punto( {1, 0, 0} )
+D = Punto( {1, 1, 1} )
+SetColor( A, 1, 0, 0)
+SetColor( D, 1, 0, 0)
+
+Rote la gráfica (arrastrando los ejes con el ratón) y verá que ahora **SI** puede encontrar la forma de poner un plano de separación entre los puntos rojos y grises.
+
+Borre los puntos A, B, C, D
+
+
+4. Repita ahora para el kernel : Z = X1 * X2
+
+pon los puntos:
+
+A = Punto( {0, 0, 0} )
+B = Punto( {0, 1, 0} )
+C = Punto( {1, 0, 0} )
+D = Punto( {1, 1, 1} )
+SetColor( A, 1, 0, 0)
+SetColor( D, 1, 0, 0)
+
+
+Roté la figura y verá que puede encontrar un plano de sepración entre puntos rojos y grises.
+
+**Ejercicio 2:** Repite pero ahora use la función kernel Z=(x1-x2)**2
+
+|X1	|X2	|Z (X1·X2)	|Salida (Y)|
+|---|---|-----------|----------|
+|0	|0	|0	|0|
+|0	|1	|1	|1|
+|1	|0	|1	|1|
+|1	|1	|0	|0|
+
+ponga los puntos:
+
+A = Punto( {0, 0, 0} )
+B = Punto( {0, 1, 1} )
+C = Punto( {1, 0, 1} )
+D = Punto( {1, 1, 0} )
+SetColor( A, 1, 0, 0)
+SetColor( D, 1, 0, 0)
+
+Roté los ejes y verá que púede encontrar un plano de separación

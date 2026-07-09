@@ -59,7 +59,9 @@ En este ejemplo, la función que calcula la altura $(z = x^2 + y^2)$ es la esenc
 
 ## Actividad
 
-Resuelve este ejercicio usando el perceptron
+1. Visualiza la gráfica antes y despues de aplicar la función kernel en Geogebra
+2. Resuelve este ejercicio usando el perceptron
 
 ## Entregable
 * código del resultado cargado en GitHub
+
