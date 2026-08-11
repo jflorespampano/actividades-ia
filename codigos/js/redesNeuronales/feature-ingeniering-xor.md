@@ -19,14 +19,15 @@ flowchart TD
     style D fill:none,stroke:none
 
 ```
+![alt text](image-3.png)
 
 La respuesta es `NO` por que no son linealmente separables, en la grafica anterior es imposible trazar una recta que separa los puntos verdes de los rojos, sin embargo podemos hacerlo apoyandonos del `feature ingeniering`.
 
 
-La ingeniería de características (o Feature Engineering) consiste en crear nuevas variables de entrada a partir de las originales, para que un modelo lineal (como el perceptrón) pueda trazar una línea recta (o hiperplano) en este nuevo espacio dimensional y así resolver el problema.
+La ingeniería de características (o Feature Engineering) consiste en crear nuevas variables de entrada a partir de las originales, para que un modelo lineal (como el perceptrón) pueda trazar un hiperplano de separación en este nuevo espacio dimensional y así resolver el problema.
 
 
-Como sabemos el **XOR** es **No** lineal con sus datos originales que son solo 2 características: X1 y X2.
+Como dijimos el **XOR** es **No** lineal con sus datos originales, que son solo 2 características: X1 y X2.
 
 La tabla XOR con entradas (X1, X2) y (Salida (Y)) es:
 
@@ -41,21 +42,19 @@ En la grafica 2D (con variables: X1, X2) que se muestra al inicio, verás que lo
 
 ## Aplicar Ingeniería de Características
 
-Para que el perceptrón (que nos da una línea recta o plano) pueda separar el XOR, vamos a elevar la dimensión de los datos. Crearemos una tercera característica (Z) para elevar la dimension del problema de 2d a 3d, probemos agregando la tercera variable como el producto de las dos originales.
+Para que el perceptrón (que nos da una línea recta o hiperplano) pueda separar el XOR, vamos a elevar la dimensión de los datos. Crearemos una tercera característica (Z) para elevar la dimension del problema de 2d a 3d, probemos agregando la tercera variable como el producto de las dos originales.
 
-La nueva característica: Z = X1 * X2
+La nueva característica: $Z = X1 * X2$
 
 Ahora nuestros datos de entrenamiento ya no tienen 2 columnas, sino 3 columnas (X1, X2, Z):
 
 
-|X1	|X2	|Z (X1·X2)	|Salida (Y)|
+|X1	|X2	|Z $(X1·X2)$	|Salida (Y)|
 |---|---|-----------|----------|
 |0	|0	|0	|0|
 |0	|1	|0	|1|
 |1	|0	|0	|1|
 |1	|1	|1	|0|
-
-![alt text](x1xx2.png)
 
 Ahora viene la magia:
 El perceptrón aprenderá pesos: W1, W2, W3 y un sesgo (W0). La fórmula será:
@@ -86,6 +85,9 @@ Comprobamos:
 (1,1): -0.5 + 1 + 1 - 2 = -0.5 → 0 (Bien)
 
 ¡Lo logró! En el nuevo espacio 3D, el perceptrón trazó un plano (no una línea) que separa perfectamente los puntos.
+
+![alt text](x1xx2.png)
+Observe que los puntos rojos quedan por encima del plano y los azules por debajo.
 
 ## Otras funciones que podemos usar
 
@@ -138,7 +140,8 @@ SetColor( D, 1, 0, 0)
 Rote la gráfica (arrastrando los ejes con el ratón) y verá que no puede encontrar la forma de poner un plano de separación de los puntos rojos y grises.
 Borre los puntos A, B, C, D
 
-3. Ahora usemos en Z la función kernel Z = X1 * X2
+
+3. Ahora usemos en Z la función kernel $Z = X1 * X2$
 
 |X1	|X2	|Z	|Salida (Y)|
 |---|---|-----------|----------|
@@ -158,7 +161,6 @@ SetColor( D, 1, 0, 0)
 Rote la gráfica (arrastrando los ejes con el ratón) y verá que ahora **SI** puede encontrar la forma de poner un plano de separación entre los puntos rojos y grises.
 
 Borre los puntos A, B, C, D
-
 
 4. Repita ahora para el kernel : Z = X1 * X2
 

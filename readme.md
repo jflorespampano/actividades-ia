@@ -2,7 +2,7 @@
 
 # Definición
 
->Definicion de trabajo: “habilidad de un individuo para resolver problemas de su entorno”.
+>Definicion de trabajo de la IA: “habilidad de un individuo para resolver problemas de su entorno”.
 
 ## Temario del curso
 
@@ -40,8 +40,8 @@
 2. Saber programar
 3. Saber usar git/github
 4. Tener instalado VSCode
-  * Tener instaladas las extensiones de Code para mark down/visualizar mermaid
-  * Tener instalada la extensión "PDF Viewer" de tomoki1207 en code
+    * Tener instaladas las extensiones de Code para mark down/visualizar mermaid
+    * Tener instalada la extensión "PDF Viewer" de tomoki1207 en code
 5. Saber escribir Mark Down
 6. Saber escribir fórmulas en Latex/Markdown
 7. Usar una IA (por ejemplo Deep Seek)
@@ -68,7 +68,7 @@ El material para este curso te lo proporcionará el profesor en:
 
 Para visualizar pdf en *VsCode* carga la extensión: *"PDF Viewer" de tomoki1207*
 
-## Perplexity
+### Perplexity
 
 ¿Qué es Perplexity AI?
 Motor de búsqueda conversacional: Permite hacer preguntas en lenguaje natural (como ChatGPT) pero con resultados enlazados a fuentes web actualizadas.
@@ -77,7 +77,7 @@ Enfoque en precisión: Responde con citas y enlaces a sitios confiables (evitand
 
 Disponible en web y app móvil (iOS/Android).
 
-## Herramientas
+### Herramientas
 
 * Weka es una suite de software de código abierto (open-source) especializada en aprendizaje automático (Machine Learning) y minería de datos. Su nombre viene del ave *Weka* (endémica de Nueva Zelanda, donde se desarrolló la herramienta) y también es un acrónimo de "Waikato Environment for Knowledge Analysis" (Entorno Waikato para Análisis de Conocimiento), creado por la Universidad de Waikato.
 
