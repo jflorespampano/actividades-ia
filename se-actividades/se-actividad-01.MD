@@ -38,13 +38,13 @@ A continuación se resume la actividad solicitada en esa página web.
    6. lectura
    7. artículo
 3. busca una definición para sitema experto
-4. prepara una presentación que explique los conceptos principales de sistemas expertos, debes tocar al menos los temas:
+4. prepara una presentación usando los resultados anteriores, que explique los conceptos principales de sistemas expertos, debes tocar al menos los temas:
     * conocimiento
     * base de conocimiento
     * motor de inferencia
     * línea de tiempo de los sistemas expertos
     * tipos de sistemas expertos
-5. graba un video donde expones la presentación y subelo a una plataforma para  que el profesor evalue, envia la liga al profesor donde el indique, toma enconsideración los siguientes puntos para la creación del video.
+5. graba un video donde expones la presentación y subelo a una plataforma para  que el profesor evalue, envia la liga al profesor donde el indique, toma en consideración los siguientes puntos para la creación del video.
     * puede apoyarte en el archivo pdf '0-Ingenieria-del-conocimiento(complementaria).pdf' en unua IA y en google.
     * debe poder abrirse fácilmente (youtube, facebook)
     * debes presentar el video de manera que te veas de cuerpo entero y con vestimenta adecuada a un nivel licenciatura (preguntar al profesor sobre este punto)
@@ -54,13 +54,13 @@ A continuación se resume la actividad solicitada en esa página web.
     * si el video no se puede abrir no será evaluado.
     * al final del video debes verte de cuerpo entero haciendo una conclusión
 6. Escribir un artículo en `Overleaft` del estado del arte de la IA.
-7. Crea, lee y entrega un resumen cada uno de los pdf (usa NoteBookLM para esta actividad): 
+7. Crea, lee y entrega un resumen cada uno de los pdf (de la carpeta: ia\sistemasExpertos\pdf de DropBox) (usa NoteBookLM para esta actividad): 
    1. '0-ingenieria-del-conocimiento.pdf'.
    2. 'C-sistemasExpertosBasadosEnReglas.pdf'
 
 ## entregables
 
-En una carpeta llamada ´actividad01´ dentro de la carpeta se de tu repositorio de GitHub agrega:
+En una carpeta llamada ´actividad01´ dentro de la carpeta de tu repositorio de GitHub agrega:
 
 1. archivo readme.md con los datos de los integrantes y la descripción de la tarea (archivos)
 2. Resultados del puntos 2 en pdf
