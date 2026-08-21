@@ -7,7 +7,7 @@ Prolog (abreviatura de Programmation en Logique) es un lenguaje de programación
 En la carpeta `ia\sistemasExpertos\pdf` estudia el archivo:
 * 1-sistemasExpertosBasadosEnReglas(referencia).pdf
 
-En la subcarpeta de esta carpeta `prolog-actividades/pdf` Revisa los archivos:
+En la subcarpeta de esta carpeta `\ia\sistemasExpertos\pdf\swiProlog` Revisa los archivos:
 * '1-instalarSwiProlog.pdf'
 * '3-Introduccion Prolog-2.pdf'
 * '4-GuiaProlog.pdf'
