@@ -4,11 +4,11 @@
 
 ## Introducción
 
-Estudie los archivos pdf:
-* `actividades-ia/se-actividades/actividad01.arboles/arboles/resumen.Teorema.Bayes.pdf`
-* `actividades-ia/se-actividades/actividad01.arboles/arboles/Naive.Bayes.pdf`
-* `actividades-ia/se-actividades/actividad01.arboles/arboles/arbol-decision-ID3%20algoritmo.pdf`
-* `actividades-ia/se-actividades/actividad01.arboles/arboles/Ejemplo.naive.bayes.jugar.pdf`
+Estudie los archivos pdf (\ia\sistemasExpertos\arboles):
+* `resumen.Teorema.Bayes.pdf`
+* `Naive.Bayes.pdf`
+* `arboles/arbol-decision-ID3%20algoritmo.pdf`
+* `arboles/Ejemplo.naive.bayes.jugar.pdf`
 
 Instale el interprete del lenguaje R y aprenda sus principales características e instrucciones, apóyese en los archivos:
 
@@ -17,7 +17,7 @@ Instale el interprete del lenguaje R y aprenda sus principales características 
 
 ## Actividades
 
-Basándode en los archivos *pdf* de la carpeta './arboles' haga:
+Basándode en los archivos *pdf* de la carpeta haga:
 
 1. Estudie el archivo 'arbol-decision-id3 algoritmo.pdf'
 2. Aplique el algoritmo ID3 al conjunto de datos Iris apoyandose en el archivo Excell: `naive-bayes.iris.data.xlsx`, lo datos iris los puede obtener del archivo: `iris.data.csv`, como resultado deberá obtener un archivo Excell para los datos  Iris.
@@ -52,8 +52,8 @@ Coloque en las filas los resultados de sus 20 observaciones contra los valores r
 
 En una carpeta nueva llamada arboles dentro de la carpeta se de tu repositorio en github agrega:
 
-1. pdf con el resultado de la aplicación de ID3 a iris
-2. Reporte del punto la aplicar el agoritmo J48 a iris en weka
+1. pdf con una presentación del rpoceso y el resultado de la aplicación de ID3 a iris
+2. prsentación en pdf del punto aplicar el agoritmo J48 a iris en weka
 3. Liga al cuaderno Colab
 4. Archivos rmd y html del punto 6
 5. matriz del punto 7.
