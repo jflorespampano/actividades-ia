@@ -9,7 +9,7 @@ python --version
 
 ```
 
-## instala Python3.12.x 
+## instala Python 3.12.x 
 
 Desde su sitio oficial isnstala python
 
@@ -17,7 +17,7 @@ Desde su sitio oficial isnstala python
 
 ## Lanzador py
 
-Si estas en Windows puedes usar `py` (solo en windows) que es el lanzador de python independientemente de la versión que por default que este activa.
+Si estas en Windows puedes usa `py` (solo en windows) que es el lanzador de python independientemente de la versión que por default que este activa.
 
 ```bash
 py -0 # muestra las versiones de python instaldas 
@@ -35,11 +35,11 @@ py -3.12
 py -3.12 -m pip install --upgrade pip
 ```
 
-Instalar bibliotecas con py:
+Instalar bibliotecas con py (ejemplos):
 ```bash
 py -<versión> -m pip install <nombre_del_paquete>
 
-# Instalar pandas en Python 3.12
+# Instalar la biblioteca pandas en Python 3.12
 py -3.12 -m pip install pandas
 
 # Instalar requests en Python 3.10
@@ -61,7 +61,7 @@ py -3.12 -m pip uninstall pandas
 
 ## Entornos virtuales
 
-Para evitar colisiones en bibkliotecas es recomendable usar entornos virtuales
+Para evitar colisiones en bibliotecas es recomendable usar entornos virtuales
 
 ```bash
 # Crear un entorno virtual con Python 3.12
@@ -83,6 +83,7 @@ deactivate
 Si aun no la has hecho, instala python 3.12.x
 
 ### Crear ambiente virtual
+0. instala python 3.12.x
 1. crea una carpeta llamada clasificarIris, copia ahi los archivos: `irisArbol.py`, `irisTF.py`
 2. abre una ventana de bash en esa carpeta
 3. crea el ambiente así:
@@ -92,6 +93,9 @@ py -3.12 -m venv mi_entorno
 
 # Activar el entorno (Windows)
 source mi_entorno/Scripts/activate
+
+# actualiza pip
+py -3.12 -m pip install --upgrade pip
 
 # instala bibliotecas
 pip install tensorflow pandas matplotlib seaborn scikit-learn
@@ -111,9 +115,9 @@ python irisArbol.py
 deactivate
 ```
 
-## Actividad 2 
+## Actividad 2 (Tensor Flow)
 
-Para esta actividad ya no tendras que crear la carpeta ni el ambiente ni cargar bibliotecas, pues ya lo hiciste en la actividad 1. Ahora soilamente, activa el entorno y ejecuta el archivo:
+Para esta actividad ya no tendras que crear la carpeta ni el ambiente ni cargar bibliotecas, pues ya lo hiciste en la actividad 1. Ahora solamente, activa el entorno y ejecuta el archivo:
 
 ```bash
 # Activar el entorno (Windows)

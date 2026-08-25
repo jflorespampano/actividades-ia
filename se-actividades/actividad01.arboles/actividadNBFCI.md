@@ -1,3 +1,7 @@
+---
+categoría: ia
+tipo: arboles
+---
 # actividad NB FCI
 
 Seleccione un conjunto de 20-50 estudiantes al azar en la FCI, tabule para ellos la siguiente información:

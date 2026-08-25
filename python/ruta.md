@@ -1,4 +1,4 @@
-# Rura de aprendizaje
+# Ruta de aprendizaje
 
 ## Fase 1: Los Cimientos (Python y Matemáticas)
 

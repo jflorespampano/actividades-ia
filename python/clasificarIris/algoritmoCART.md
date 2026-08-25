@@ -1,5 +1,24 @@
 # CART
 
+CART (Classification and Regression Trees) es uno de los métodos más populares para construir árboles de decisión. CART construye un árbol binario (cada nodo padre tiene como máximo dos hijos) mediante divisiones recursivas. El objetivo es dividir el conjunto de datos en subgrupos cada vez más puros (homogéneos) con respecto a la variable objetivo.
+
+## Criterios de División (¿Cómo elige la mejor partición?)
+
+El algoritmo prueba todas las variables y todos los puntos de corte posibles, y elige aquel que maximiza la "pureza" de los nodos hijos. El criterio depende del tipo de problema:
+
+* Para Clasificación (variable objetivo categórica): usa el Índice de Gini (el más común) o la Entropía.
+
+    * Gini: mide la probabilidad de clasificar incorrectamente un elemento si se etiquetara al azar. Busca minimizar este valor.
+    * Entropía: mide el desorden o la incertidumbre. Busca maximizar la ganancia de información.
+
+## Proceso de Construcción (Pasos)
+
+1. Inicio: Para cada variable, evalúa todos los posibles puntos de corte.
+3. Selección: Elige la variable y el punto de corte que generen la mayor reducción en la impureza (o error).
+4. División: Divide los datos en dos nodos hijos (izquierdo y derecho) según esa regla (ej: Edad <= 30).
+5. Repetición: Aplica el mismo proceso recursivamente a cada nodo hijo hasta que se cumpla un criterio de parada.
+
+CART se diferencia de otros algoritmos (como ID3) porque primero crece un árbol muy grande y luego lo poda (reduce) hacia atrás.
 
 | Característica | ID3 (1986) | CART (1984) |
 |----------------|------------|-------------|
