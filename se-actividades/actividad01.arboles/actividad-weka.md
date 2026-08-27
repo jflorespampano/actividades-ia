@@ -64,7 +64,7 @@ El árbol de confusión da algo como esto:
   0  2  48 |  c = Iris-virginica
 ```
 
-En la lista de resultados (Result list) da clic derecho y selecciona (Visualize tree)
+6. En la lista de resultados (Result list) da clic derecho y selecciona (Visualize tree)
 
 ## formato artff
 
@@ -87,8 +87,6 @@ En la lista de resultados (Result list) da clic derecho y selecciona (Visualize 
 ```
 
 ## Actividad
-
-### introducción
 
 El archivo vote.arff es uno de los conjuntos de datos clásicos que vienen incluidos con Weka. Se trata de un conjunto de datos del mundo real muy interesante sobre el Congreso de los Estados Unidos. Registra las votaciones de 435 congresistas de EE. UU. sobre 16 temas de actualidad en la década de 1980. El objetivo principal es predecir la afiliación política de un congresista (Demócrata o Republicano) basándose en su patrón de votación.
 
