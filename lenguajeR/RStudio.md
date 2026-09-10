@@ -48,7 +48,7 @@ Tiene 4 paneles principales:
 
 ## RMarkdown
 
-R Markdown es una herramienta poderosa que combina análisis de datos, código y documentación en un solo documento. R Markdown provee un marco de escritura para ciencia de datos, que combina tu código, sus resultados y tus comentarios en prosa. Los documentos de R Markdown son completamente reproducibles y soportan formatos de salida tales como PDFs, archivos de Word.
+R Markdown es una herramienta poderosa que combina análisis de datos, código y documentación en un solo documento. R Markdown provee un marco de escritura para ciencia de datos, que combina tu código, sus resultados y tus comentarios en prosa. Los documentos de R Markdown son completamente reproducibles y soportan formatos de salida tales como PDF o archivos de Word.
 
 Los archivos R Markdown están diseñados para ser usados de tres maneras:
 
@@ -69,7 +69,7 @@ Sirve para crear documentos reproducibles que integran:
 Contiene tres tipos importantes de contenido:
 
 Un encabezado YAML (opcional) rodeado de ---
-Bloques de código de R rodeados de ```.
+Bloques de código de R rodeados de ```bloque de código```.
 Texto mezclado con formateos de texto simple como # Encabezado e _itálicas_.
 
 Cuando haces knit el documento (knit significa tejer en inglés), R Markdown envía el .Rmd a knitr (http://yihui.name/knitr/) que ejecuta todos los bloques de código y crea un nuevo documento markdown (.md) que incluye el código y su output. Teniendo el archivo md, puedes crear un muy amplio rango de formatos de salida usando pandoc (`pandoc documento.md -o documento.pdf`).
@@ -92,9 +92,9 @@ Cuando haces knit el documento (knit significa tejer en inglés), R Markdown env
 * Crear nuevo segmento de código ctr+alt+i o el ícono insert en la barra de edición
 * Generar resultados selecciona opcion knit/knit to html
 
-**Ejemplos de segmento de código:**
+**Ejemplos de segmento de código (no escriba ```<pre ...>...</pre>```):**
 
-<pre style="background-color: #c0c0c0">
+<pre style="background-color: #c0c0c0; color:black">
 ```{r}
 
 tu código aqui
@@ -106,7 +106,7 @@ tu código aqui
 
 o
 
-<pre style="background-color: #c0c0c0">
+<pre style="background-color: #c0c0c0; color:black">
 ```{r message=FALSE, warning=FALSE}
 
 tu código aqui
@@ -117,7 +117,7 @@ tu código aqui
 
 o
 
-<pre style="background-color: #c0c0c0">
+<pre style="background-color: #c0c0c0; color:black">
 ```{r message=FALSE, warning=FALSE, rows.print = 20}
 
 tu código aqui
@@ -127,7 +127,7 @@ tu código aqui
 
 o
 
-<pre style="background-color: #c0c0c0">
+<pre style="background-color: #c0c0c0; color:black">
 ```{r eval=FALSE}
 
 Este código se mostrará pero no ejecutará
@@ -139,7 +139,7 @@ print(x)
 
 Puedes poner opcionalmente nobre a los bloque de código y despues navegar más fácilmente a bloques específicos usando el navegador de código desplegable abajo a la izquierda en el editor de script:
 
-<pre style="background-color: #c0c0c0">
+<pre style="background-color: #c0c0c0; color:black">
 ```{r nombre}
 
 x <- 5
@@ -166,7 +166,7 @@ El conjunto más importante de opciones controla si tu bloque de código es ejec
 
 Las tablas tiene un formato de salida, por ejemplo en código siguiente imprime una tabla:
 
-<pre style="background-color: #c0c0c0">
+<pre style="background-color: #c0c0c0; color:black">
 ```{r nombre}
 
 mtcars[1:5, ]
@@ -176,7 +176,7 @@ mtcars[1:5, ]
 
 Puede formatear la salida de esta forma:
 
-<pre style="background-color: #c0c0c0">
+<pre style="background-color: #c0c0c0; color:black">
 ```{r nombre}
 
 knitr::kable(
@@ -222,6 +222,7 @@ Significado:
 
 ## algunos tips
 
+Puede escribir formulas con LaTex o Html, como ejemplo puede:
 Crear subindices y superinddices
 - con latex $a \cdot b +x_2 \cdot y^3$
 - con html:
