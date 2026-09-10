@@ -2,17 +2,7 @@
 categoría: ia
 tipo: prolog
 ---
-## Explicar en Prolog conceptos
-
-### Hechos
-
-En Prolog un hecho es una declaración que establece una relación o propiedad verdadera entre objetos, formando la base de conocimiento del programa. Los hechos son el tipo más sencillo de cláusula y se utilizan para declarar valores que son verdaderos para un predicado. Un hecho se compone de un predicado seguido de uno o más argumentos entre paréntesis, separados por comas, y termina con un punto. Por ejemplo,
-
-```prolog
-persona(juan,27).
-```
-
-es un hecho que representa una relación entre Juan y su edad
+## Prolog conceptos avanzados
 
 ### Operador :-
 
@@ -59,6 +49,22 @@ Las reglas permiten definir relaciones entre objetos de forma general, como en e
 
 ### negación
 
+En Prolog, la negación es un concepto especial porque no es una negación lógica clásica, sino una negación por fallo (negation as failure). Esto es fundamental entenderlo para no cometer errores. El operador `\+` (se lee "no demuestra que"), este operador tiene éxito si su argumento falla, y falla si su argumento tiene éxito. También existe not/1, pero es equivalente y menos declarativo. Se recomienda usar \+.
+
+Ejemplo:
+
+```prolog
+?- \+ true.
+false.
+
+?- \+ fail.
+true.
+
+?- \+ (2 = 3).
+true.
+```
+
+Ejemplo:
 ```prolog
 % "Un animal es exótico si NO es doméstico"
 exotico(Animal) :-
@@ -66,6 +72,27 @@ exotico(Animal) :-
 
 domestico(perro).
 domestico(gato).
+```
+
+Ejemplo:
+```prolog
+padre(juan, maria).
+padre(juan, pedro).
+padre(carlos, ana).
+
+no_tiene_hijos(X) :-
+    \+ padre(X, _).
+```
+Consultas:
+```prolog
+?- no_tiene_hijos(juan).
+false.
+
+?- no_tiene_hijos(carlos).
+false.
+
+?- no_tiene_hijos(ana).
+true.
 ```
 
 ### Variables
@@ -187,43 +214,7 @@ true.
 % ~w: Imprime el término tal cual. ~n: Salto de línea.
 ```
 
-## Ejemplo de base de conocimiento hechos + reglas
-
-```prolog
-% Hechos: Datos concretos sobre una familia
-hombre(juan).
-hombre(pedro).
-hombre(carlos).
-mujer(maria).
-mujer(ana).
-mujer(lucia).
-
-% Relaciones de parentesco
-padre(juan, pedro).  % Juan es padre de Pedro
-padre(juan, ana).
-madre(maria, pedro).
-madre(maria, ana).
-padre(carlos, lucia).
-
-%% reglas
-% Regla 1: X es hijo de Y si Y es padre o madre de X
-hijo(X, Y) :- (padre(Y, X) ; madre(Y, X)).
-
-% Regla 2: X y Y son hermanos si comparten al menos un padre/madre
-hermano(X, Y) :- 
-    (padre(P, X), padre(P, Y) ; madre(M, X), madre(M, Y)),
-    X \\= Y.  % Evitar que X sea hermano de sí mismo
-
-% Regla 3: X es abuelo de Y si X es padre de Z y Z es padre/madre de Y
-abuelo(X, Y) :- 
-    (padre(X, Z) ; madre(X, Z)), 
-    (padre(Z, Y) ; madre(Z, Y)).
-
-% Regla 4: X es tío de Y si X es hermano de Z y Z es padre/madre de Y
-tio(X, Y) :- 
-    hermano(X, Z), 
-    (padre(Z, Y) ; madre(Z, Y)).
-```
+## Listas
 
 ```prolog
 %% Listas en prolog
@@ -233,7 +224,7 @@ tio(X, Y) :-
 []                    % Lista vacía (caso base)
 ```
 
-- [ ] hechos y listas
+## [ ] hechos y listas
 
 ```prolog
 pelicula(1, "El Padrino", [drama, crimen]).
@@ -243,7 +234,7 @@ pelicula(4, "El Señor de los Anillos", [aventura, fantasia]).
 pelicula(5, "Parasitos", [drama, thriller]).
 ```
 
-- [ ] reglas y listas
+## [ ] reglas y listas
 
 ```prolog
 prefiere(juan, [drama, crimen]).
@@ -251,7 +242,9 @@ prefiere(maria, [animacion, fantasia]).
 prefiere(carlos, [ciencia_ficcion, aventura]).
 ```
 
-- [ ] subraya _ es una variable anónima, sirve para ignorar valores en unificación, por ejemplo:
+## variables anonimas
+
+subraya _ es una variable anónima, sirve para ignorar valores en unificación, por ejemplo:
 
 ```prolog
 % Ignorar el segundo elemento de una tupla

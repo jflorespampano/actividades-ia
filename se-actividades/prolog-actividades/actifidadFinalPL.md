@@ -1,6 +1,33 @@
+---
+title: "Actividad final prolog"
+author: "MI jflores"
+date: "2026-09-09"
+last_modified: "2026-09-09"
+course: "Curso de programación avanzada - IA"
+type: "actividad_práctica"
+difficulty: "basica"
+estimated_time: "20 minutos"
+tags: 
+  - prolog
+  - JS
+  - Go
+prerequisites: 
+  - "Programación"
+  - "Lógica matemática"
+context: "laboratorio"
+learning_objectives: 
+  - "Construcción de sistemas expertos deterministas"
+dataset: "sin"
+license: "Creative Commons BY-NC-SA 4.0"
+version: "1.0"
+---
 # actividad
 
 Esta actividad la entregará en equipos de 1 a 3 personas, solo un integrante del equipo subira la actividad, asegurandose de que tenga un archivo `readme.md` en la carpeta raiz del proyecto donde se ponga al inicio la información de: (matriculas, nombres, materia, profesor y descripción del proyecto). No olvide poner un archivo `.gitignore` en su proyecto.
+
+**Crear servidor**
+
+En la carpeta `actividades-ia\codigos\prolog\swiprolog\server` prueba los ejercicios que muestran como crear un servidor web en 'swi-prolog',
 
 1. para las materias del programa educativo de ISC, programe un sistema experto que apoye al alumno/tutor/gestor en la elcción de cursos respetando su seriación y grado de aprovechamiento del alumno, Por ejmplo:
 
@@ -26,13 +53,10 @@ LLena tu base de conocimientos con 10 desarrolladores ficticios con diferentes n
    4. saber para un proyecto dado que personal hace falta contratar
 3. programa en Go lang un SE para llevar el control de los ingredientes de cada platillo de un menú para indicar que el cocinero pueda seber que ingredientes lleva un guiso y si existen todos los ingredientes para un guiso y que de un alista de ingredientes faltantes paraun  guiso dado.
 
-## valor de la actividad
+4. realice las actividades `GoProlog/actividades.md`
+5.  crea un servidor para un sistema que administre las academias, materias y proyectos a las que se asigna un profesor de la FCI basado en su nivel académico, perfil académico, linea de investigación, habilidades y especialización, levanta los requerimientos de este proyecto con tu profesor.
 
-1 valor 50%
-2 valor 40%
-3 valor 10%
-
-## avaluación
+## evaluación
 
 Se evaluará lo siguiente:
 1. que el programa funcione dando los resultado esperados 30%
@@ -45,4 +69,4 @@ Se evaluará lo siguiente:
 
 En su repositorio GitHub
 
-1. ligas a los 3 SE en GitHub a su profesor.
+1. ligas a los SE en GitHub cargados en la tarea de su profesor.

@@ -1,3 +1,28 @@
+---
+title: "Actividad 10 reconocimiento de patrones"
+author: "MI jflores"
+date: "2026-09-09"
+last_modified: "2026-09-09"
+course: "Curso de programación avanzada - IA"
+type: "actividad_práctica"
+difficulty: "basica"
+estimated_time: "20 minutos"
+tags: 
+  - perceptron
+  - redes neuronales
+  - funciones de activacion
+  - retroprogramación
+prerequisites: 
+  - "Álgebra lineal"
+  - "sci-lab"
+context: "laboratorio"
+learning_objectives: 
+  - "Entender las funciones de activacion"
+  - "Entender la retropropagación"
+dataset: "sin"
+license: "Creative Commons BY-NC-SA 4.0"
+version: "1.0"
+---
 # entender la función de activacion y la retropropagación.
 
 Actividades:

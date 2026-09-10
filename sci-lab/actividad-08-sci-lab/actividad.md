@@ -1,4 +1,30 @@
+---
+title: "Actividad 8 reconocimiento de patrones"
+author: "MI jflores"
+date: "2026-09-09"
+last_modified: "2026-09-09"
+course: "Curso de programación avanzada - IA"
+type: "actividad_práctica"
+difficulty: "basica"
+estimated_time: "20 minutos"
+tags: 
+  - RN
+  - sci-lab
+prerequisites: 
+  - "Álgebra lineal"
+  - "sci-lab"
+context: "laboratorio"
+learning_objectives: 
+  - "Entender el lenguaje sci-lab"
+  - "Entender el entrenamiento de RN en sci-lab"
+  - "Comprobar el resultado del perceptron en una grafica"
+dataset: "sin"
+license: "Creative Commons BY-NC-SA 4.0"
+version: "1.0"
+---
 ## actividad 
+
+Instale sci-lab desde: [descargar]()
 
 Ejercicios en SciLab
 

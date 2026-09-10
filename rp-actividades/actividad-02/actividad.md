@@ -1,8 +1,32 @@
+---
+title: "Actividad 2 reconocimiento de patrones"
+author: "MI jflores"
+date: "2026-09-09"
+last_modified: "2026-09-09"
+course: "Curso de programación avanzada - IA"
+type: "actividad_práctica"
+difficulty: "basica"
+estimated_time: "20 minutos"
+tags: 
+  - Clasificación
+  - JS
+  - Ecuacion de la recta
+prerequisites: 
+  - "Álgebra lineal"
+  - "JS"
+context: "laboratorio"
+learning_objectives: 
+  - "Entender la ecuación de la recta"
+  - "Usar una recta para clasificar puntos"
+dataset: "sin"
+license: "Creative Commons BY-NC-SA 4.0"
+version: "1.0"
+---
 ## Actividad tarea: 
 
 - instale SciLab/Octave, VsCode, opcionlmente (Copilot de Microsoft)
 
-## Instroducción aprendizaje automático
+## Introducción aprendizaje automático
 
 - Aprendizaje automático(machine learning), es una rama de la inteligencia artificial que se enfoca en el desarrollo de algoritmos que permiten a las computadoras aprender y mejorar a partir de la experiencia sin ser explícitamente programadas.En esencia, las máquinas analizan grandes cantidades de datos para encontrar patrones y hacer predicciones. Aquí hay algunas técnicas clave de aprendizaje automático:
 

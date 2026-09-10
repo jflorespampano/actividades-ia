@@ -1,18 +1,40 @@
+---
+title: "Actividad Prolog"
+author: "MI jflores"
+date: "2026-09-09"
+last_modified: "2026-09-09"
+course: "Curso de programación avanzada - IA"
+type: "actividad_práctica"
+difficulty: "basica"
+estimated_time: "20 minutos"
+tags: 
+  - Prolog
+  - swi prolog
+prerequisites: 
+  - "Programación"
+  - "JS"
+  - "Go"
+context: "laboratorio"
+learning_objectives: 
+  - "Entender la creación y uso de una base de conocimiento"
+  - "Entender la creación y uso de un sistema experto"
+dataset: "sin"
+license: "Creative Commons BY-NC-SA 4.0"
+version: "1.0"
+---
 # actividades de prolog
 
 ## prolog
 
 Prolog (abreviatura de Programmation en Logique) es un lenguaje de programación lógico diseñado para resolver problemas mediante razonamiento automatizado y manipulación de reglas lógicas. A diferencia de lenguajes imperativos (como Python o Java), en Prolog tú defines qué quieres resolver (no cómo hacerlo).
 
-En la carpeta `ia\sistemasExpertos\pdf` estudia el archivo:
-* 1-sistemasExpertosBasadosEnReglas(referencia).pdf
-
-En la subcarpeta de esta carpeta `\ia\sistemasExpertos\pdf\swiProlog` Revisa los archivos:
+En la carpeta `\ia\sistemasExpertos\swiProlog` Revisa los archivos:
 * '1-instalarSwiProlog.pdf'
+* `.\swi-prolog\resumen-swi-prolog.md`
 * '3-Introduccion Prolog-2.pdf'
-* '4-GuiaProlog.pdf'
-* Realiza el ejemplo: 'ejemploBCenprolog.pdf'
-* Realiza el ejemplo: '5-ejemploPrologHabilidProg.pdf'
+* '4-Guia-basica-Prolog.pdf'
+* 'ia\sistemasExpertos\pdf\prolog\comandosBasicos_Prolog.pdf'
+* cundo lo requieras revisa el archivo `.\swi-prolog\prologTopicosAvanzados.md`
 
 ## Introducción
 
@@ -40,17 +62,20 @@ Conclusión: "El suelo está mojado".
 ```
 
 ### Traducción a prolog
+
 Identificar los predicados: 
 * Definimos el predicado lloviendo que representa "está lloviendo".
 * Definimos el predicado suelo_mojado que representa "el suelo está mojado".
 
 Escribir la regla (la implicación)
 La implicación "Si está lloviendo, entonces el suelo está mojado" se escribe como:
+
 ```prolog
 suelo_mojado :- lloviendo.
 ```
 Escribir el hecho (la premisa)
 "Está lloviendo" se escribe como un hecho:
+
 ```prolog
 % Regla (implicación): Si llueve, el suelo está mojado
 suelo_mojado :- lloviendo.
@@ -116,6 +141,7 @@ estudia(ana, matematicas).
 ```
 
 #### Reglas (Rules)
+
 Las reglas definen relaciones condicionales. Tienen una cabeza (conclusión) y un cuerpo (condiciones) separados por :-.
 
 Ejemplos:
@@ -154,6 +180,10 @@ familiar(X, Y) :-
 5. Todo son relaciones (ej: padre/2, hermano/2).
 6. [referencia prolog](https://www.swi-prolog.org/pldoc/man?section=overview)
 
+### Ejemplos
+
+Para probar los ejercicios siguientes necesitaras usar 'swi-prolog', ve como se crea y consulta un BC en 'swi-prolog' en el aarchivo: 'ia/sistemasExpertos/pdf/prolog/mi_Introduccion_a_Prolog.pdf'
+
 ### Ejemplo de base de conocimiento(BC):
 
 ```pl
@@ -178,6 +208,7 @@ hermano(maria, luis).
 ```
 
 ### Ejemplo rutas de un grafo
+
 ```pl
 % Definición de rutas en un grafo
 camino(a, b).
@@ -194,7 +225,7 @@ camino(X, Z) :- camino(X, Y), camino(Y, Z).
 
 SWI-Prolog es uno de los intérpretes más populares y completos para el lenguaje de programación Prolog. Desarrollado activamente desde 1987, es ampliamente utilizado en investigación, educación y aplicaciones industriales gracias a su robustez, bibliotecas extensivas y herramientas integradas.
 
-[Descarga el instalador desde:](www.swi-prolog.org)
+[Si nno lo has echo,  instala desde:](www.swi-prolog.org)
 
 ## Ejemplo relaciones de familia
 
@@ -263,10 +294,12 @@ De la carpeta `\ia\GoLang` estudia los archivos
     * `prologconGo.md`
 
 ## Actividades:
+* realiza el ejercicio 'ia/sistemasExpertos/pdf/prolog/mi_Introduccion_a_Prolog.pdf'
+* Realiza el ejemplo: '\ia\sistemasExpertos\swiProlog\5-ejemploPrologHabilidProg.pdf'
 
 1. revisar en clase los conceptos principales de prolog
 2. instalar swi-prolog apoyate en '1-instalarSwiProlog.pdf'
-3. implementa los ejercicios: 'ejemploBCenprolog.pdf', '5-ejemploPrologHabilidProg.pdf'
+3. implementa los ejercicios: 'ia/sistemasExpertos/pdf/prolog/mi_Introduccion_a_Prolog.pdf', '5-ejemploPrologHabilidProg.pdf'
 4. realiza los ejercicios siguientes:
     * asistente medico
     * gestor de proyectos
@@ -277,10 +310,9 @@ De la carpeta `\ia\GoLang` estudia los archivos
     * programa el asistente médico en TauProlog
     * programa el gestor de proyectos en Go con Ichiban
     * programa el gestor de proyectos en Tauprolog
-
-
+5. Realiza la actividad final `.\actividadFinalPL.md`
 ## entregables
 
 En tu repositorio GitHub, en una subcarpeta llamada prolog de la carpera se, agrega
 
-1. ejercicios de los puntos 3,4 en GitHub.
+1. ejercicios de los puntos 3,4 y 5 en GitHub.

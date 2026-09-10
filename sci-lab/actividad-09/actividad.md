@@ -1,3 +1,28 @@
+---
+title: "Actividad 9 reconocimiento de patrones"
+author: "MI jflores"
+date: "2026-09-09"
+last_modified: "2026-09-09"
+course: "Curso de programación avanzada - IA"
+type: "actividad_práctica"
+difficulty: "basica"
+estimated_time: "20 minutos"
+tags: 
+  - perceptron con iris
+  - redes neuronales
+  - sci-lab
+prerequisites: 
+  - "Álgebra lineal"
+  - "sci-lab"
+context: "laboratorio"
+learning_objectives: 
+  - "Entender la aplicación del perceptron"
+  - "Entender el entrenamiento de RN"
+  - "Comprobar el resultado del perceptron"
+dataset: "sin"
+license: "Creative Commons BY-NC-SA 4.0"
+version: "1.0"
+---
 # Actividad
 
 Practicas de redes neuronales con SCILAB

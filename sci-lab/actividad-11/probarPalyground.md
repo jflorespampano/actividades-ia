@@ -1,3 +1,26 @@
+---
+title: "Actividad 11 reconocimiento de patrones"
+author: "MI jflores"
+date: "2026-09-09"
+last_modified: "2026-09-09"
+course: "Curso de programación avanzada - IA"
+type: "actividad_práctica"
+difficulty: "basica"
+estimated_time: "20 minutos"
+tags: 
+  - palyground
+  - redes neuronales
+  - google
+prerequisites: 
+  - "rn"
+context: "laboratorio"
+learning_objectives: 
+  - "Entender el funcionamiento de redes neuronales"
+  - "clasificación no lineal"
+dataset: "sin"
+license: "Creative Commons BY-NC-SA 4.0"
+version: "1.0"
+---
 # Probar playground
 
 En la liga de [playground Tensorflow](https://playground.tensorflow.org/#activation=tanh&batchSize=10&dataset=circle&regDataset=reg-plane&learningRate=0.03&regularizationRate=0&noise=0&networkShape=4,2&seed=0.04258&showTestData=false&discretize=false&percTrainData=50&x=true&y=true&xTimesY=false&xSquared=false&ySquared=false&cosX=false&sinX=false&cosY=false&sinY=false&collectStats=false&problem=classification&initZero=false&hideText=false)
