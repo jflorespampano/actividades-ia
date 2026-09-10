@@ -12,7 +12,7 @@ swipl --version
 
 ### Cargar y consultar tu código usando el terminal integrado
 
-1. Abre un archivo `prueba.pl` en VSCode 
+1. Abre un archivo `prueba.pl` en VSCode y escribe tu BC.
 2. Abre el terminal integrado con Ctrl+ñ
 3. Inicia SWI-Prolog, escribe: `swipl`, devolvera el promp: `?-`
 4. carga tu archivo `?- [prueba].`, sin extensión

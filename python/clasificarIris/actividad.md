@@ -2,6 +2,8 @@
 
 ## python
 
+Para revisar si tienes instalado pyhton, abre una ventana de bash y prueba:
+
 ```bash
 where python # ver donde apunta la variable de entorno python
 python --version

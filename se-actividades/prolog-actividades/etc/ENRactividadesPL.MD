@@ -39,6 +39,7 @@ Consulta:
 ```bash
 camino(a, c).  % ¿Hay ruta de 'a' a 'c'? → true
 ```
+Características
 
 1. Unificación y Backtracking: Prolog prueba todas las combinaciones posibles (backtracking) hasta encontrar soluciones que cumplan las reglas.
 
@@ -56,9 +57,12 @@ SWI-Prolog es uno de los intérpretes y compiladores más populares y completos 
 
 ## Actividades:
 
-1. instalar swi-prolog apoyate en '1-instalarSwiProlog.pdf'
-2. revisa los archivos '3-Introduccion Prolog-2.pdf' y '4-GuiaProlog.pdf'
-3. implementa el ejercicio del archivo: '5-ejemploPrologHabilidProg.pdf'
+1. instalar swi-prolog apoyate en 'ia\sistemasExpertos\swiProlog\1-instalarSwiProlog.pdf'
+2. revisa los archivos:
+    * `./resumen-swi-prolog.md`
+    * `ia\sistemasExpertos\swiProlog\3-Introduccion Prolog-2.pdf`
+    * `ia\sistemasExpertos\swiProlog\4-GuiaProlog.pdf`
+3. implementa el ejercicio del archivo: 'ia\sistemasExpertos\swiProlog\5-ejemploPrologHabilidProg.pdf'
 4. revisar en clase los conceptos principales de prolog
 5. realiza los ejercicios siguientes:
     * asistente medico

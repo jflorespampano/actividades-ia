@@ -1,3 +1,25 @@
+---
+title: "Actividad 15...17 reconocimiento de patrones"
+author: "MI jflores"
+date: "2026-09-09"
+last_modified: "2026-09-09"
+course: "Curso de programación avanzada - IA"
+type: "actividad_práctica"
+difficulty: "basica"
+estimated_time: "20 minutos"
+tags: 
+  - redes neuronales
+  - biblioteca ann
+prerequisites: 
+  - "Álgebra lineal"
+  - "sci-lab"
+context: "laboratorio"
+learning_objectives: 
+  - "Entender el uso de la biblioteca ANN"
+dataset: "sin"
+license: "Creative Commons BY-NC-SA 4.0"
+version: "1.0"
+---
 # actividad 15,16,17
 
 15. crear una RN con ANN para IRIS (crear video)
