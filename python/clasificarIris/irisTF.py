@@ -153,6 +153,32 @@ def plot_confusion_matrix(y_true, y_pred, class_names):
 plot_confusion_matrix(y_test, y_pred, target_names)
 
 # Probabilidades de predicción
-print("\nProbabilidades de predicción (primeras 5 muestras):")
-for i in range(5):
-    print(f"Muestra {i+1}: {y_pred_proba[i]} → Predicción: {target_names[y_pred[i]]}")
+# --- Tabla de resultados ---
+# Construir un DataFrame con los datos de prueba, probabilidades, real y predicho
+df_resultados = pd.DataFrame(X_test, columns=feature_names)   # características originales
+df_resultados['Real'] = [target_names[i] for i in y_test]      # etiqueta real
+df_resultados['Predicha'] = [target_names[i] for i in y_pred]  # etiqueta predicha
+
+# Añadir la probabilidad de cada clase
+for i, nombre in enumerate(target_names):
+    df_resultados[f'P({nombre})'] = y_pred_proba[:, i]
+
+# Columna indicando si acertó
+df_resultados['Correcto'] = df_resultados['Real'] == df_resultados['Predicha']
+
+# Opcional: ordenar las columnas para que quede más legible
+columnas = list(feature_names) + ['Real', 'Predicha'] + \
+           [f'P({n})' for n in target_names] + ['Correcto']
+df_resultados = df_resultados[columnas]
+
+# Mostrar la tabla con formato (4 decimales en las probabilidades)
+print("\n--- Tabla de resultados sobre el conjunto de prueba ---")
+print(df_resultados.to_string(
+    formatters={f'P({n})': '{:.4f}'.format for n in target_names},
+    index=True
+))
+
+# Resumen rápido
+aciertos = df_resultados['Correcto'].sum()
+total = len(df_resultados)
+print(f"\nAciertos: {aciertos}/{total} ({100*aciertos/total:.2f}%)")

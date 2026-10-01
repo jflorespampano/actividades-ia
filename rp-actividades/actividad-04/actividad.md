@@ -1,5 +1,5 @@
 ---
-title: "Actividad 4 reconocimiento de patrones"
+title: "Actividad 4 feature ingeniering"
 author: "MI jflores"
 date: "2026-09-09"
 last_modified: "2026-09-09"
@@ -26,15 +26,14 @@ version: "1.0"
 
 ## objetivo
 
-Entender la codificación del perceptron en js y comprobar sus resultados.
+Entender lalgunas caracteristicas del feature ingeniering
 
 ## Actividades
 
-En esta actividad introducira un código js en su equipo, el código esta en el archivo "perceptronANDsimple.html", ejecutarlo y graficar la recta resultante en Google Chrome, las instrucciones para realizar esto se indican a continuación:
+* Pruebe el código `featureIngenieringXOR3d.ipynb`
+* Replique el código en algín lenguaje que elija entre [js, R, scilab]
 
-1. Realice la actividad del archivo "perceptronAND-js.pdf", consulte sus dudas al profesor, al final atienda el resumen del profesor.
+## entregable
 
-## Entregable
-
-1. Presentación en pdf del código y recta resuktante en su repositorio de GitHub y una liga en Teams a la tarea asignada por el profesor.
-2. muestre su código al profesor.
+* código cargado en su github
+* liga del github al profesor

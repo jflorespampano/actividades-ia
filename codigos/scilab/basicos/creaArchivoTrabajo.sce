@@ -32,5 +32,12 @@ for i=1:np
     end
 end
 
-M=[x1',y1',class_F];
-write('datos1.txt',M);
+//escribir datos a archivo
+//nota: si no ve el resultado, revise la carpeta mis_documentos
+M1=[x1',y1',class_F];
+M = round(M1 * 100) / 100;
+write('datos2.txt',M);
+csvWrite(M, 'mi_archivo.csv');
+
+nombres_columnas = ["x_1,x_2,y"];
+csvWrite(M, 'datos_con_header.csv', [],[],[], nombres_columnas);

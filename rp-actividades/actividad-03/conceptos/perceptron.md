@@ -167,9 +167,14 @@ def step_activation(z):
     return 1 if z >= 0 else 0
 
 # Función para predecir una sola muestra (con sesgo incluido)
+# esta funci´´on recibe algo como [0, 1] o [1, 1]
 def predict(x):
-    # Asegurar que x tenga el sesgo: [1, x1, x2, ...]
-    x_with_bias = np.insert(x, 0, 1)
+    # Agregar el sesgo: [1, x1, x2, ...]
+    # inserta 1 en la posición 0 del vector x, 
+    # Si x = [x1, x2], el resultado es [1, x1, x2]
+    x_with_bias = np.insert(x, 0, 1) 
+    # Calcula el producto punto entre el vector de pesos y el vector de entrada con sesgo. Es decir, la suma ponderada:
+    # z=w_0⋅1+w_1⋅x1+w_2⋅x_2
     z = np.dot(weights, x_with_bias)
     return step_activation(z)
 
@@ -178,11 +183,21 @@ for epoch in range(max_epochs):
     total_errors = 0
 
     # 2. Para cada muestra de entrenamiento
+    # zip(X_train, y_train) empareja elmento a lemento los 2 arrays
+    # X_train matriz de entradas (4 filas × 2 columnas).
+    # y_train Vector de salidas esperadas (4 valores: 0, 0, 0, 1).
+    # xi Variable que guardará cada muestra de entrada (un vector como [0, 1]).
+    # target Variable que guardará la etiqueta correcta correspondiente a esa muestra.
     for xi, target in zip(X_train, y_train):
-        # 2a. Asegurar que el vector de entrada incluya x_0 = 1
+        # 2a. Agregar Bias, x_0 = 1
         x_with_bias = np.insert(xi, 0, 1)
 
         # 2b. Calcular la salida (suma ponderada + escalón)
+        # suponga pesos weigths = [0.2, -0.4, 0.3]
+        # y x_with_bias = [1, 1, 1]
+        # entonces: z = np.dot(weights, x_with_bias)
+        # equivale a:
+        # z = (0.2 * 1) + (-0.4 * 1) + (0.3 * 1) = 0.2 - 0.4 + 0.3 = 0.1
         z = np.dot(weights, x_with_bias)
         y_hat = step_activation(z)
 
@@ -275,161 +290,3 @@ Donde
 
 Problema: solo funciona para datos linealmente separables y los cambios son bruscos (no graduales).
 
-## Regla delta generalizada
-
-La regla delta generaliza el aprendizaje usando el error cuadratico medio y permite ajustes proporcionales al error, lo que la hace mas suave y aplicable a funciones continuas.
-
-1. Función de activación continua, en lugar de la función escalón. Se usa una función diferenciable como *sigmoid*e o *tangente hiperbólica*. **Usemos sigmoide**:
-
-$$f(z) = \frac{1}{1+e^{-z}}$$
-
-Esto permite calcular derivadas y aplcar gradiente
-
-2. definición del error
-
-para una muestra $(x, y)$ el error se define como:
-
-$$E = \frac{1}{2} \cdot (y- \hat{y})^2$$
-
-donde $\hat{y} = f(w \cdot x)$ es la salida de la red.
-
-3. Actualización de pesos por descenso de gradiente.
-
-La regla delta ajusta los pesos en la dirección que reduce el error, moviendose en sentido contrario al gradiente.
-
-$$\Delta w_i = \eta \cdot \frac{\partial E}{\partial w_i}$$
-
-Aplicando la regla de la cadena
-
-$$\frac{\partial E}{\partial w_i}$$
-
-Si esta derivada es positiva significa que al aumentar el peso, el error aumenta (vamos mal). Si es negativa, al aumentar el peso, el error disminuye (vamos bien). por eso la usamos para actualizar el peso.
-
-Aplicando la regla de la cadena: esta dice que si una variable depende de otra, y esa otra depende de una tercera, para encontrar la derivada total **multiplicamos las derivadas parciales de cada eslabón**
-
-En nuestro caso, la cadena de dependencias es:
-
-$$w_i \rightarrow z \rightarrow \hat{y} \rightarrow E$$
-
-Es decir
-* Cambio en $w_i \implies afecta \, a \, z$ 
-* Cambio en $z \implies afecta \, a \, \hat{y} \,(por que \, \hat{y} = f(z))$ 
-* Cambio en  $\hat{y} \, afecta \, al \, error \, E$
-
-Para calcular $\frac{\partial E}{\partial w_i}$, multiplicamos las derivadas de cada uno de estos tres eslabones
-
-$$\frac{\partial E}{\partial w_i} = \frac{\partial E}{\partial \hat{y}} \cdot \frac{\partial \hat{y}}{\partial z} \cdot \frac{\partial z}{ \partial w_i}$$
-
-Calculado estos 3 terminos por separado:
-
-Primer eslabon $\frac{\partial E}{\partial \hat{y}}$ (como cambia el error cuando cambia la predicción)
-
-como $E = \frac{1}{2} \cdot (y-\hat{y}) ^ 2$ derivamos respecto a $\hat{y}$.
-
-$$\frac{\partial E}{\partial \hat{y}} = \frac{1}{2} \cdot 2 \cdot (y-\hat{y}) \cdot (-1) = -(y-\hat{y})= \hat{y}-y$$
-
->Nota: a veces veras que lo ponen como $(y-\hat{y})$ con signo negativo dependiendo de como definan el error, pero el resultado final de la formula con que empezamos es $(y-\hat{y})$
-
-Segundo eslabón $\frac{\partial \hat{y}}{\partial z}$ (como cambia la predicción cuando cambia la suma ponderada)
-
-Esto es simplemente la derivada de la función de activación $f(z)$
-
-$$\frac{\partial \hat{y}}{\partial z} = f'(z)$$
-
-Tercer eslabón: $\frac{\partial z}{\partial w_i}$ (como cambia la suma ponderada cuando cambia un peso específico).
-
-Recuerda que $z = (w_1 \cdot x_1 + w_2 \cdot x_2 \cdots + b)$
-
-Si derivamos $z$  respecto a $w_i$ todos los terminos se vuelven 0 excepto el que contiene a $w_i$:
-
- $\frac{\partial z}{\partial w_i} = x_i$
-
-Multimplicamos los tres eslabones:
-
-$$\frac{\partial E}{\partial w_i} = - (y-\hat{y}) \cdot f'(z) \cdot x_i$$
-
-Y por que la formula de actualización no tiene signo negativo?
-
-$$\Delta w_i = \eta \cdot (y-\hat{y}) \cdot f'(z) \cdot x_i$$
-
-donde fue a parar el signo menos:
-
-En el algoritmo de descenso de gradiente, la regla de actualización siempre resta el gradiente (la derivada) del peso actual, para ir "cuesta abajo" y minimizar el error.
-
-$$w_{nuevo} = w_{viejo} - \eta \cdot \frac{\partial E}{\partial w_i}$$
-
-sustituimos la derivada que tenia signo menos
-
-$$w_{nuevo} = w_{viejo} - \eta [-(y-\hat{y}) \cdot f'(z) \cdot  x_i]$$
-
-al multiplicar el signo menos de la formula de actualización por el signo menos de la derivada estos se cancelan y obtenemos la regla delta:
-$$w_{nuevo} = w_{viejo}+ \eta \cdot (y-\hat{y}) \cdot f'(z) \cdot x_i$$
-
-por eso $\Delta w_i$ (lo que se suma al peso viejo) es directamente:
-
-$$\Delta w_i = \eta \cdot (y-\hat{y}) \cdot f'(z) \cdot x_i$$
-
-
-Donde:
-* $\eta$ es la tasa de aprendizaje.
-* $(y-\hat{y})$ es el error de salida.
-* $f'(z)$ es la derivada de la función de activación.
-* $x_i$ es la entrada i.
-
-
-Entrada: conjunto de entrenamiento ${(x^{k}, t^{k})}$, tasa de aprendizaje η, épocas
-```
-Inicializar w y b con valores pequeños aleatorios
-
-para cada época:
-    error_total = 0
-    para cada patrón (x, t):
-        # Propagación hacia adelante
-        z = w·x + b
-        y = f(z)                     # sigmoide, por ejemplo
-
-        # Cálculo del error
-        error = t - y
-        error_total += error^2
-
-        # Regla delta (gradiente)
-        delta = error * f'(z)        # = error * y*(1-y) si f=sigmoide
-
-        # Actualización de pesos
-        w = w + η * delta * x
-        b = b + η * delta
-
-    si error_total < tolerancia:
-        detener
-```
-
-```python
-import numpy as np
-
-def sigmoid(z):
-    return 1 / (1 + np.exp(-z))
-
-def perceptron_delta(X, t, eta=0.1, epochs=1000):
-    n_samples, n_features = X.shape
-    w = np.random.randn(n_features) * 0.01
-    b = 0.0
-
-    for epoch in range(epochs):
-        error_total = 0
-        for x_i, t_i in zip(X, t):
-            z = np.dot(w, x_i) + b
-            y = sigmoid(z)
-
-            error = t_i - y
-            delta = error * y * (1 - y)   # regla delta con derivada de sigmoide
-
-            w += eta * delta * x_i
-            b += eta * delta
-
-            error_total += error**2
-
-        if epoch % 100 == 0:
-            print(f"Época {epoch}, error: {error_total:.4f}")
-
-    return w, b
-```

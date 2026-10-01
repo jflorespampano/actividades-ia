@@ -25,10 +25,9 @@ $b$ es el cruce de la recta con el eje de las ordenadas.
 Recta
 ```mermaid
 graph LR
-    A-------------B
-    
-    style A fill:#000,stroke:#000,stroke-width:1px,color:#fff
-    style B fill:#000,stroke:#000,stroke-width:1px,color:#fff
+ A[" "] ------ B[" "]
+    style A fill:none,stroke:none
+    style B fill:none,stroke:none
 ```
 ### Neurona
 
@@ -43,7 +42,9 @@ Componentes principales:
 
 2. El Proceso Dinámico: ¿Cómo viaja la información?
 
-El funcionamiento se explica mediante un ciclo eléctrico y químico llamado sinapsis:[Señales de entrada] ➔ (Dendritas) ➔ [Soma: Suma de impulsos ponderados] ➔ (Axón) ➔ [Sinapsis] ➔ [Siguiente neurona]
+El funcionamiento se explica mediante un ciclo eléctrico y químico llamado sinapsis:
+
+[Señales de entrada] ➔ (Dendritas) ➔ [Soma: Suma de impulsos ponderados] ➔ (Axón) ➔ [Sinapsis] ➔ [Siguiente neurona]
 
 * Recepción: Las dendritas reciben sustancias químicas (neurotransmisores) de neuronas vecinas. Estas sustancias alteran la carga eléctrica interna de la neurona.
 * Potencial de Acción (El interruptor del Todo o Nada): La neurona no transmite "mensajes a medias". Si la suma de la energía eléctrica acumulada en el soma supera un límite específico (**umbral**), se dispara un chispazo eléctrico llamado potencial de acción. Si no llega al umbral, no pasa nada.
@@ -76,7 +77,7 @@ graph LR
 
 ---
 
-La nuerona recibe **entradas** $x_i$, cada una multiplicada por un **peso** $w_i$ (esto es la ponderación), y suma todo:
+La nuerona recibe **entradas** $x_i$, multiplica cada una por un **peso** $w_i$ (esto es la ponderación), y suma todo:
 
 $
 z = \sum_{i=1}^{n} w_i x_i  
@@ -99,7 +100,7 @@ graph LR
     X3((x₃)) -->|w₃| SUM
     Xn((xₙ)) -->|wₙ| SUM
     SUM -->|s = ∑xᵢ·wᵢ| ADD((+))
-    B((b)) -->|+ 1| ADD
+    B((x₀=1)) -->|b| ADD
     ADD -->|z = s + b| ACT[[f]]
     ACT -->|ŷ| Y(((Salida)))
 
@@ -131,7 +132,7 @@ Es decir, si la suma ponderada supera el umbral, la neurona se "activa" (clase 1
 
 ### Aprendizaje (el manejo del error)
 
-Para que la neurona aprenda, debemos ajustar los pesos $w_i$. Para ajustar los pesos (para que la neurona aprenda), primero calculamos el **error** entre la salida deseada la etiqueta real $ y $ y la salida obtenida $\hat{y}$:
+Para que la neurona aprenda, debemos ajustar los pesos $w_i$. Para ajustar los pesos, primero calculamos el **error** entre la salida deseada la etiqueta real $ y $ y la salida obtenida $\hat{y}$:
 
 $
 e = y - \hat{y}
@@ -143,6 +144,33 @@ Los posibles valores del error son:
 - **\( e = +1 \)** → \( y = 1 \) y $\hat{y} = 0$ (Falso negativo, la neurona no se activó cuando debía).
 - **\( e = -1 \)** → \( y = 0 \) y $\hat{y} = 1$ (Falso positivo, la neurona se activó cuando no debía).
 
+---
+## Lógica intuitiva del ajuste de pesos.
+
+¿Como ajustar los pesos?
+
+En cada iteracion, necesitamos modificar los pesos, sumar algo al $w_i^{\text{viejo}}$ aquello que "debemos" sumar, llamemosle $\Delta w_i$
+
+$
+w_i^{\text{nuevo}} = w_i^{\text{viejo}} + \Delta w_i
+$
+
+Ahora, ¿como calculamos el valor de $\Delta w_i$ que ajustará el peso?
+
+Veamos caso por caso que sucede:
+
+| Caso | $y$ | $\hat{y}$ | $e$ | Entrada $x_i$ | Que queremos sobre $w_i$ |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Acierto** | 1 | 1 | 0 | Cualquiera | **No se modifique** ($\Delta w_i = 0$)<br> $e*x_i$ es cero  |
+| **Acierto** | 0 | 0 | 0 | Cualquiera | **No se modifique** ($\Delta w_i= 0$)<br> $e*x_i$ es cero  |
+| **Falso Negativo** | 1 | 0 | **+1** | $x_i$ positiva (+) | **Aumente** el peso ($\Delta w_i > 0$) (para que la próxima vez sume más y se active)<br> $e*x_i$ es positivo |
+| **Falso Negativo** | 1 | 0 | **+1** | $x_i$ negativa (-) | **Disminuya** el peso ($\Delta w_i< 0$) (para que no reste tanto y se active)<br> $e*x_i$ es negativo |
+| **Falso Positivo** | 0 | 1 | **-1** | $x_i$ positiva (+) | **Disminuya** el peso ($\Delta w_i < 0$) (para que la próxima vez sume menos y no se active)<br> $e*x_i$ es negativo |
+| **Falso Positivo** | 0 | 1 | **-1** | $x_i$ negativa (-) | **Aumente** el peso ($\Delta w_i > 0$)  (para que reste más y no se active)<br> $e*x_i$ es positivo |
+
+> **En resumen:** El perceptrón mueve los pesos en la **dirección** que reduce el error. Si se activó cuando no debía, los reduce; si no se activó cuando debía, los aumenta.
+
+Por tanto nuestro $\Delta w_i = e \cdot x_i$
 ---
 
 ### La regla de actualización de pesos (Regla Delta)
@@ -157,10 +185,10 @@ $
 w_i^{\text{nuevo}} = w_i^{\text{viejo}} + \Delta w_i
 $
 
-Y para el **sesgo** (que actúa como un peso especial con entrada fija \( +1 \)):
+Y para el **sesgo** (que actúa como un peso especial con entrada fija \( x_0=+1 \)):
 
 $
-\Delta b = \eta \cdot e
+\Delta b = \eta \cdot e \cdot 1
 $
 
 $
@@ -171,23 +199,6 @@ Donde:
 - **$\eta$** (eta) es la **tasa de aprendizaje** (un valor pequeño, ej. 0.1).
 - **$e$** es el error calculado.
 - **$x_i$** es el valor de la entrada i-ésima.
-
----
-
-## Lógica intuitiva del ajuste (caso por caso)
-
-Fórmula en cada situación (suponiendo \( \eta > 0 \)):
-
-| Caso | $y$ | $\hat{y}$ | $e$ | Entrada $x_i$ | Efecto sobre $w_i$ |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **Acierto** | 1 | 1 | 0 | Cualquiera | **No se modifica** ($\Delta = 0$) |
-| **Acierto** | 0 | 0 | 0 | Cualquiera | **No se modifica** ($\Delta = 0$) |
-| **Falso Negativo** | 1 | 0 | **+1** | $x_i$ positiva (+) | **Aumenta** el peso (para que la próxima vez sume más y se active) |
-| **Falso Negativo** | 1 | 0 | **+1** | $x_i$ negativa (-) | **Disminuye** el peso (para que no reste tanto y se active) |
-| **Falso Positivo** | 0 | 1 | **-1** | $x_i$ positiva (+) | **Disminuye** el peso (para que la próxima vez sume menos y no se active) |
-| **Falso Positivo** | 0 | 1 | **-1** | $x_i$ negativa (-) | **Aumenta** el peso (para que reste más y no se active) |
-
-> **En resumen:** El perceptrón mueve los pesos en la **dirección** que reduce el error. Si se activó cuando no debía, los reduce; si no se activó cuando debía, los aumenta.
 
 ---
 

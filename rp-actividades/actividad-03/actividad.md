@@ -26,18 +26,33 @@ version: "1.0"
 ## objetivo:
 Entender conceptos de AA
 
-Del archivo pdf que puede encontrar en la carpeta /rp-actividades, realice lo siguiente:
 
-1. del archivo: "Resumen AA y Tensor Flow.pdf" leer el tema: "Aprendizaje automático" desde la página 3 a la 8 (Aprendizaje automático).
-2. del archivo: "Resumen AA y Tensor Flow.pdf" leer el tema: "función de pérdida" desde la página 10 a la 15 (función de perdida)
-3. leer al archivo "calculo de gradiente.pdf".
-4. Tarea estudiar el contenido del archivo: "perceptron-conceptos.pdf"
-5. Estudia el archivo `perceptron-bias.pdf`
-5. Estudia el archivo `perceptron.pdf`
+1. del archivo: "Resumen AA y Tensor Flow.pdf" de la actividad 1, leer desde la página 3 a la 8 hacer énfasis en los conceptos:
+  * Aprendizaje automático
+  * Notación de atributos y etiquetas
+  * Ejemplos etiquetados / no etiquetados
+  * regresión frente a clasificación
+  * Ecuación de la recta
+2. del archivo: "Resumen AA y Tensor Flow.pdf" leer el tema: "función de pérdida" desde la página 10 a la 15.
+3. con su profesor **en clase** estudie el archivo "./conceptos/gradiente.md".
+4. Tarea leer de manera superficial el contenido del archivo: "./conceptos/perceptron-conceptos.pdf"
+5. con el profesor **en clase**. Estudia el archivo `./conceptos/perceptron-bias.pdf` o `.md`
+6. con el profesor **en clase**. Estudia el archivo `./conceptos/perceptron.pdf` o `md`
+7. con el profesor **en clase**. Estudia el archivo `./conceptos/gradiente.md`
+8. con el profesor **en clase**. Estudia el archivo `./conceptos/reglaDeltaGeneralizada.md`
+9. Prueba el código del archivo `./perceptron.ipynb`
+10. prueba el código: `actividades-ia\codigos\scilab\perceptron\perceptronAND_cnUmbral_pasoApaso.sce`, este es el código del perceptrón en scilab, que muestra paso a paso como se encuentra la linea de separación. 
+11. de la carpeta `actividades-ia\codigos\js\redesNeuronales` prueba los códigos:
+  * `perceptronANDChart.html`, revisa el código js
+  * `perceptronORChart.html`, revisa el código js
+  * con el archivo `generar_conjunto_datos.html` genera un conjunto 40 puntos 20 de cada clase y guardalos.
+  * con los puntos clasificados que acaba de generar, construya un script de python que tome los puntos y los pase a un dataset de pandas
+12. Realiza la actividad del archivo `./perceptron100pts.ipynb`
+13. A partir del cuderno anterior, crea un cuderno que clasifique los 40 puntos generados.
 
-Puedes usar NoteBookLm para estas actividades
+Puedes usar NoteBookLm y apoyarte en otras fuentes para los conceptos teóricos de estas actividades
 
 ## Entregable
 
 * Contesta a las preguntas del profesor sobre este tema en clase.
-* código del perceptron para la compuerta or/and en Python y JS
+* video o presentación en pdf, que muestre como probaste cada código, el video o presentación debe estar comentado.
