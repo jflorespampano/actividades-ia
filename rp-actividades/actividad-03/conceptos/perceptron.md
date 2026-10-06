@@ -106,16 +106,14 @@ Que es exactamente la misma regla que teníamos antes, pero ahora forma parte na
 
 Vamos a ver qué hace esta fórmula en cada situación (suponiendo $\eta > 0$):
 
-| Caso | $y$ | $\hat{y}$ | $e$ | Entrada $x_i$ | Efecto sobre $w_i$ |
+| Caso | $y$ | $\hat{y}$ | $e$ | Entrada $x_i$ | Que queremos sobre $w_i$ |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Acierto** | 1 | 1 | 0 | Cualquiera | **No se modifica** ($\Delta = 0$) |
-| **Acierto** | 0 | 0 | 0 | Cualquiera | **No se modifica** ($\Delta = 0$) |
-| **Falso Negativo** | 1 | 0 | **+1** | $x_i$ positiva (+) | **Aumenta** el peso ($w_i$ sube) |
-| **Falso Negativo** | 1 | 0 | **+1** | $x_i$ negativa (-) | **Disminuye** el peso ($w_i$ baja) |
-| **Falso Negativo** | 1 | 0 | **+1** | $x_0 = 1$ (Sesgo) | **Aumenta** el sesgo ($w_0$ sube) |
-| **Falso Positivo** | 0 | 1 | **-1** | $x_i$ positiva (+) | **Disminuye** el peso ($w_i$ baja) |
-| **Falso Positivo** | 0 | 1 | **-1** | $x_i$ negativa (-) | **Aumenta** el peso ($w_i$ sube) |
-| **Falso Positivo** | 0 | 1 | **-1** | $x_0 = 1$ (Sesgo) | **Disminuye** el sesgo ($w_0$ baja) |
+| **Acierto** | 1 | 1 | 0 | Cualquiera | **No se modifique** ($\Delta w_i = 0$)<br> $e*x_i$ es cero  |
+| **Acierto** | 0 | 0 | 0 | Cualquiera | **No se modifique** ($\Delta w_i= 0$)<br> $e*x_i$ es cero  |
+| **Falso Negativo** | 1 | 0 | **+1** | $x_i$ positiva (+) | **Aumente** el peso ($\Delta w_i > 0$) (para que la próxima vez sume más y se active)<br> $e*x_i$ es positivo |
+| **Falso Negativo** | 1 | 0 | **+1** | $x_i$ negativa (-) | **Disminuya** el peso ($\Delta w_i< 0$) (para que no reste tanto y se active)<br> $e*x_i$ es negativo |
+| **Falso Positivo** | 0 | 1 | **-1** | $x_i$ positiva (+) | **Disminuya** el peso ($\Delta w_i < 0$) (para que la próxima vez sume menos y no se active)<br> $e*x_i$ es negativo |
+| **Falso Positivo** | 0 | 1 | **-1** | $x_i$ negativa (-) | **Aumente** el peso ($\Delta w_i > 0$)  (para que reste más y no se active)<br> $e*x_i$ es positivo |
 
 > **En resumen:** Al incluir $x_0 = 1$, el sesgo se comporta exactamente igual que cualquier otro peso, pero como su entrada siempre es positiva, su ajuste solo depende del signo del error.
 
